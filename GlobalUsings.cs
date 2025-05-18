@@ -7,5 +7,6 @@ global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using Microsoft.Data.Sqlite;
 global using Microsoft.Extensions.Logging;
+global using Microsoft.Maui.Layouts;
 global using Ormur.Data;
 global using Ormur.ViewModels;
