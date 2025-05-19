@@ -9,4 +9,4 @@ global using Microsoft.Data.Sqlite;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Maui.Layouts;
 global using Ormur.Data;
-global using Ormur.ViewModels;
+global using Ormur.Models;

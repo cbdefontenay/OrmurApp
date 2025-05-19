@@ -8,7 +8,7 @@ public class SqliteConnector
 
     public SqliteConnector()
     {
-        _dbPath = Path.Combine(FileSystem.AppDataDirectory, "folder.db");
+        _dbPath = Path.Combine(FileSystem.AppDataDirectory, "ormur.db");
         InitializeDatabase();
     }
 
@@ -21,7 +21,8 @@ public class SqliteConnector
         tableCmd.CommandText =
             @"CREATE TABLE IF NOT EXISTS Folders (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                Name TEXT NOT NULL
+                Name TEXT NOT NULL,
+                DateCreated TEXT NOT NULL
               );";
         tableCmd.ExecuteNonQuery();
     }
@@ -32,21 +33,21 @@ public class SqliteConnector
         await connection.OpenAsync();
 
         var command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, Text FROM Folders";
+        command.CommandText = "SELECT Id, Name, DateCreated FROM Folders ORDER BY DateCreated DESC";
 
-        var tasks = new List<FolderModel>();
+        var folders = new List<FolderModel>();
         await using var reader = await command.ExecuteReaderAsync();
         while (await reader.ReadAsync())
         {
-            tasks.Add(new FolderModel
-                {
-                    Id = reader.GetInt32(0),
-                    Name = reader.GetString(1)
-                }
-            );
+            folders.Add(new FolderModel
+            {
+                Id = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                DateCreated = DateTime.Parse(reader.GetString(2))
+            });
         }
 
-        return tasks;
+        return folders;
     }
 
     public async Task AddFolderAsync(string name)
@@ -55,8 +56,21 @@ public class SqliteConnector
         await connection.OpenAsync();
 
         var command = connection.CreateCommand();
-        command.CommandText = "INSERT INTO Folders (Name) VALUES (@name)";
+        command.CommandText = "INSERT INTO Folders (Name, DateCreated) VALUES (@name, @dateCreated)";
         command.Parameters.AddWithValue("@name", name);
+        command.Parameters.AddWithValue("@dateCreated", DateTime.UtcNow.ToString("o"));
+
+        await command.ExecuteNonQueryAsync();
+    }
+
+    public async Task DeleteFolderAsync(int id)
+    {
+        await using var connection = new SqliteConnection($"Data Source={_dbPath}");
+        await connection.OpenAsync();
+
+        var command = connection.CreateCommand();
+        command.CommandText = "DELETE FROM Folders WHERE Id = @id";
+        command.Parameters.AddWithValue("@id", id);
 
         await command.ExecuteNonQueryAsync();
     }

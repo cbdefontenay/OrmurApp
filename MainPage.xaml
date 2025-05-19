@@ -1,20 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Ormur.Views"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:components="clr-namespace:Ormur.Components"
              x:Class="Ormur.MainPage">
 
-    <ContentPage.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="Black"/>
-    </ContentPage.Behaviors>
-    <!-- <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html"> -->
-    <!--     <BlazorWebView.RootComponents> -->
-    <!--         <RootComponent Selector="#app" ComponentType="{x:Type local:Components.Routes}" /> -->
-    <!--     </BlazorWebView.RootComponents> -->
-    <!-- </BlazorWebView> -->
-    
-        <views:HomeView Title="Startseite"/>
-        <views:SettingsView Title="Settings"/>
-
-</Shell>
+    <BlazorWebView HostPage="wwwroot/index.html">
+        <BlazorWebView.RootComponents>
+            <RootComponent Selector="#app" ComponentType="{x:Type components:Routes}" />
+        </BlazorWebView.RootComponents>
+    </BlazorWebView>
+</ContentPage>

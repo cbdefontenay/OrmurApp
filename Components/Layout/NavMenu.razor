@@ -1,0 +1,107 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+
+@switch (IsAndroidPlatform)
+{
+    case true:
+        <div class="android-layout">
+            <nav class="navbar-android-container">
+                <div class="hamburger-menu-wrapper" @onclick="ToggleMenu">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 18L20 18" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M4 12L20 12" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M4 6L20 6" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+
+                @if (IsMenuOpen || IsAnimatingOut)
+                {
+                    <div class="menu-drawer-overlay @(IsAnimatingOut ? "hide" : "show")" @onclick="CloseMenu">
+                        <div class="menu-drawer @(IsAnimatingOut ? "slide-out" : "slide-in")" @onclick:stopPropagation>
+                            <ul class="menu-items">
+                                @foreach (var item in _navItems)
+                                {
+                                    <li class="menu-item" @onclick="@(() => Navigate(item.Value))">
+                                        @item.Key
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+           </nav>
+
+            <div class="android-page-content">
+                @ChildContent
+            </div>
+        </div>
+        break;
+
+    default:
+        <div class="layout-container">
+            <nav class="navbar-desktop-container">
+                <ul class="menu-items">
+                    @foreach (var item in _navItems)
+                    {
+                        <li class="menu-item" @onclick="@(() => Navigate(item.Value))">
+                            @item.Key
+                        </li>
+                    }
+                </ul>
+            </nav>
+            <div class="desktop-page-content">
+                @ChildContent
+            </div>
+        </div>
+        break;
+}
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private bool IsAndroidPlatform { get; set; }
+    private bool IsMenuOpen { get; set; } = false;
+    private bool IsAnimatingOut { get; set; } = false;
+
+    private void ToggleMenu()
+    {
+        if (!IsMenuOpen)
+        {
+            IsMenuOpen = true;
+            IsAnimatingOut = false;
+        }
+    }
+
+    private async Task CloseMenu()
+    {
+        IsAnimatingOut = true;
+        StateHasChanged();
+        await Task.Delay(300); // match the CSS transition time
+        IsMenuOpen = false;
+        IsAnimatingOut = false;
+        StateHasChanged();
+    }
+
+    private async Task Navigate(string url)
+    {
+        await CloseMenu(); // trigger close animation
+        NavigationManager.NavigateTo(url);
+    }
+
+    private readonly Dictionary<string, string> _navItems = new()
+    {
+        { "Home", "/" },
+        { "Editor", "/counter" },
+        { "Settings", "/weather" },
+    };
+
+    protected override void OnInitialized()
+    {
+#if ANDROID
+        IsAndroidPlatform = true;
+#else
+        IsAndroidPlatform = false;
+#endif
+    }
+
+}
