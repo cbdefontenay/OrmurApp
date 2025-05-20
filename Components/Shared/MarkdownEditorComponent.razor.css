@@ -1,0 +1,157 @@
+﻿.subfolder-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.header h1 {
+    color: #1C1B1F;
+    font-size: 22px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.subtitle {
+    color: var(--primary);
+    font-size: 14px;
+    margin: 4px 0 0 0;
+}
+
+.editor-container {
+    background: #FFFBFE;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #E7E0EC;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 16px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #49454F;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.tabs button:hover {
+    background-color: #F3EDF7;
+}
+
+.tabs button.active {
+    color: var(--primary);
+}
+
+.tabs button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--primary);
+}
+
+.tab-content {
+    padding: 16px;
+}
+
+.editor-area, .preview-area {
+    min-height: 300px;
+}
+
+.toolbar {
+    padding: 8px 0;
+    margin-bottom: 8px;
+}
+
+.hint {
+    color: #49454F;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.editor-input {
+    width: 90%;
+    min-height: 200px;
+    padding: 16px;
+    border: 1px solid #CAC4D0;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #1C1B1F;
+    background-color: #FFFBFE;
+    resize: vertical;
+    transition: border-color 0.2s;
+}
+
+.editor-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.preview-area {
+    color: #1C1B1F;
+    line-height: 1.6;
+}
+
+.rendered-content {
+    padding: 8px;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: #49454F;
+    opacity: 0.6;
+    gap: 8px;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 16px;
+}
+
+.loading p {
+    color: var(--primary);
+}
+
+@media (min-width: 768px) {
+    .subfolder-container {
+        padding: 24px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .editor-input, .preview-area {
+        min-height: 400px;
+    }
+}

@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background-color: #ffffff;
+    background-color: var(--secondary);
     padding: 12px 16px;
     height: 56px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -106,7 +106,7 @@
 .layout-container {
     display: flex;
     min-height: 100vh;
-    background-color: #fafafa;
+    background-color: var(--background-light);
 }
 
 .navbar-desktop-container {

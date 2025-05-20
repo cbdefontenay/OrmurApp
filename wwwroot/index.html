@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
     <title>Ormur</title>
-    <base href="/" />
-    <link rel="stylesheet" href="css/app.css" />
-    <link rel="stylesheet" href="Ormur.styles.css" />
+    <base href="/"/>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="Ormur.styles.css"/>
     <link rel="icon" href="data:,">
 </head>
 
 <body>
 
-    <div class="status-bar-safe-area"></div>
+<div class="status-bar-safe-area"></div>
 
-    <div id="app">Loading...</div>
+<div id="app">Loading...</div>
 
-    <script src="_framework/blazor.webview.js" autostart="false"></script>
+<script>
+    window.setInnerHtml = (element, html) => {
+        element.innerHTML = html;
+    };
+</script>
+<script app-name="Ormur"
+        src="./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js"></script>
+<script src="_framework/blazor.webview.js"></script>
+<script src="_framework/blazor.webview.js" autostart="false"></script>
 
 </body>
 

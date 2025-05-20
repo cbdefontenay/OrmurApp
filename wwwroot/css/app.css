@@ -1,6 +1,28 @@
-﻿html, body {
+﻿:root {
+    --primary: #6750A4;
+    --secondary: #7965af;
+    --background: #dfcee6;
+    --background-dark: #653765;
+    --background-light: #d9c1ec;
+    --text: #1C1B1F;
+    --text-secondary: #666;
+    --text-light: #999;
+    --text-lighter: #ccc;
+    --text-lightest: #eee;
+    --text-dark: #333;
+    --border: #E5E5E5;
+    --border-light: #F7F7F7;
+    --error: #E53E3E;
+    --success: #4CAF50;
+}
+
+html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     user-select: none;
+    background-color: var(--background-light);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 
     & a {
         text-decoration: none;

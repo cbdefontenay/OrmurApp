@@ -1,30 +1,41 @@
-﻿@page "/subfolder/{SubfolderId:int}"
-@layout GoBackLayout
+@page "/subfolder/{SubfolderId:int}"
 @inject SqliteConnector Db
-@inject NavigationManager Navigation
+@using Ormur.Components.Shared
+@layout GoBackLayout
 
 <div class="subfolder-page">
-    @if (_subfolder != null)
-    {
-        <div class="subfolder-header">
-            <h1>@_subfolder.Name</h1>
-        </div>
+    <div class="header">
+        <h1>@_subfolder?.Name</h1>
+        <p class="subtitle">Erstellt am: @_subfolder?.DateCreated.ToString("f")</p>
+    </div>
 
-        <div class="subfolder-content">
-            <p>Subfolder created on: @_subfolder.DateCreated.ToString("f")</p>
+    <div class="choice-container">
+        <h3 class="choice-title">Wie möchtest du dein Text schreiben?</h3>
+        <div class="choice-actions">
+            <button class="m3-button m3-filled-button" @onclick="OnMarkdownChoice">
+                <span class="m3-button-label">Markdown</span>
+            </button>
+        </div>
+    </div>
+
+    @if (ShowMarkdownEditor)
+    {
+        <div class="subfolder-container elevation-1">
+            <MarkdownEditorComponent SubfolderId="SubfolderId"/>
         </div>
     }
     else
     {
-        <div class="loading">
-            <p>Loading...</p>
+        <div class="empty-state elevation-0">
+            <span class="material-symbols-outlined">edit_note</span>
+            <h2>Kein Editor gewählt</h2>
         </div>
     }
 </div>
 
 @code {
     [Parameter] public int SubfolderId { get; set; }
-
+    private bool ShowMarkdownEditor { get; set; } = false;
     private SubfolderModel? _subfolder;
 
     protected override async Task OnParametersSetAsync()
@@ -37,20 +48,15 @@
         try
         {
             _subfolder = await Db.GetSubfolderAsync(SubfolderId);
-            if (_subfolder == null)
-            {
-                Navigation.NavigateTo("/");
-            }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error loading subfolder: {ex.Message}");
         }
     }
-
-    private void NavigateBack()
+    
+    private void OnMarkdownChoice()
     {
-        Navigation.NavigateTo("/");
+        ShowMarkdownEditor = true;
     }
-
 }

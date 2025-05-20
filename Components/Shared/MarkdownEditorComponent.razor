@@ -1,0 +1,104 @@
+﻿@inject SqliteConnector Db
+@inject NavigationManager Navigation
+@inject IJSRuntime Js
+@using Markdig
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+
+    @if (_subfolder != null)
+    {
+        <div class="editor-container">
+            <div class="tabs">
+                <button class="@(_activeTab == 0 ? "active" : "")" @onclick="() => SetActiveTab(0)">
+                    Editor
+                </button>
+                <button class="@(_activeTab == 1 ? "active" : "")" @onclick="() => SetActiveTab(1)">
+                    Vorschau
+                </button>
+            </div>
+
+            <div class="tab-content">
+                @if (_activeTab == 0)
+                {
+                    <div class="editor-area">
+                        <div class="toolbar">
+                            <span class="hint">Markdown Format (## Überschrift, *kursiv*, **fett**, ![image](...dein Url...))</span>
+                        </div>
+                        <textarea @bind="_markdownText"
+                                 @bind:event="oninput"
+                                 placeholder="Was hast du im Kopf?"
+                                 class="editor-input"></textarea>
+                    </div>
+                }
+                else
+                {
+                    <div class="preview-area">
+                        @if (string.IsNullOrEmpty(_markdownText))
+                        {
+                            <div class="empty-state">
+                                <FluentIcon Value="@(new Icons.Regular.Size24.Edit())" />
+                                <p>Schreibe etwas im Editor, um die Vorschau zu sehen</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div @ref="_renderedOutput" class="rendered-content"></div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="loading">
+            <FluentProgressRing Color="#6750A4"/>
+            <p>Daten werden geladen...</p>
+        </div>
+    }
+
+@code {
+   [Parameter] public int SubfolderId { get; set; }
+    private SubfolderModel? _subfolder;
+    private string _markdownText = string.Empty;
+    private ElementReference _renderedOutput;
+    private MarkdownPipeline? _pipeline;
+    private int _activeTab = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+        await LoadSubfolderAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!string.IsNullOrEmpty(_markdownText) && _activeTab == 1)
+        {
+            var html = Markdown.ToHtml(_markdownText, _pipeline);
+            await Js.InvokeVoidAsync("setInnerHtml", _renderedOutput, html);
+        }
+    }
+
+    private void SetActiveTab(int tabIndex)
+    {
+        _activeTab = tabIndex;
+    }
+
+    private async Task LoadSubfolderAsync()
+    {
+        try
+        {
+            _subfolder = await Db.GetSubfolderAsync(SubfolderId);
+            if (_subfolder == null)
+            {
+                Navigation.NavigateTo("/");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading subfolder: {ex.Message}");
+        }
+    }
+}
+
