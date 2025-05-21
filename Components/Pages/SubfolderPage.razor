@@ -1,46 +1,123 @@
 @page "/subfolder/{SubfolderId:int}"
 @inject SqliteConnector Db
+@inject NavigationManager Navigation
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 @using Ormur.Components.Shared
 @layout GoBackLayout
 
-<div class="subfolder-page">
-    <div class="header">
-        <h1>@_subfolder?.Name</h1>
-        <p class="subtitle">Erstellt am: @_subfolder?.DateCreated.ToString("f")</p>
-    </div>
-
-    <div class="choice-container">
-        <h3 class="choice-title">Wie möchtest du dein Text schreiben?</h3>
-        <div class="choice-actions">
-            <button class="m3-button m3-filled-button" @onclick="OnMarkdownChoice">
-                <span class="m3-button-label">Markdown</span>
-            </button>
+<div class="subfolder-container">
+    <div class="subfolder-header">
+        <div class="header-content">
+            <h2 class="subfolder-title">@_subfolder?.Name</h2>
+            <p class="subfolder-meta">Created @_subfolder?.DateCreated.ToString("f")</p>
         </div>
     </div>
 
-    @if (ShowMarkdownEditor)
-    {
-        <div class="subfolder-container elevation-1">
-            <MarkdownEditorComponent SubfolderId="SubfolderId"/>
-        </div>
-    }
-    else
-    {
-        <div class="empty-state elevation-0">
-            <span class="material-symbols-outlined">edit_note</span>
-            <h2>Kein Editor gewählt</h2>
-        </div>
-    }
+    <div class="notes-actions">
+        <button class="create-note-button" @onclick="CreateNewNote">
+            <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size20.Add())"/>
+            <span>Neue Notiz</span>
+        </button>
+    </div>
+
+    <div class="notes-list">
+        @if (_notes.Any())
+        {
+            @foreach (var note in _notes)
+            {
+                <div class="note-accordion">
+                    <div class="accordion-header" @onclick="() => ToggleNote(note)">
+                        <div class="header-content">
+                            @if (note.IsExpanded)
+                            {
+                                <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.ChevronDown())"/>
+                            }
+                            else
+                            {
+                                <FluentIcon Color="Color.Neutral"
+                                            Value="@(new Icons.Regular.Size20.ChevronRight())"/>
+                            }
+                            <h3>@note.Note.Title</h3>
+                            <span class="note-date">@note.Note.DateModified.ToString("g")</span>
+                        </div>
+                        <div class="accordion-actions">
+                            <button class="icon-button" @onclick="async (e) => await DeleteNote(note.Note.Id)"
+                                    @onclick:stopPropagation="true">
+                                <FluentIcon Value="@(new Icons.Regular.Size20.Delete())"/>
+                            </button>
+                        </div>
+                    </div>
+
+                    @if (note.IsExpanded)
+                    {
+                        <div class="accordion-content">
+                            <div class="note-content">
+                                @if (note.IsExpanded && !string.IsNullOrEmpty(note.Note.Content))
+                                {
+                                    <div class="note-content-rendered">
+                                        @((MarkupString)Markdown.ToHtml(note.Note.Content, _markdownPipeline))
+                                    </div>
+                                }
+
+                                @if (note.TodoItems.Any())
+                                {
+                                    <div class="todo-list">
+                                        @foreach (var todo in note.TodoItems.OrderBy(t => t.Position))
+                                        {
+                                            <div class="todo-item">
+                                                <input type="checkbox"
+                                                       checked="@todo.IsCompleted"
+                                                       @onchange="(e) => ToggleTodo(todo, e.Value)"/>
+                                                <span
+                                                    class="@(todo.IsCompleted ? "completed" : "")">@todo.Content</span>
+                                                <button class="delete-todo" @onclick="() => DeleteTodo(todo)"
+                                                        @onclick:stopPropagation="true">
+                                                    <FluentIcon Value="@(new Icons.Regular.Size12.Dismiss())"/>
+                                                </button>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                            <div class="note-actions">
+                                <button class="edit-button" @onclick="() => EditNote(note.Note.Id)">
+                                    <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size20.Edit())"/>
+                                    <span>Bearbeiten</span>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <div class="empty-state">
+                <FluentIcon Value="@(new Icons.Regular.Size48.Note())"/>
+                <h3>Noch keine Notizen</h3>
+                <p>Erstelle eine neue Notiz, um loszulegen</p>
+            </div>
+        }
+    </div>
 </div>
 
 @code {
     [Parameter] public int SubfolderId { get; set; }
-    private bool ShowMarkdownEditor { get; set; } = false;
     private SubfolderModel? _subfolder;
+    private List<NoteWithTodoModel> _notes = [];
+    private MarkdownPipeline? _markdownPipeline;
 
     protected override async Task OnParametersSetAsync()
     {
         await LoadSubfolderAsync();
+        await LoadNotesAsync();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _markdownPipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
     }
 
     private async Task LoadSubfolderAsync()
@@ -54,9 +131,103 @@
             Console.WriteLine($"Error loading subfolder: {ex.Message}");
         }
     }
-    
-    private void OnMarkdownChoice()
+
+    private async Task CreateNewNote()
     {
-        ShowMarkdownEditor = true;
+        if (_subfolder == null)
+            return;
+
+        try
+        {
+            const string defaultTitle = "Neue Notiz";
+            var defaultContent = string.Empty;
+
+            var newNoteId = await Db.AddNoteAsync(_subfolder.Id, defaultTitle, defaultContent);
+
+            Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{newNoteId}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating new note: {ex.Message}");
+        }
     }
+
+    private async Task LoadNotesAsync()
+    {
+        if (_subfolder == null) return;
+
+        var notes = await Db.GetNotesBySubfolderAsync(_subfolder.Id);
+        _notes = [];
+
+        foreach (var note in notes)
+        {
+            var todos = await Db.GetTodoItemsByNoteAsync(note.Id);
+            _notes.Add(new NoteWithTodoModel()
+            {
+                Note = note,
+                TodoItems = todos,
+                IsExpanded = false
+            });
+        }
+    }
+
+    private static void ToggleNote(NoteWithTodoModel note)
+    {
+        note.IsExpanded = !note.IsExpanded;
+    }
+
+
+    private async Task DeleteNote(int noteId)
+    {
+        try
+        {
+            await Db.DeleteNoteAsync(noteId);
+            await LoadNotesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting note: {ex.Message}");
+        }
+    }
+
+    private async Task ToggleTodo(TodoItemModel todo, object isChecked)
+    {
+        try
+        {
+            var completed = isChecked as bool? ?? false;
+            await Db.ToggleTodoItemAsync(todo.Id, completed);
+            todo.IsCompleted = completed;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error toggling todo: {ex.Message}");
+        }
+    }
+
+    private async Task DeleteTodo(TodoItemModel todo)
+    {
+        try
+        {
+            await Task.Delay(1);
+
+            await Db.DeleteTodoItemAsync(todo.Id);
+
+            var note = _notes.FirstOrDefault(n => n.Note.Id == todo.NoteId);
+            if (note != null)
+            {
+                note.TodoItems.Remove(todo);
+                StateHasChanged();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting todo: {ex.Message}");
+        }
+    }
+
+    private void EditNote(int noteId)
+    {
+        Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{noteId}");
+    }
+
 }

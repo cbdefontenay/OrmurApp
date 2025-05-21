@@ -22,6 +22,21 @@
         element.innerHTML = html;
     };
 </script>
+<script>
+    function setInnerHtml(element, html) {
+        element.innerHTML = html;
+    }
+
+    function getCursorPosition(textareaId) {
+        const textarea = document.getElementById(textareaId);
+        return textarea.selectionStart;
+    }
+
+    window.editorInterop = {
+        setInnerHtml,
+        getCursorPosition
+    };
+</script>
 <script app-name="Ormur"
         src="./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js"></script>
 <script src="_framework/blazor.webview.js"></script>
