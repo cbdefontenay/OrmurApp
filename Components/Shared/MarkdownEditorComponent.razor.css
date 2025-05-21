@@ -1,38 +1,42 @@
-﻿.editor-container {
+﻿/* Base container styling - full screen for Android */
+.editor-container {
     display: flex;
     flex-direction: column;
     background: var(--surface-container);
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100vh;
     overflow: hidden;
-    margin: 16px auto;
-    max-width: 900px;
-    width: calc(100% - 32px);
-    height: calc(100vh - 32px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 55px;
 }
 
+/* Header styling - Material Design inspired */
 .editor-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
+    padding: 8px 16px;
     background-color: var(--surface-container-high);
     border-bottom: 1px solid var(--outline-variant);
-    flex-wrap: wrap;
-    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    min-height: 56px;
 }
 
 .title-input {
     flex: 1;
-    min-width: 150px;
     font-size: 1.1rem;
     font-weight: 500;
     border: none;
     background: transparent;
     color: var(--on-surface);
-    padding: 8px 12px;
+    padding: 12px 8px;
+    margin-right: 8px;
     border-radius: 4px;
-    transition: background-color 0.2s ease;
+    min-height: 48px;
 }
 
 .title-input:focus {
@@ -40,202 +44,322 @@
     background-color: var(--surface-container-low);
 }
 
-.header-actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-}
-
 .save-button {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 12px;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
     background-color: var(--primary);
     color: var(--on-primary);
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
     font-weight: 500;
     cursor: pointer;
-    transition: opacity 0.2s ease;
-    font-size: 0.9rem;
-    white-space: nowrap;
+    height: 40px;
+    min-width: 80px;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.save-button:hover {
-    opacity: 0.9;
+.save-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+/* Tabs styling - bottom aligned for Android */
 .tabs {
     display: flex;
-    border-bottom: 1px solid var(--outline-variant);
+    border-top: 1px solid var(--outline-variant);
     background-color: var(--surface-container-high);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    height: 56px;
 }
 
 .tabs button {
     flex: 1;
-    min-width: 100px;
-    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     color: var(--on-surface-variant);
     cursor: pointer;
+    padding: 8px 4px;
+    min-width: 0;
     position: relative;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-
-.tabs button:hover {
-    background-color: var(--surface-container-highest);
 }
 
 .tabs button.active {
     color: var(--primary);
-    background-color: var(--surface-container);
 }
 
 .tabs button.active::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 20%;
-    right: 20%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
     height: 3px;
     background-color: var(--primary);
     border-radius: 3px 3px 0 0;
 }
 
+/* Tab content area - accounts for bottom tabs */
 .tab-content {
-    padding: 0;
-    background-color: var(--surface-container);
     flex: 1;
-    overflow: auto;
-}
-
-.editor-area, .preview-area, .todo-management {
-    min-height: calc(100% - 120px);
-    padding: 16px;
     display: flex;
     flex-direction: column;
+    overflow: auto;
+    background-color: var(--surface-container);
+    padding-bottom: 56px;
+}
+
+.tabs button.active {
+    color: var(--secondary-container);
+    background-color: var(--secondary);
+}
+
+
+/* Editor area */
+.editor-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
 }
 
 .toolbar {
     display: flex;
     align-items: center;
-    gap: 12px;
     padding: 8px 0;
-    margin-bottom: 12px;
-    border-bottom: 1px solid var(--outline-variant);
-    flex-wrap: wrap;
-}
-
-.toolbar-button {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    background-color: var(--surface-container-high);
-    color: var(--on-surface);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-size: 0.9rem;
-}
-
-.toolbar-button:hover {
-    background-color: var(--surface-container-highest);
-}
-
-.hint {
+    margin-bottom: 8px;
     color: var(--on-surface-variant);
-    font-size: 12px;
-    opacity: 0.8;
-    margin-left: auto;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 0.8rem;
 }
 
 .editor-input {
     width: 100%;
     flex: 1;
-    min-height: 200px;
-    padding: 12px;
+    padding: 16px;
     border: 1px solid var(--outline-variant);
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 16px;
     line-height: 1.6;
     color: var(--on-surface);
     background-color: var(--surface-container-low);
     resize: none;
-    transition: border-color 0.2s ease;
-    font-family: 'Fira Code', monospace, system-ui;
+    font-family: 'Roboto Mono', monospace, system-ui;
+    min-height: 200px;
+    -webkit-user-select: text;
+    user-select: text;
 }
 
 .editor-input:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(29, 107, 80, 0.2);
+    box-shadow: 0 0 0 2px rgba(var(--primary), 0.1);
 }
 
+/* Preview area */
 .preview-area {
-    color: var(--on-surface);
-    line-height: 1.8;
     flex: 1;
+    padding: 16px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .rendered-content {
     padding: 8px;
-    overflow: auto;
-    flex: 1;
+    line-height: 1.8;
+    color: var(--on-surface);
+    font-size: 16px;
 }
 
-.rendered-content ul {
-    padding-left: 24px;
+.rendered-content h1 {
+    font-size: 1.5rem;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.rendered-content h2 {
+    font-size: 1.3rem;
+    margin-top: 1.3em;
+    margin-bottom: 0.5em;
+}
+
+.rendered-content h3 {
+    font-size: 1.1rem;
+    margin-top: 1.1em;
+    margin-bottom: 0.5em;
+}
+
+.rendered-content p {
+    margin-bottom: 1em;
+    line-height: 1.6;
+}
+
+.rendered-content ul,
+.rendered-content ol {
+    padding-left: 1.5em;
+    margin-bottom: 1em;
 }
 
 .rendered-content li {
-    margin-bottom: 8px;
+    margin-bottom: 0.5em;
 }
 
-.rendered-content input[type="checkbox"] {
-    margin-right: 8px;
+.rendered-content code {
+    background-color: var(--surface-container-highest);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9em;
+}
+
+.rendered-content pre {
+    background-color: var(--surface-container-highest);
+    padding: 1em;
+    border-radius: 8px;
+    overflow: auto;
+    margin-bottom: 1em;
+}
+
+.rendered-content pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Todo management */
+.todo-management {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    padding-bottom: 72px; /* Extra space for bottom tabs */
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.add-todo-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: var(--primary);
+    color: var(--on-primary);
+    border: none;
+    border-radius: 20px;
+    font-weight: 500;
     cursor: pointer;
+    height: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.add-todo-button:active {
+    transform: scale(0.98);
+}
+
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background-color: var(--surface-container-high);
+    border-radius: 12px;
+    transition: transform 0.1s ease;
+}
+
+.todo-item:active {
+    transform: scale(0.98);
+}
+
+.todo-item input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    accent-color: var(--primary);
+}
+
+.todo-content {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 8px;
+    font-size: 1rem;
+    color: var(--on-surface);
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.todo-content:focus {
+    outline: none;
+    background-color: var(--surface-container-low);
+}
+
+.delete-todo {
+    background: none;
+    border: none;
+    color: var(--error);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.delete-todo:active {
+    background-color: var(--error-container);
+}
+
+/* Empty states */
 .empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    color: var(--on-surface-variant);
-    opacity: 0.6;
-    gap: 12px;
-    text-align: center;
-    padding: 20px;
     flex: 1;
-}
-
-.loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     gap: 16px;
+    text-align: center;
+    color: var(--on-surface-variant);
+    padding: 32px;
 }
 
-.loading p {
+.empty-state fluent-icon {
+    font-size: 48px;
     color: var(--primary);
 }
 
+.empty-state p {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Modal dialogs - centered for Android */
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -248,250 +372,181 @@
     align-items: center;
     z-index: 1000;
     padding: 16px;
+    backdrop-filter: blur(2px);
 }
 
 .modal {
     background-color: var(--surface);
-    border-radius: 12px;
+    border-radius: 28px;
     width: 100%;
-    max-width: 500px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
+    animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .modal-header {
-    padding: 12px 16px;
+    padding: 16px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--outline-variant);
 }
 
-.modal-body {
-    padding: 16px;
-    overflow: auto;
-    flex: 1;
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 
-.modal-footer {
-    padding: 12px 16px;
+.modal-body {
+    padding: 24px;
+}
+
+.input-field {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
     gap: 8px;
-    border-top: 1px solid var(--outline-variant);
-    flex-wrap: wrap;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--outline-variant);
 }
 
 .input-field input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--outline-variant);
-    border-radius: 4px;
-    font-size: 14px;
-    transition: border-color 0.2s ease;
+    flex: 1;
+    border: none;
+    background: none;
+    outline: none;
+    color: var(--on-surface);
+    font-size: 16px;
+    padding: 8px 0;
 }
 
 .input-field input:focus {
     outline: none;
-    border-color: var(--primary);
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid var(--outline-variant);
 }
 
 .text-button {
-    padding: 8px 12px;
+    padding: 10px 16px;
     background: none;
     border: none;
-    color: var(--on-surface-variant);
+    border-radius: 20px;
+    font-weight: 500;
     cursor: pointer;
-    border-radius: 4px;
     transition: background-color 0.2s ease;
-    font-size: 0.9rem;
-}
-
-.text-button:hover {
-    background-color: var(--surface-container-high);
+    min-width: 80px;
+    text-align: center;
 }
 
 .text-button.primary {
     color: var(--primary);
-    background-color: rgba(29, 107, 80, 0.1);
 }
 
-.text-button.primary:hover {
-    background-color: rgba(29, 107, 80, 0.2);
+.text-button.primary:active {
+    background-color: rgba(var(--primary), 0.1);
 }
 
-/* Todo Management Styles */
-.todo-management {
-    padding: 12px;
+/* Loading state */
+.loading {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    flex: 1;
-}
-
-.todo-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 0;
-    flex-wrap: wrap;
-    gap: 8px;
+    justify-content: center;
+    height: 100vh;
+    gap: 24px;
 }
 
-.add-todo-button {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    background-color: var(--primary-container);
-    color: var(--on-primary-container);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    white-space: nowrap;
+/* Android-specific touch feedback */
+button, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
-.todo-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    overflow: auto;
-    flex: 1;
+/* Better scroll behavior for Android */
+.tab-content, .preview-area, .todo-list {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
-.todo-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px;
-    background-color: var(--surface-container-high);
-    border-radius: 4px;
-    flex-wrap: wrap;
+/* Hide scrollbars on Android */
+::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
-.todo-content {
-    flex: 1;
-    min-width: 150px;
-    border: 1px solid var(--outline-variant);
-    padding: 6px 8px;
-    border-radius: 4px;
-    background: var(--surface-container-low);
-    font-size: 0.95rem;
-}
-
-.todo-item input[type="checkbox"] {
-    margin-right: 0;
-    min-width: 18px;
-    min-height: 18px;
-}
-
-.delete-todo {
-    background: none;
-    border: none;
-    color: var(--error);
-    cursor: pointer;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-}
-
-.completed {
-    text-decoration: line-through;
-    opacity: 0.7;
-}
-
-/* Responsive adjustments */
-@media (max-width: 480px) {
-    .editor-container {
-        margin: 8px auto;
-        width: calc(100% - 16px);
-        height: calc(100vh - 16px);
-        border-radius: 12px;
-    }
-
-    .editor-header {
-        padding: 8px 12px;
-    }
-
-    .title-input {
-        font-size: 1rem;
-        min-width: 120px;
-    }
-
-    .save-button {
-        padding: 6px 10px;
-        font-size: 0.85rem;
-    }
-
-    .tabs button {
-        padding: 10px 8px;
-        font-size: 13px;
-    }
-
-    .editor-area, .preview-area, .todo-management {
-        padding: 12px;
-    }
-
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
     .editor-input {
-        padding: 10px;
-        font-size: 15px;
+        background-color: var(--surface-container-highest);
     }
 
     .todo-content {
-        font-size: 0.9rem;
+        background-color: var(--surface-container-highest);
     }
 }
 
-@media (min-width: 768px) {
-    .editor-container {
-        margin: 24px auto;
-        height: calc(100vh - 48px);
+/* Keyboard avoidance for Android */
+@media (max-height: 600px) {
+    .editor-input {
+        font-size: 15px;
+        padding: 12px;
     }
 
-    .editor-header {
-        padding: 16px 24px;
-    }
-
-    .title-input {
-        font-size: 1.25rem;
-    }
-
-    .save-button {
-        padding: 8px 16px;
-        font-size: 1rem;
-    }
-
-    .editor-area, .preview-area, .todo-management {
-        padding: 24px;
+    .tab-content {
+        padding-bottom: 56px;
     }
 }
 
-/* Prevent zooming on input focus on mobile */
-@media screen and (max-width: 767px) {
-    input, textarea, select {
-        font-size: 16px !important;
+/* Material Design ripple effect */
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+button:focus:not(:active)::after {
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
     }
-}
-
-/* Better scrollbars */
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--surface-container-high);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--outline-variant);
-    border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--on-surface-variant);
+    100% {
+        transform: scale(20, 20);
+        opacity: 0;
+    }
 }

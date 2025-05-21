@@ -1,8 +1,9 @@
 /* Layout */
 .app-container {
     display: flex;
-    min-height: 100vh;
+    min-height: 100%;
     background-color: var(--background);
+    border-radius: 20px 20px;
 }
 
 .sidebar {
@@ -10,7 +11,8 @@
     background-color: var(--surface-container-low);
     border-right: 1px solid var(--outline-variant);
     padding: 16px;
-    display: none; /* Hidden on mobile by default */
+    display: none;
+    border-radius: 20px 20px;
 }
 
 .main-content {
@@ -267,6 +269,15 @@
 
 .text-button:hover {
     background-color: var(--surface-container-high);
+}
+
+.text-button.danger {
+    color: var(--error);
+}
+
+.text-button.danger:hover {
+    background-color: var(--error-container);
+    color: var(--on-error-container);
 }
 
 .icon-button {

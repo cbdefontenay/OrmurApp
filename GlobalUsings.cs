@@ -7,6 +7,7 @@ global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using Markdig;
 global using Microsoft.Data.Sqlite;
+global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.FluentUI.AspNetCore.Components;
 global using Microsoft.JSInterop;

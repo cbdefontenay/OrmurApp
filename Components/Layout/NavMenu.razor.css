@@ -21,18 +21,22 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background-color: var(--secondary);
+    background-color: var(--background);
     padding: 12px 16px;
-    height: 56px;
+    height: 50px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 .android-layout {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    padding-top: 56px;
 }
 
 .android-page-content {
@@ -40,8 +44,8 @@
     padding: 16px;
     overflow-y: auto;
     background-color: #fafafa;
+    height: calc(100vh - 56px);
 }
-
 
 .hamburger-menu-wrapper {
     width: 28px;
@@ -55,8 +59,8 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.3);
-    z-index: 1000;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1001; /* Higher than navbar */
 }
 
 .menu-drawer {
@@ -67,6 +71,10 @@
     box-shadow: 2px 0 6px rgba(0, 0, 0, 0.2);
     padding-top: 56px; /* offset for navbar */
     overflow-y: auto;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1002; /* Highest z-index */
 }
 
 /* shared */
@@ -90,38 +98,32 @@
     cursor: pointer;
 }
 
-.menu-items-wrapper-android {
-    position: absolute;
-    top: 56px; /* height of navbar */
-    right: 0;
-    width: 75%;
-    max-width: 300px;
-    background-color: #ffffff;
-    border-left: 1px solid #ccc;
-    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
 /* DESKTOP STYLES */
 .layout-container {
     display: flex;
     min-height: 100vh;
-    background-color: var(--background-light);
+    background-color: var(--primary-container);
 }
 
 .navbar-desktop-container {
-    width: 220px;
+    width: 300px;
     background-color: #ffffff;
     border-right: 1px solid #ddd;
     padding-top: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .desktop-page-content {
     flex: 1;
     padding: 24px;
+    margin-left: 300px;
+    min-height: 100%;
 }
 
+/* Animation styles */
 .menu-drawer-overlay {
     pointer-events: none;
     opacity: 0;

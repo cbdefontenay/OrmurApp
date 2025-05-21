@@ -12,10 +12,10 @@
 {
     <div class="editor-container">
         <div class="editor-header">
-            <input class="title-input" @bind="_noteTitle" placeholder="Notiz Titel" />
+            <input class="title-input" @bind="_noteTitle" placeholder="Notiz Titel"/>
             <div class="header-actions">
                 <button class="save-button" @onclick="SaveNote">
-                    <FluentIcon Value="@(new Icons.Regular.Size20.Save())"/>
+                    <FluentIcon Value="@(new Icons.Regular.Size20.Save())" Color="Color.Lightweight"/>
                     <span>Speichern</span>
                 </button>
             </div>
@@ -34,76 +34,80 @@
         </div>
 
         <div class="tab-content">
-            @if (_activeTab == 0)
+            @switch (_activeTab)
             {
-                <div class="editor-area">
-                    <div class="toolbar">
-                        <span class="hint">Markdown Format (## Überschrift, *kursiv*, **fett**, ![image](...dein Url...))</span>
+                case 0:
+                    <div class="editor-area">
+                        <div class="toolbar">
+                            <span class="hint">Markdown Format (## Überschrift, *kursiv*, **fett**, ![image](...dein Url...))</span>
+                        </div>
+                        <textarea @bind="_markdownText"
+                                  @bind:event="oninput"
+                                  placeholder="Was hast du im Kopf?"
+                                  class="editor-input"
+                                  id="editor-input"></textarea>
                     </div>
-                   <textarea @bind="_markdownText"
-                             @bind:event="oninput"
-                             placeholder="Was hast du im Kopf?"
-                             class="editor-input"
-                             id="editor-input"></textarea>
-                </div>
-            }
-            else if (_activeTab == 1)
-            {
-                <div class="preview-area">
-                    @if (string.IsNullOrEmpty(_markdownText))
-                    {
-                        <div class="empty-state">
-                            <FluentIcon Value="@(new Icons.Regular.Size24.Edit())" Color="Color.Success"/>
-                            <p>Schreibe etwas im Editor, um die Vorschau zu sehen</p>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="rendered-content">
-                            @((MarkupString)Markdown.ToHtml(_markdownText, _pipeline))
-                        </div>
-                    }
-                </div>
-            }
-            else if (_activeTab == 2)
-            {
-                <div class="todo-management">
-                    <div class="todo-header">
-                        <h3>Todos</h3>
-                        <button class="add-todo-button" @onclick="ShowAddTodoDialog">
-                            <FluentIcon Value="@(new Icons.Regular.Size20.Add())"/>
-                            <span>Neues Todo</span>
-                        </button>
+                    break;
+                case 1:
+                {
+                    <div class="preview-area">
+                        @if (string.IsNullOrEmpty(_markdownText))
+                        {
+                            <div class="empty-state">
+                                <FluentIcon Value="@(new Icons.Regular.Size24.Edit())" Color="Color.Lightweight"/>
+                                <p>Schreibe etwas im Editor, um die Vorschau zu sehen</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="rendered-content">
+                                @((MarkupString)Markdown.ToHtml(_markdownText, _pipeline))
+                            </div>
+                        }
                     </div>
-                    
-                    @if (_todos.Any())
-                    {
-                        <div class="todo-list">
-                            @foreach (var todo in _todos.OrderBy(t => t.Position))
-                            {
-                                <div class="todo-item">
-                                    <input type="checkbox"
-                                           checked="@todo.IsCompleted"
-                                           @onchange="(e) => ToggleTodo(todo, e.Value)" />
-                                    <input class="todo-content"
-                                           @bind="todo.Content"
-                                           @onblur="() => UpdateTodo(todo)"
-                                           @onkeydown="(e) => HandleTodoKeyDown(e, todo)" />
-                                    <button class="delete-todo" @onclick="() => DeleteTodo(todo)">
-                                        <FluentIcon Value="@(new Icons.Regular.Size20.Delete())"/>
-                                    </button>
-                                </div>
-                            }
+                    break;
+                }
+                case 2:
+                {
+                    <div class="todo-management">
+                        <div class="todo-header">
+                            <h3>Todos</h3>
+                            <button class="add-todo-button" @onclick="ShowAddTodoDialog">
+                                <FluentIcon Value="@(new Icons.Regular.Size20.Add())" Color="Color.Lightweight"/>
+                                <span>Neues Todo</span>
+                            </button>
                         </div>
-                    }
-                    else
-                    {
-                        <div class="empty-state">
-                            <FluentIcon Value="@(new Icons.Regular.Size24.CheckboxChecked())"/>
-                            <p>Noch keine Todos</p>
-                        </div>
-                    }
-                </div>
+
+                        @if (_todos.Any())
+                        {
+                            <div class="todo-list">
+                                @foreach (var todo in _todos.OrderBy(t => t.Position))
+                                {
+                                    <div class="todo-item">
+                                        <input type="checkbox"
+                                               checked="@todo.IsCompleted"
+                                               @onchange="(e) => ToggleTodo(todo, e.Value)"/>
+                                        <input class="todo-content"
+                                               @bind="todo.Content"
+                                               @onblur="() => UpdateTodo(todo)"
+                                               @onkeydown="(e) => HandleTodoKeyDown(e, todo)"/>
+                                        <button class="delete-todo" @onclick="() => DeleteTodo(todo)">
+                                            <FluentIcon Value="@(new Icons.Regular.Size20.Delete())"/>
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="empty-state">
+                                <FluentIcon Value="@(new Icons.Regular.Size24.CheckboxChecked())"/>
+                                <p>Noch keine Todos</p>
+                            </div>
+                        }
+                    </div>
+                    break;
+                }
             }
         </div>
     </div>
@@ -148,7 +152,7 @@ else
 @code {
     [Parameter] public int SubfolderId { get; set; }
     [Parameter] public int NoteId { get; set; }
-   
+
     private SubfolderModel? _subfolder;
     private string _markdownText = string.Empty;
     private string _noteTitle = string.Empty;
@@ -165,9 +169,9 @@ else
         _pipeline = new MarkdownPipelineBuilder()
             .UseAdvancedExtensions()
             .Build();
-           
+
         await LoadSubfolderAsync();
-       
+
         if (NoteId > 0)
         {
             await LoadNoteAsync();
@@ -236,7 +240,7 @@ else
     private async Task AddTodo()
     {
         if (string.IsNullOrWhiteSpace(_newTodoContent)) return;
-       
+
         var newTodo = new TodoItemModel
         {
             NoteId = NoteId,
@@ -261,11 +265,11 @@ else
     {
         var completed = isChecked as bool? ?? false;
         todo.IsCompleted = completed;
-   
+
         try
         {
             await Task.Delay(1);
-       
+
             await Db.ToggleTodoItemAsync(todo.Id, completed);
             StateHasChanged();
         }
@@ -295,7 +299,7 @@ else
         try
         {
             await Task.Delay(1);
-       
+
             await Db.DeleteTodoItemAsync(todo.Id);
             _todos.Remove(todo);
             StateHasChanged();
@@ -322,17 +326,17 @@ else
         }
         else if (e.Key == "Escape")
         {
-       }
+        }
     }
 
     private async Task SaveNote()
     {
         if (_subfolder == null || string.IsNullOrWhiteSpace(_noteTitle)) return;
-   
+
         try
         {
             await Task.Delay(1);
-       
+
             if (_isNewNote)
             {
                 NoteId = await Db.AddNoteAsync(_subfolder.Id, _noteTitle, _markdownText);
@@ -342,10 +346,10 @@ else
             {
                 await Db.UpdateNoteAsync(NoteId, _noteTitle, _markdownText);
             }
-        
+
             StateHasChanged();
             await Task.Delay(50);
-       
+
             Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{NoteId}", forceLoad: true);
         }
         catch (Exception ex)
@@ -353,4 +357,5 @@ else
             Console.WriteLine($"Error saving note: {ex.Message}");
         }
     }
+
 }
