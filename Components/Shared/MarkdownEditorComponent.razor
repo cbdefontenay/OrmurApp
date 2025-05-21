@@ -14,9 +14,17 @@
         <div class="editor-header">
             <input class="title-input" @bind="_noteTitle" placeholder="Notiz Titel"/>
             <div class="header-actions">
-                <button class="save-button" @onclick="SaveNote">
-                    <FluentIcon Value="@(new Icons.Regular.Size20.Save())" Color="Color.Lightweight"/>
-                    <span>Speichern</span>
+                <button class="save-button" @onclick="SaveNote" disabled="@_isSaving">
+                    @if (_isSaving)
+                    {
+                        <FluentIcon Value="@(new Icons.Filled.Size20.SpinnerIos())" Color="Color.Lightweight"/>
+                        <span>Speichern...</span>
+                    }
+                    else
+                    {
+                        <FluentIcon Value="@(new Icons.Regular.Size20.Save())" Color="Color.Lightweight"/>
+                        <span>Speichern</span>
+                    }
                 </button>
             </div>
         </div>
@@ -329,14 +337,14 @@ else
         }
     }
 
+    private bool _isSaving = false;
     private async Task SaveNote()
     {
         if (_subfolder == null || string.IsNullOrWhiteSpace(_noteTitle)) return;
-
+        _isSaving = true;
+        StateHasChanged();
         try
         {
-            await Task.Delay(1);
-
             if (_isNewNote)
             {
                 NoteId = await Db.AddNoteAsync(_subfolder.Id, _noteTitle, _markdownText);
@@ -346,15 +354,18 @@ else
             {
                 await Db.UpdateNoteAsync(NoteId, _noteTitle, _markdownText);
             }
+            await Task.Delay(300); 
 
-            StateHasChanged();
-            await Task.Delay(50);
-
-            Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{NoteId}", forceLoad: true);
+            Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{NoteId}");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error saving note: {ex.Message}");
+        }
+        finally
+        {
+            _isSaving = false;
+            StateHasChanged();
         }
     }
 
