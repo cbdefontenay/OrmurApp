@@ -1,4 +1,4 @@
-@page "/subfolder/{SubfolderId:int}"
+﻿@page "/subfolder/{SubfolderId:int}"
 @inject SqliteConnector Db
 @inject NavigationManager Navigation
 @using Microsoft.FluentUI.AspNetCore.Components
@@ -162,7 +162,7 @@
         foreach (var note in notes)
         {
             var todos = await Db.GetTodoItemsByNoteAsync(note.Id);
-            _notes.Add(new NoteWithTodoModel()
+            _notes.Add(new NoteWithTodoModel
             {
                 Note = note,
                 TodoItems = todos,
@@ -171,7 +171,7 @@
         }
     }
 
-    private static void ToggleNote(NoteWithTodoModel note)
+    private void ToggleNote(NoteWithTodoModel note)
     {
         note.IsExpanded = !note.IsExpanded;
     }
