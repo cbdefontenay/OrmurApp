@@ -6,8 +6,8 @@ public class AboutOrmurView : ContentPage
 {
     public AboutOrmurView()
     {
-        NavigationPage.SetHasNavigationBar(this, false);
-
+        NavigationPage.SetHasNavigationBar(this, true);
+        StatusBar.SetColor(Colors.LightBlue);
         BackgroundColor = Color.FromRgb(245, 251, 245);
 
         Content = new ScrollView

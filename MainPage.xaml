@@ -7,7 +7,7 @@
              NavigationPage.HasNavigationBar="False">
     
     <ContentPage.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarColor="White"/>
+        <toolkit:StatusBarBehavior x:Name="StatusBarBehaviorName"/>
     </ContentPage.Behaviors>
 
     <BlazorWebView HostPage="wwwroot/index.html">

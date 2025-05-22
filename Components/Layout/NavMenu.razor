@@ -18,6 +18,12 @@
                 {
                     <div class="menu-drawer-overlay @(IsAnimatingOut ? "hide" : "show")" @onclick="CloseMenu">
                         <div class="menu-drawer @(IsAnimatingOut ? "slide-out" : "slide-in")" @onclick:stopPropagation>
+                            <div class="logo-wrapper">
+                                <img src="Images/logo.svg" alt="Ormur Logo" class="navbar-logo"/>
+                                <h2 class="desktop-menu-header">
+                                    Ormur
+                                </h2>
+                            </div>
                             <ul class="menu-items">
                                 @foreach (var item in _navItems)
                                 {
@@ -34,7 +40,7 @@
                  -.9.92C12.45 12.9 12 13.5 12 15h-2v-.5c0-1
                  .45-1.99 1.17-2.7l1.24-1.26c.37-.36.59-.86.59-1.41
                  0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4
-                 1.79 4 4c0 .88-.36 1.68-.93 2.25z" />
+                 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
                                 </svg>
                             </div>
 
@@ -52,26 +58,33 @@
     default:
         <div class="layout-container">
             <nav class="navbar-desktop-container">
-                <ul class="menu-items">
+                <div class="logo-wrapper">
+                    <img src="Images/logo.svg" alt="Ormur Logo" class="navbar-logo"/>
+                    <h2 class="desktop-menu-header">
+                        Ormur
+                    </h2>
+                </div>
+                <ul class="desktop-menu-items">
                     @foreach (var item in _navItems)
                     {
-                        <li class="menu-item" @onclick="@(() => Navigate(item.Value))">
+                        <li class="desktop-menu-item" @onclick="@(() => Navigate(item.Value))">
                             @item.Key
                         </li>
                     }
                 </ul>
 
-                <div class="menu-help-icon" @onclick="OnHelpClicked">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
+                <div class="desktop-menu-help-container">
+                    <div class="desktop-menu-help-icon" @onclick="OnHelpClicked">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
                  10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm1.07-7.75
                  -.9.92C12.45 12.9 12 13.5 12 15h-2v-.5c0-1
                  .45-1.99 1.17-2.7l1.24-1.26c.37-.36.59-.86.59-1.41
                  0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4
-                 1.79 4 4c0 .88-.36 1.68-.93 2.25z" />
-                    </svg>
+                 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                        </svg>
+                    </div>
                 </div>
-
             </nav>
             <div class="desktop-page-content">
                 @ChildContent
