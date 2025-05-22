@@ -16,6 +16,25 @@
     background-color: #f0f0f0;
 }
 
+.menu-help-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f8f8;
+    border-top: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.menu-help-icon:hover {
+    background-color: #f0f0f0;
+}
+
+
 /* ANDROID STYLES */
 .navbar-android-container {
     display: flex;

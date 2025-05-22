@@ -1,4 +1,6 @@
-﻿namespace Ormur.Data;
+﻿using Path = System.IO.Path;
+
+namespace Ormur.Data;
 
 public class SqliteConnector
 {
