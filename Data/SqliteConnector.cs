@@ -586,15 +586,14 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            // Add ConfigureAwait(false) to prevent deadlocks
             await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync().ConfigureAwait(false);
+            await connection.OpenAsync();
 
             var command = connection.CreateCommand();
             command.CommandText = "DELETE FROM TodoItems WHERE Id = @todoId";
             command.Parameters.AddWithValue("@todoId", todoId);
 
-            await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+            await command.ExecuteNonQueryAsync();
         }
         finally
         {
@@ -665,7 +664,7 @@ public class SqliteConnector
             }
         }
     }
-    
+
     public async Task VacuumDatabaseAsync()
     {
         await Semaphore.WaitAsync();

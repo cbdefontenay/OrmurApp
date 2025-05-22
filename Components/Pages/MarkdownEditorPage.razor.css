@@ -5,25 +5,29 @@
     background: var(--surface-container);
     width: 100%;
     height: 100vh;
-    overflow: hidden;
     position: fixed;
     top: 0;
     left: 0;
-    margin-top: 55px;
+    box-sizing: border-box;
+    padding-top: 150px;
+    padding-bottom: 56px;
 }
 
-/* Header styling - Material Design inspired */
+/* Header styling */
 .editor-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 16px;
     background-color: var(--surface-container-high);
     border-bottom: 1px solid var(--outline-variant);
-    position: sticky;
-    top: 0;
+    margin-top: 90px;
     z-index: 10;
-    min-height: 56px;
+    height: 55px;
 }
 
 .title-input {
@@ -69,15 +73,15 @@
 
 /* Tabs styling - bottom aligned for Android */
 .tabs {
-    display: flex;
-    border-top: 1px solid var(--outline-variant);
-    background-color: var(--surface-container-high);
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 9;
+    display: flex;
     height: 56px;
+    background-color: var(--surface-container-high);
+    border-top: 1px solid var(--outline-variant);
+    z-index: 9;
 }
 
 .tabs button {
@@ -118,9 +122,9 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: auto;
-    background-color: var(--surface-container);
-    padding-bottom: 56px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-bottom: 56px;
 }
 
 .tabs button.active {
@@ -128,6 +132,9 @@
     background-color: var(--secondary);
 }
 
+.editor-input, .preview-area, .todo-list {
+    overscroll-behavior: contain;
+}
 
 /* Editor area */
 .editor-area {
@@ -135,6 +142,7 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
+    min-height: min-content;
 }
 
 .toolbar {
@@ -149,6 +157,7 @@
 .editor-input {
     width: 100%;
     flex: 1;
+    min-height: 200px;
     padding: 16px;
     border: 1px solid var(--outline-variant);
     border-radius: 12px;
@@ -158,9 +167,9 @@
     background-color: var(--surface-container-low);
     resize: none;
     font-family: 'Roboto Mono', monospace, system-ui;
-    min-height: 200px;
-    -webkit-user-select: text;
-    user-select: text;
+    box-sizing: border-box;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .editor-input:focus {
@@ -174,6 +183,13 @@
     flex: 1;
     padding: 16px;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.preview-area, .todo-management {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -243,8 +259,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 16px;
-    padding-bottom: 72px; /* Extra space for bottom tabs */
+    padding-bottom: 16px;
 }
 
 .todo-header {
@@ -505,9 +520,17 @@ button, [role="button"] {
 }
 
 /* Keyboard avoidance for Android */
-@media (max-height: 600px) {
+@media (max-height: 768px) {
     .editor-input {
         font-size: 15px;
+        padding: 12px;
+    }
+    
+    .editor-header {
+        margin-top: 60px;
+    }
+
+    .editor-area {
         padding: 12px;
     }
 

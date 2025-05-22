@@ -13,7 +13,6 @@ global using Microsoft.FluentUI.AspNetCore.Components;
 global using Microsoft.JSInterop;
 global using Microsoft.Maui.Layouts;
 global using Ormur.Components.Layout;
-global using Ormur.Components.Shared;
 global using Ormur.Data;
 global using Ormur.Models;
 global using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons;

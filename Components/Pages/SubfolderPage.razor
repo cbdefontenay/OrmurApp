@@ -3,7 +3,6 @@
 @inject NavigationManager Navigation
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
-@using Ormur.Components.Shared
 @layout GoBackLayout
 
 <div class="subfolder-container">
@@ -208,15 +207,13 @@
     {
         try
         {
-            await Task.Delay(1);
-
             await Db.DeleteTodoItemAsync(todo.Id);
-
-            var note = _notes.FirstOrDefault(n => n.Note.Id == todo.NoteId);
+        
+            var note = _notes.FirstOrDefault(n => n.TodoItems.Any(t => t.Id == todo.Id));
             if (note != null)
             {
                 note.TodoItems.Remove(todo);
-                StateHasChanged();
+                await InvokeAsync(StateHasChanged);
             }
         }
         catch (Exception ex)

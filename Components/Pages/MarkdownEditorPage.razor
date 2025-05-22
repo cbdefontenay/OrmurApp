@@ -4,6 +4,7 @@
 @layout GoBackLayout
 @inject NavigationManager Navigation
 @inject IJSRuntime Js
+@using CommunityToolkit.Maui.Alerts
 @using Markdig
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
@@ -53,7 +54,9 @@
                                   @bind:event="oninput"
                                   placeholder="Was hast du im Kopf?"
                                   class="editor-input"
-                                  id="editor-input"></textarea>
+                                  id="editor-input">
+    
+                        </textarea>
                     </div>
                     break;
                 case 1:
@@ -171,6 +174,7 @@ else
     private bool _isNewNote = true;
     private ElementReference _todoInputRef;
     private List<TodoItemModel> _todos = [];
+    private bool _isSaving = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -306,11 +310,9 @@ else
     {
         try
         {
-            await Task.Delay(1);
-
             await Db.DeleteTodoItemAsync(todo.Id);
             _todos.Remove(todo);
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
         catch (Exception ex)
         {
@@ -328,16 +330,16 @@ else
 
     private void HandleTodoKeyDown(KeyboardEventArgs e, TodoItemModel todo)
     {
-        if (e.Key == "Enter")
+        switch (e.Key)
         {
-            _ = UpdateTodo(todo);
-        }
-        else if (e.Key == "Escape")
-        {
+            case "Enter":
+                _ = UpdateTodo(todo);
+                break;
+            case "Escape":
+                break;
         }
     }
 
-    private bool _isSaving = false;
     private async Task SaveNote()
     {
         if (_subfolder == null || string.IsNullOrWhiteSpace(_noteTitle)) return;
@@ -354,7 +356,9 @@ else
             {
                 await Db.UpdateNoteAsync(NoteId, _noteTitle, _markdownText);
             }
-            await Task.Delay(300); 
+
+            await Task.Delay(300);
+            await Toast.Make("Wurde erfolgreich gespeichert", CommunityToolkit.Maui.Core.ToastDuration.Short, 20).Show();
 
             Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{NoteId}");
         }
