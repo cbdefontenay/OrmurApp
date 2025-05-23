@@ -500,7 +500,7 @@
     box-shadow: 0 0 0 1px var(--primary);
 }
 
-@media (max-height: 900px) {
+@media (max-width: 900px) {
     .subfolder-container {
         margin: 7em 1em 1em 1em;
         width: auto;

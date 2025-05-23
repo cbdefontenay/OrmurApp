@@ -5,18 +5,28 @@
 @implements IDisposable
 
 <div class="sync-container">
-    <h3>Device Synchronization</h3>
+    <h3>Gerätesynchronisation</h3>
+    
+    <div class="sync-instructions">
+        <p><strong>So synchronisieren Sie:</strong></p>
+        <ol>
+            <li>Stellen Sie sicher, dass beide Geräte im gleichen WLAN-Netzwerk sind</li>
+            <li>Starten Sie die Synchronisation auf einem Gerät</li>
+            <li>Geben Sie die IP-Adresse des anderen Geräts ein</li>
+            <li>Klicken Sie auf "Synchronisation starten"</li>
+        </ol>
+    </div>
     
     <div class="ip-display">
-        <label>Your Device IP:</label>
+        <label>Ihre Geräte-IP:</label>
         <div class="ip-address">
             @if (_ipLoading)
             {
-                <span class="loading-text">Detecting IP...</span>
+                <span class="loading-text">IP wird ermittelt...</span>
             }
             else if (string.IsNullOrEmpty(_localIp))
             {
-                <span class="error-text">Not available (check network)</span>
+                <span class="error-text">Nicht verfügbar (Netzwerk prüfen)</span>
             }
             else
             {
@@ -28,7 +38,7 @@
     <div class="sync-controls">
         <input type="text" 
                @bind="_remoteIp" 
-               placeholder="Enter other device's IP"
+               placeholder="IP des anderen Geräts eingeben"
                class="ip-input" />
                
         <button @onclick="StartSync" 
@@ -37,11 +47,11 @@
             @if (_isSyncing)
             {
                 <span class="spinner"></span>
-                <span>Syncing...</span>
+                <span>Wird synchronisiert...</span>
             }
             else
             {
-                <span>Start Sync</span>
+                <span>Synchronisation starten</span>
             }
         </button>
     </div>
@@ -74,8 +84,7 @@
         _ipLoading = true;
         StateHasChanged();
         
-        // Try multiple times to get IP (network might not be immediately available)
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
             _localIp = SyncService.GetLocalIpAddress();
             if (!string.IsNullOrEmpty(_localIp)) break;
@@ -95,23 +104,23 @@
     {
         if (string.IsNullOrWhiteSpace(_remoteIp))
         {
-            ShowStatus("Please enter the other device's IP", true);
+            ShowStatus("Bitte geben Sie die IP des anderen Geräts ein", true);
             return;
         }
 
         _isSyncing = true;
-        ShowStatus("Connecting to device...", false);
+        ShowStatus("Verbindung zum Gerät wird hergestellt...", false);
 
         try
         {
             await SyncService.SyncViaWiFiAsync(_remoteIp);
-            ShowStatus("Synchronization successful!", false);
+            ShowStatus("Synchronisation erfolgreich!", false);
             await Task.Delay(1500);
             NavigationManager.NavigateTo("/");
         }
         catch (Exception ex)
         {
-            ShowStatus($"Sync failed: {ex.Message}", true);
+            ShowStatus($"Synchronisation fehlgeschlagen: {ex.Message}", true);
         }
         finally
         {

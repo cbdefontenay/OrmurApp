@@ -34,7 +34,8 @@
                             </ul>
 
                             <div class="menu-help-icon" @onclick="OnHelpClicked">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                     width="28" height="28">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
                  10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm1.07-7.75
                  -.9.92C12.45 12.9 12 13.5 12 15h-2v-.5c0-1
@@ -47,7 +48,7 @@
                         </div>
                     </div>
                 }
-           </nav>
+            </nav>
 
             <div class="android-page-content">
                 @ChildContent
@@ -75,7 +76,8 @@
 
                 <div class="desktop-menu-help-container">
                     <div class="desktop-menu-help-icon" @onclick="OnHelpClicked">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28"
+                             height="28">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
                  10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm1.07-7.75
                  -.9.92C12.45 12.9 12 13.5 12 15h-2v-.5c0-1
@@ -113,7 +115,7 @@
     {
         IsAnimatingOut = true;
         StateHasChanged();
-        await Task.Delay(300); // match the CSS transition time
+        await Task.Delay(300);
         IsMenuOpen = false;
         IsAnimatingOut = false;
         StateHasChanged();
@@ -128,8 +130,7 @@
     private readonly Dictionary<string, string> _navItems = new()
     {
         { "Home", "/" },
-        { "Editor", "/counter" },
-        { "Settings", "/weather" },
+        { "Settings", "/settings" },
         { "Sync", "/sync" },
     };
 
@@ -141,11 +142,10 @@
         IsAndroidPlatform = false;
 #endif
     }
-    
+
     private static void OnHelpClicked()
     {
         App.Current.MainPage.Navigation.PushAsync(new AboutOrmurView());
     }
-
-
+    
 }
