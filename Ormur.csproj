@@ -74,8 +74,4 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Components\Shared\" />
-    </ItemGroup>
-
 </Project>

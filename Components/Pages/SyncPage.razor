@@ -1,0 +1,128 @@
+﻿@page "/sync"
+@layout GoBackLayout
+@inject SyncService SyncService
+@inject NavigationManager NavigationManager
+@implements IDisposable
+
+<div class="sync-container">
+    <h3>Device Synchronization</h3>
+    
+    <div class="ip-display">
+        <label>Your Device IP:</label>
+        <div class="ip-address">
+            @if (_ipLoading)
+            {
+                <span class="loading-text">Detecting IP...</span>
+            }
+            else if (string.IsNullOrEmpty(_localIp))
+            {
+                <span class="error-text">Not available (check network)</span>
+            }
+            else
+            {
+                @_localIp
+            }
+        </div>
+    </div>
+
+    <div class="sync-controls">
+        <input type="text" 
+               @bind="_remoteIp" 
+               placeholder="Enter other device's IP"
+               class="ip-input" />
+               
+        <button @onclick="StartSync" 
+                disabled="@_isSyncing"
+                class="sync-button @(_isSyncing ? "syncing" : "")">
+            @if (_isSyncing)
+            {
+                <span class="spinner"></span>
+                <span>Syncing...</span>
+            }
+            else
+            {
+                <span>Start Sync</span>
+            }
+        </button>
+    </div>
+
+    @if (!string.IsNullOrEmpty(_status))
+    {
+        <div class="status @(_isError ? "error" : "success")">
+            @_status
+        </div>
+    }
+</div>
+
+@code {
+    private string? _status;
+    private string? _localIp;
+    private string? _remoteIp;
+    private bool _isSyncing;
+    private bool _isError;
+    private bool _ipLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        SyncService.StopWiFiSyncServer();
+        await LoadIpAddress();
+        SyncService.StartWiFiSyncServer();
+    }
+
+    private async Task LoadIpAddress()
+    {
+        _ipLoading = true;
+        StateHasChanged();
+        
+        // Try multiple times to get IP (network might not be immediately available)
+        for (int i = 0; i < 3; i++)
+        {
+            _localIp = SyncService.GetLocalIpAddress();
+            if (!string.IsNullOrEmpty(_localIp)) break;
+            await Task.Delay(500);
+        }
+        
+        _ipLoading = false;
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        SyncService.StopWiFiSyncServer();
+    }
+
+    private async Task StartSync()
+    {
+        if (string.IsNullOrWhiteSpace(_remoteIp))
+        {
+            ShowStatus("Please enter the other device's IP", true);
+            return;
+        }
+
+        _isSyncing = true;
+        ShowStatus("Connecting to device...", false);
+
+        try
+        {
+            await SyncService.SyncViaWiFiAsync(_remoteIp);
+            ShowStatus("Synchronization successful!", false);
+            await Task.Delay(1500);
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            ShowStatus($"Sync failed: {ex.Message}", true);
+        }
+        finally
+        {
+            _isSyncing = false;
+        }
+    }
+
+    private void ShowStatus(string message, bool isError)
+    {
+        _status = message;
+        _isError = isError;
+        StateHasChanged();
+    }
+}

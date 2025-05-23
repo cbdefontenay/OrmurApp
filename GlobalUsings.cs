@@ -1,6 +1,9 @@
 ﻿// Global using directives
 
 global using System.Collections.ObjectModel;
+global using System.Net;
+global using System.Net.NetworkInformation;
+global using System.Net.Sockets;
 global using CommunityToolkit.Maui;
 global using CommunityToolkit.Maui.Behaviors;
 global using CommunityToolkit.Maui.Core;
@@ -19,5 +22,7 @@ global using Microsoft.Maui.Layouts;
 global using Ormur.Components.Layout;
 global using Ormur.Data;
 global using Ormur.Models;
+global using Ormur.Services;
 global using Ormur.Views;
 global using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons;
+global using Path = System.IO.Path;

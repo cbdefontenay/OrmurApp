@@ -1,6 +1,4 @@
-﻿using Path = System.IO.Path;
-
-namespace Ormur.Data;
+﻿namespace Ormur.Data;
 
 public class SqliteConnector
 {
@@ -69,6 +67,23 @@ public class SqliteConnector
         AddColumnIfNotExists(connection, "Folders", "IsFavorite", "BOOLEAN NOT NULL DEFAULT FALSE");
     }
 
+    /// <summary>
+    /// Executes a SQLite Write-Ahead Logging (WAL) checkpoint to transfer all data from the write-ahead log back to
+    /// the database file. Afterward, closes the database connection.
+    /// </summary>
+    /// <remarks>
+    /// This method uses the "PRAGMA wal_checkpoint(FULL)" SQLite command to perform a full checkpoint.
+    /// This ensures that any unwritten data in the WAL file is safely and explicitly written to the database file.
+    /// </remarks>
+    public void CheckpointAndClose()
+    {
+        using var connection = new SqliteConnection($"Data Source={_dbPath}");
+        connection.Open();
+
+        using var cmd = connection.CreateCommand();
+        cmd.CommandText = "PRAGMA wal_checkpoint(FULL);";
+        cmd.ExecuteNonQuery();
+    }
 
     public async Task<List<FolderModel>> GetFoldersAsync()
     {

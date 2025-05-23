@@ -8,15 +8,17 @@
 <div class="subfolder-container">
     <div class="subfolder-header">
         <div class="header-content">
-            <h2 class="subfolder-title">@_subfolder?.Name</h2>
-            <p class="subfolder-meta">Created @_subfolder?.DateCreated.ToString("f")</p>
+            <div class="header-title-wrapper">
+                <h2 class="subfolder-title">@_subfolder?.Name</h2>
+                <p class="subfolder-meta">Erstellt am @_subfolder?.DateCreated.ToString("f")</p>
+            </div>
         </div>
     </div>
 
     <div class="notes-actions">
         <button class="create-note-button" @onclick="CreateNewNote">
             <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size20.Add())"/>
-            <span>Neue Notiz</span>
+           <span>Neue Notiz</span>
         </button>
     </div>
 
@@ -28,14 +30,16 @@
                 <div class="note-accordion">
                     <div class="accordion-header" @onclick="() => ToggleNote(note)">
                         <div class="header-content">
-                            @if (note.IsExpanded)
+                            @switch (note.IsExpanded)
                             {
-                                <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.ChevronDown())"/>
-                            }
-                            else
-                            {
-                                <FluentIcon Color="Color.Neutral"
-                                            Value="@(new Icons.Regular.Size20.ChevronRight())"/>
+                                case true:
+                                    <FluentIcon Color="Color.Neutral"
+                                                Value="@(new Icons.Regular.Size20.ChevronDown())"/>
+                                    break;
+                                default:
+                                    <FluentIcon Color="Color.Neutral"
+                                                Value="@(new Icons.Regular.Size20.ChevronRight())"/>
+                                    break;
                             }
                             <h3>@note.Note.Title</h3>
                             <span class="note-date">@note.Note.DateModified.ToString("g")</span>
@@ -208,7 +212,7 @@
         try
         {
             await Db.DeleteTodoItemAsync(todo.Id);
-        
+
             var note = _notes.FirstOrDefault(n => n.TodoItems.Any(t => t.Id == todo.Id));
             if (note != null)
             {
