@@ -1,7 +1,125 @@
 ﻿@page "/settings"
+@layout GoBackLayout
+@inject ThemeService ThemeService
+@inject IJSRuntime JsRuntime
 
-<h3>SettingsPage</h3>
+<div class="settings-container">
+    <div class="title-wrapper">
+        <h3 class="settings-title">Einstellungen</h3>
+    </div>
+
+    <div class="settings-section">
+        <div class="section-header" @onclick="ToggleThemeMenu">
+            <h4 class="section-title">Farbthema</h4>
+            <div class="current-theme-display">
+                <span>@GetCurrentThemeName()</span>
+                <span class="dropdown-icon">
+                    @(showThemeMenu ? "▲" : "▼")
+                </span>
+            </div>
+        </div>
+
+        @if (showThemeMenu)
+        {
+            <div class="theme-menu">
+                <div class="theme-option @GetActiveClass("default")" @onclick="SetDefaultTheme">
+                    <div class="theme-color-preview default-theme"></div>
+                    <span class="theme-label">Standard (Hell Blau)</span>
+                    @if (ThemeService.CurrentTheme == "default")
+                    {
+                        <span class="check-icon">✓</span>
+                    }
+                </div>
+
+                <div class="theme-option @GetActiveClass("purple")" @onclick="SetPurpleTheme">
+                    <div class="theme-color-preview purple-theme"></div>
+                    <span class="theme-label">Lila</span>
+                    @if (ThemeService.CurrentTheme == "purple")
+                    {
+                        <span class="check-icon">✓</span>
+                    }
+                </div>
+
+                <div class="theme-option @GetActiveClass("green")" @onclick="SetGreenTheme">
+                    <div class="theme-color-preview green-theme"></div>
+                    <span class="theme-label">Grün</span>
+                    @if (ThemeService.CurrentTheme == "green")
+                    {
+                        <span class="check-icon">✓</span>
+                    }
+                </div>
+
+                <div class="theme-option @GetActiveClass("dark")" @onclick="SetDarkTheme">
+                    <div class="theme-color-preview dark-theme"></div>
+                    <span class="theme-label">Dunkel Blau</span>
+                    @if (ThemeService.CurrentTheme == "dark")
+                    {
+                        <span class="check-icon">✓</span>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Placeholder for future settings -->
+    <div class="settings-section coming-soon">
+        <div class="section-header">
+            <h4 class="section-title">Benachrichtigungen</h4>
+            <span class="coming-soon-text">Bald verfügbar</span>
+        </div>
+    </div>
+
+    <div class="settings-section coming-soon">
+        <div class="section-header">
+            <h4 class="section-title">Datenschutz</h4>
+            <span class="coming-soon-text">Bald verfügbar</span>
+        </div>
+    </div>
+</div>
 
 @code {
-    
+    private bool showThemeMenu = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ThemeService.InitializeAsync();
+        ThemeService.OnThemeChanged += StateHasChanged;
+    }
+
+    private string GetCurrentThemeName()
+    {
+        return ThemeService.CurrentTheme switch
+        {
+            "default" => "Standard (Hell Blau)",
+            "purple" => "Lila",
+            "green" => "Grün",
+            "dark" => "Dunkel Blau",
+            _ => "Standard"
+        };
+    }
+
+    private string GetActiveClass(string theme) =>
+        ThemeService.CurrentTheme == theme ? "active" : "";
+
+    private void ToggleThemeMenu()
+    {
+        showThemeMenu = !showThemeMenu;
+    }
+
+    private async Task SetDefaultTheme() => await SetTheme("default");
+    private async Task SetPurpleTheme() => await SetTheme("purple");
+    private async Task SetGreenTheme() => await SetTheme("green");
+    private async Task SetDarkTheme() => await SetTheme("dark");
+
+    private async Task SetTheme(string theme)
+    {
+        showThemeMenu = false;
+        await ThemeService.SetThemeAsync(theme);
+    }
+
+    public void Dispose()
+    {
+        ThemeService.OnThemeChanged -= StateHasChanged;
+    }
+
 }

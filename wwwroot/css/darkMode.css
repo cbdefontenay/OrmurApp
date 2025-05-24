@@ -1,0 +1,69 @@
+﻿:root {
+    --primary: rgb(129 211 221);
+    --surface-tint: rgb(129 211 221);
+    --on-primary: rgb(0 54 59);
+    --primary-container: rgb(0 79 86);
+    --on-primary-container: rgb(157 240 250);
+    --secondary: rgb(129 211 222);
+    --on-secondary: rgb(0 54 60);
+    --secondary-container: rgb(0 79 86);
+    --on-secondary-container: rgb(157 240 251);
+    --tertiary: rgb(173 198 255);
+    --on-tertiary: rgb(16 47 96);
+    --tertiary-container: rgb(43 70 120);
+    --on-tertiary-container: rgb(216 226 255);
+    --error: rgb(255 180 171);
+    --on-error: rgb(86 30 25);
+    --error-container: rgb(115 51 45);
+    --on-error-container: rgb(255 218 214);
+    --background: rgb(14 20 21);
+    --on-background: rgb(222 228 228);
+    --surface: rgb(14 20 21);
+    --on-surface: rgb(221 228 228);
+    --surface-variant: rgb(63 72 74);
+    --on-surface-variant: rgb(190 200 202);
+    --outline: rgb(137 146 148);
+    --outline-variant: rgb(63 72 74);
+    --shadow: rgb(0 0 0);
+    --scrim: rgb(0 0 0);
+    --inverse-surface: rgb(221 228 228);
+    --inverse-on-surface: rgb(43 50 50);
+    --inverse-primary: rgb(0 105 113);
+    --primary-fixed: rgb(157 240 250);
+    --on-primary-fixed: rgb(0 31 35);
+    --primary-fixed-dim: rgb(129 211 221);
+    --on-primary-fixed-variant: rgb(0 79 86);
+    --secondary-fixed: rgb(157 240 251);
+    --on-secondary-fixed: rgb(0 31 35);
+    --secondary-fixed-dim: rgb(129 211 222);
+    --on-secondary-fixed-variant: rgb(0 79 86);
+    --tertiary-fixed: rgb(216 226 255);
+    --on-tertiary-fixed: rgb(0 26 65);
+    --tertiary-fixed-dim: rgb(173 198 255);
+    --on-tertiary-fixed-variant: rgb(43 70 120);
+    --surface-dim: rgb(14 20 21);
+    --surface-bright: rgb(52 58 59);
+    --surface-container-lowest: rgb(9 15 16);
+    --surface-container-low: rgb(22 29 29);
+    --surface-container: rgb(26 33 33);
+    --surface-container-high: rgb(37 43 44);
+    --surface-container-highest: rgb(48 54 54);
+    --perso-color: rgb(105 84 141);
+    --perso-on-color: rgb(255 255 255);
+    --perso-color-container: rgb(235 220 255);
+    --perso-on-color-container: rgb(80 60 116);
+    --keyboard-height: 0px;
+}
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    user-select: none;
+    background-color: var(--primary-container);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    & a {
+        text-decoration: none;
+    }
+}

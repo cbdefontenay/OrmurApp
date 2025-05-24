@@ -6,7 +6,7 @@
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
     <title>Ormur</title>
     <base href="/"/>
-    <link rel="stylesheet" href="css/app.css"/>
+    <link id="light-mode" rel="stylesheet" href="css/app.css"/>
     <link rel="stylesheet" href="Ormur.styles.css"/>
     <link rel="icon" href="data:,">
 </head>
@@ -40,6 +40,28 @@
         setInnerHtml,
         getCursorPosition
     };
+</script>
+
+<!--Light - Dark mode setup-->
+<script>
+    function applyTheme(theme) {
+        // Remove all theme classes first
+        document.documentElement.classList.remove('default', 'purple', 'green', 'dark');
+
+        // Add the selected theme class
+        document.documentElement.classList.add(theme);
+
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        document.body.classList.toggle('android-platform', isAndroid);
+        document.body.classList.toggle('desktop-platform', !isAndroid);
+    }
+
+    function initializeTheme() {
+        const savedTheme = localStorage.getItem('app-theme-preference') || 'default';
+        applyTheme(savedTheme);
+    }
+
+    window.addEventListener('DOMContentLoaded', initializeTheme);
 </script>
 <script app-name="Ormur"
         src="./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js"></script>

@@ -39,7 +39,8 @@
         <input type="text" 
                @bind="_remoteIp" 
                placeholder="IP des anderen Geräts eingeben"
-               class="ip-input" />
+               class="ip-input"
+               inputmode="decimal" />
                
         <button @onclick="StartSync" 
                 disabled="@_isSyncing"
