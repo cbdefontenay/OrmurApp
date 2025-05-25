@@ -182,17 +182,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText =
-                "INSERT INTO Subfolders (ParentFolderId, Name, DateCreated) VALUES (@parentId, @name, @dateCreated)";
-            command.Parameters.AddWithValue("@parentId", parentFolderId);
-            command.Parameters.AddWithValue("@name", name);
-            command.Parameters.AddWithValue("@dateCreated", DateTime.UtcNow.ToString("o"));
-
-            await command.ExecuteNonQueryAsync();
+            var addSubfolderName = new SubFoldersMethods();
+            await addSubfolderName.AddSubfolder(parentFolderId, name, _dbPath);
         }
         finally
         {
