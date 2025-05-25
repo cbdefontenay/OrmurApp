@@ -309,7 +309,7 @@
 }
 
 @code {
-    private List<FolderWithSubfolders> _folders = [];
+    private List<FolderWithSubfolders> _folders = new();
     private string _newFolderName = string.Empty;
     private string _newSubfolderName = string.Empty;
     private bool _showDialog = false;
@@ -318,7 +318,7 @@
     private bool _showFavoritesOnly = false;
     private int? _currentParentFolderId = null;
     private string _searchTerm = string.Empty;
-    private List<FolderModel> _allFolders = [];
+    private List<FolderModel> _allFolders = new();
     private bool _showDeleteConfirmation = false;
     private int? _folderToDeleteId = null;
     private string _folderToDeleteName = string.Empty;
@@ -451,8 +451,8 @@
     private async Task LoadFoldersAsync()
     {
         var foldersFromDb = _showFavoritesOnly
-            ? await Db.GetAllFavoritesAsync() ?? []
-            : await Db.GetFoldersAsync() ?? [];
+            ? await Db.GetAllFavoritesAsync() ?? new List<FolderModel>()
+            : await Db.GetFoldersAsync() ?? new List<FolderModel>();
 
         if (!string.IsNullOrWhiteSpace(_searchTerm))
         {
@@ -464,7 +464,7 @@
         _folders = foldersFromDb.Select(f => new FolderWithSubfolders
         {
             Folder = f,
-            Subfolders = [],
+            Subfolders = new List<SubfolderModel>(),
             IsExpanded = false
         }).ToList();
     }

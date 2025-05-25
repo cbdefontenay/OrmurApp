@@ -1,4 +1,6 @@
-﻿namespace Ormur.Data;
+﻿using Ormur.Data.SqliteMethods.FolderMethods;
+
+namespace Ormur.Data;
 
 public class SqliteConnector
 {
@@ -90,27 +92,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = "SELECT Id, Name, IsFavorite, DateCreated FROM Folders ORDER BY DateCreated DESC";
-
-            var folders = new List<FolderModel>();
-            await using var reader = await command.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                folders.Add(new FolderModel
-                    {
-                        Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        IsFavorite = reader.GetBoolean(2),
-                        DateCreated = DateTime.Parse(reader.GetString(3))
-                    }
-                );
-            }
-
-            return folders;
+            var folderMethods = new FoldersMethods();
+            return await folderMethods.GetFolder(_dbPath);
         }
         finally
         {
@@ -123,17 +106,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText =
-                "INSERT INTO Folders (Name, IsFavorite, DateCreated) VALUES (@name, @isFavorite, @dateCreated)";
-            command.Parameters.AddWithValue("@isFavorite", false);
-            command.Parameters.AddWithValue("@name", name);
-            command.Parameters.AddWithValue("@dateCreated", DateTime.UtcNow.ToString("o"));
-
-            await command.ExecuteNonQueryAsync();
+            var addFolderName = new FoldersMethods();
+            await addFolderName.AddFolder(name, _dbPath);
         }
         finally
         {
@@ -146,61 +120,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            // Start a transaction
-            await using var transaction = await connection.BeginTransactionAsync();
-
-            try
-            {
-                // First delete all notes and their todo items in all subfolders
-                var subfoldersCmd = connection.CreateCommand();
-                subfoldersCmd.CommandText = "SELECT Id FROM Subfolders WHERE ParentFolderId = @folderId";
-                subfoldersCmd.Parameters.AddWithValue("@folderId", id);
-
-                var subfolderIds = new List<int>();
-                await using (var reader = await subfoldersCmd.ExecuteReaderAsync())
-                {
-                    while (await reader.ReadAsync())
-                    {
-                        subfolderIds.Add(reader.GetInt32(0));
-                    }
-                }
-
-                foreach (var subfolderId in subfolderIds)
-                {
-                    var deleteTodosCmd = connection.CreateCommand();
-                    deleteTodosCmd.CommandText = @"
-                    DELETE FROM TodoItems 
-                    WHERE NoteId IN (SELECT Id FROM Notes WHERE SubfolderId = @subfolderId)";
-                    deleteTodosCmd.Parameters.AddWithValue("@subfolderId", subfolderId);
-                    await deleteTodosCmd.ExecuteNonQueryAsync();
-
-                    var deleteNotesCmd = connection.CreateCommand();
-                    deleteNotesCmd.CommandText = "DELETE FROM Notes WHERE SubfolderId = @subfolderId";
-                    deleteNotesCmd.Parameters.AddWithValue("@subfolderId", subfolderId);
-                    await deleteNotesCmd.ExecuteNonQueryAsync();
-                }
-
-                var deleteSubfoldersCmd = connection.CreateCommand();
-                deleteSubfoldersCmd.CommandText = "DELETE FROM Subfolders WHERE ParentFolderId = @folderId";
-                deleteSubfoldersCmd.Parameters.AddWithValue("@folderId", id);
-                await deleteSubfoldersCmd.ExecuteNonQueryAsync();
-
-                var deleteFolderCmd = connection.CreateCommand();
-                deleteFolderCmd.CommandText = "DELETE FROM Folders WHERE Id = @folderId";
-                deleteFolderCmd.Parameters.AddWithValue("@folderId", id);
-                await deleteFolderCmd.ExecuteNonQueryAsync();
-
-                await transaction.CommitAsync();
-                Interlocked.Increment(ref _deletionCount);
-            }
-            catch
-            {
-                await transaction.RollbackAsync();
-                throw;
-            }
+            var deleteFolderName = new FoldersMethods();
+            await deleteFolderName.DeleteFolder(id, _dbPath);
         }
         finally
         {
@@ -213,15 +134,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = "UPDATE Folders SET IsFavorite = @isFavorite WHERE Id = @id";
-            command.Parameters.AddWithValue("@isFavorite", isFavorite);
-            command.Parameters.AddWithValue("@id", folderId);
-
-            await command.ExecuteNonQueryAsync();
+            var toggleFavorite = new FoldersMethods();
+            await toggleFavorite.ToggleFavorite(folderId, isFavorite, _dbPath);
         }
         finally
         {
