@@ -193,12 +193,12 @@ else
     private List<CodeSnippetModel> _snippets = [];
     private bool _isSaving = false;
     
-    private readonly List<string> _supportedLanguages = new()
-    {
-        "csharp", "javascript", "typescript", "python", "java", 
+    private readonly List<string> _supportedLanguages =
+    [
+        "csharp", "javascript", "typescript", "python", "java",
         "html", "css", "sql", "xml", "json", "bash", "powershell",
         "php", "ruby", "go", "rust", "kotlin", "swift"
-    };
+    ];
 
     protected override async Task OnInitializedAsync()
     {

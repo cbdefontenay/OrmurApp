@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: center;
     max-width: 800px;
-    margin: 7em auto 0 auto;
+    margin: 7em auto 2em auto;
     padding: 24px 16px;
     background-color: var(--background);
     border-radius: 20px;
@@ -165,6 +165,68 @@
 
 .note-content {
     margin-bottom: 16px;
+}
+
+/* Syntax Highlighting Styles */
+.note-content-rendered pre {
+    background-color: var(--surface-container-highest);
+    padding: 1em;
+    border-radius: 8px;
+    overflow: auto;
+    margin: 1em 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--outline-variant);
+}
+
+.note-content-rendered pre code {
+    background: transparent;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.95em;
+    line-height: 1.5;
+    display: block;
+    color: var(--on-surface);
+}
+
+.note-content-rendered code:not(pre code) {
+    background-color: var(--surface-container-highest);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9em;
+    color: var(--on-surface);
+}
+
+/* Syntax highlighting colors */
+.note-content-rendered .keyword { color: #ff7b72; }
+.note-content-rendered .string { color: #a5d6ff; }
+.note-content-rendered .comment { color: #8b949e; font-style: italic; }
+.note-content-rendered .type { color: #79c0ff; }
+.note-content-rendered .literal { color: #ffa657; }
+.note-content-rendered .punctuation { color: #d2a8ff; }
+.note-content-rendered .operator { color: #ff7b72; }
+.note-content-rendered .number { color: #79c0ff; }
+.note-content-rendered .function { color: #d2a8ff; }
+.note-content-rendered .class-name { color: #ffa657; }
+.note-content-rendered .tag { color: #7ee787; }
+.note-content-rendered .attribute { color: #79c0ff; }
+.note-content-rendered .regex { color: #a5d6ff; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .note-content-rendered pre {
+        border-radius: 0;
+        margin-left: -16px;
+        margin-right: -16px;
+    }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .note-content-rendered pre {
+        background-color: var(--surface-container-highest);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
 }
 
 .todo-list {

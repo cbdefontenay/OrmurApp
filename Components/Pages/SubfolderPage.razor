@@ -1,5 +1,7 @@
 ﻿@page "/subfolder/{SubfolderId:int}"
 @inject SqliteConnector Db
+@using Markdig
+@using Markdig.SyntaxHighlighting
 @inject NavigationManager Navigation
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Ormur.Data.Models
@@ -19,11 +21,11 @@
     <div class="notes-actions">
         <button class="create-note-button" @onclick="CreateNewNote">
             <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size20.Add())"/>
-           <span>Neue Notiz</span>
+            <span>Neue Notiz</span>
         </button>
         <button class="create-note-button" @onclick="CreateNewCodeNote">
             <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size20.Code())"/>
-           <span>Neue Code Notiz</span>
+            <span>Neue Code Notiz</span>
         </button>
     </div>
 
@@ -64,7 +66,17 @@
                                 @if (note.IsExpanded && !string.IsNullOrEmpty(note.Note.Content))
                                 {
                                     <div class="note-content-rendered">
-                                        @((MarkupString)Markdown.ToHtml(note.Note.Content, _markdownPipeline))
+                                        @if (note.IsExpanded && !string.IsNullOrEmpty(note.Note.Content))
+                                        {
+                                            @if (note.Note.Title.StartsWith("Neuer Code") || note.Note.Content.Contains("```"))
+                                            {
+                                                @((MarkupString)Markdown.ToHtml(note.Note.Content, _codePipeline))
+                                            }
+                                            else
+                                            {
+                                                @((MarkupString)Markdown.ToHtml(note.Note.Content, _markdownPipeline))
+                                            }
+                                        }
                                     </div>
                                 }
 
@@ -115,6 +127,7 @@
     private SubfolderModel? _subfolder;
     private List<NoteWithTodoModel> _notes = [];
     private MarkdownPipeline? _markdownPipeline;
+    private MarkdownPipeline? _codePipeline;
 
     protected override async Task OnParametersSetAsync()
     {
@@ -122,10 +135,15 @@
         await LoadNotesAsync();
     }
 
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         _markdownPipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+        _codePipeline = new MarkdownPipelineBuilder()
+            .UseAdvancedExtensions()
+            .UseSyntaxHighlighting()
+            .Build();
     }
 
     private async Task LoadSubfolderAsync()
