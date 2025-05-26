@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 
 @switch (IsAndroidPlatform)
 {
@@ -27,8 +29,9 @@
                             <ul class="menu-items">
                                 @foreach (var item in _navItems)
                                 {
-                                    <li class="menu-item" @onclick="@(() => Navigate(item.Value))">
-                                        @item.Key
+                                    <li class="menu-item" @onclick="@(() => Navigate(item.Url))">
+                                        <FluentIcon Value="@item.Icon" Color="Color.Neutral" />
+                                        <span>@item.Title</span>
                                     </li>
                                 }
                             </ul>
@@ -68,8 +71,10 @@
                 <ul class="desktop-menu-items">
                     @foreach (var item in _navItems)
                     {
-                        <li class="desktop-menu-item" @onclick="@(() => Navigate(item.Value))">
-                            @item.Key
+                        <li class="desktop-menu-item @(item.Url == _activeNavItem ? "active" : "")" 
+                            @onclick="@(() => Navigate(item.Url))">
+                            <FluentIcon Value="@item.Icon" Color="Color.Neutral" />
+                            <span>@item.Title</span>
                         </li>
                     }
                 </ul>
@@ -101,6 +106,7 @@
     private bool IsAndroidPlatform { get; set; }
     private bool IsMenuOpen { get; set; } = false;
     private bool IsAnimatingOut { get; set; } = false;
+    private string _activeNavItem = "/";
 
     private void ToggleMenu()
     {
@@ -123,16 +129,17 @@
 
     private async Task Navigate(string url)
     {
-        await CloseMenu(); // trigger close animation
+        _activeNavItem = url;
+        await CloseMenu();
         NavigationManager.NavigateTo(url);
     }
 
-    private readonly Dictionary<string, string> _navItems = new()
-    {
-        { "Home", "/" },
-        { "Settings", "/settings" },
-        { "Sync", "/sync" },
-    };
+    private readonly List<(string Title, string Url, Icon Icon)> _navItems =
+    [
+        ("Startseite", "/", new Icons.Regular.Size20.Home()),
+        ("Einstellungen", "/settings", new Icons.Regular.Size20.Settings()),
+        ("Synchronisation", "/sync", new Icons.Regular.Size20.Share())
+    ];
 
     protected override void OnInitialized()
     {
@@ -147,5 +154,5 @@
     {
         App.Current.MainPage.Navigation.PushAsync(new AboutOrmurView());
     }
-    
+
 }

@@ -1,8 +1,12 @@
 ﻿/* General styles */
-.menu-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
 }
 
 .menu-item {
@@ -10,10 +14,11 @@
     cursor: pointer;
     font-size: 16px;
     color: #333;
-}
 
-.menu-item:hover {
-    background-color: #f0f0f0;
+    &:hover {
+        background-color: var(--secondary-container);
+        border-radius: 20px;
+    }
 }
 
 .menu-help-icon:hover {
@@ -82,7 +87,7 @@
     flex-direction: column;
 }
 
-.android-menu-header{
+.android-menu-header {
     font-size: 30px;
     font-weight: bold;
     padding: 16px;
@@ -125,7 +130,7 @@
     flex-direction: row;
     align-items: center;
     margin-left: 2em;
-    
+
     & .navbar-logo {
         height: 3em;
         margin-right: 10px;
@@ -137,6 +142,34 @@
     display: flex;
     min-height: 100vh;
     background-color: var(--primary-container);
+}
+
+.desktop-menu-items {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2em;
+
+    &:hover {
+        border-radius: 20px;
+    }
+}
+
+.desktop-menu-item.active {
+    background-color: var(--secondary-container);
+    border-radius: 20px;
+    color: var(--on-secondary-container);
+}
+
+.desktop-menu-item.active::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background-color: var(--primary);
+    border-radius: 2px;
 }
 
 .navbar-desktop-container {
@@ -161,23 +194,26 @@
     margin-bottom: 20px;
 }
 
-.desktop-menu-items {
-    flex: 1;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.desktop-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--on-secondary-container);
 }
 
 .desktop-menu-item {
     padding: 12px 20px;
     cursor: pointer;
     font-size: 16px;
-    color: #333;
-    border-bottom: 1px solid #eee;
-}
+    color: var(--on-secondary-container);
 
-.desktop-menu-item:hover {
-    background-color: #f0f0f0;
+    &:hover {
+        background-color: var(--secondary-container);
+        border-radius: 20px;
+    }
 }
 
 .desktop-menu-help-container {
@@ -210,6 +246,7 @@
 }
 
 /* Animation styles */
+
 .menu-drawer-overlay {
     pointer-events: none;
     opacity: 0;

@@ -7,10 +7,12 @@
 <div class="app-container">
     <div class="sidebar">
         <div class="sidebar-header">
-            <h2>Notizen</h2>
+            <h2>
+                Notizen
+            </h2>
         </div>
         <nav class="sidebar-nav">
-            <button class="sidebar-item active" @onclick="DisplayAllFavorites">
+            <button class="sidebar-item @(!_showFavoritesOnly ? "active" : "")" @onclick="DisplayAllFavorites">
                 <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Notebook())"/>
                 <span>Alle Ordner</span>
             </button>
@@ -72,7 +74,8 @@
                             <div class="note-actions">
                                 <button class="icon-button" @onclick="() => ToggleMenu(folder.Folder.Id)"
                                         @onclick:stopPropagation="true">
-                                    <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.MoreVertical())"/>
+                                    <FluentIcon Color="Color.Neutral"
+                                                Value="@(new Icons.Regular.Size20.MoreVertical())"/>
                                 </button>
                             </div>
                         </div>
@@ -83,11 +86,12 @@
                                 @foreach (var subfolder in folder.Subfolders)
                                 {
                                     <div class="subfolder-item" @onclick="() => NavigateToSubfolder(subfolder)">
-                                        <FluentIcon Color="Color.Neutral"  Value="@(new Icons.Regular.Size20.Folder())"/>
+                                        <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Folder())"/>
                                         <span>@subfolder.Name</span>
                                         <button class="icon-button small" @onclick="() => DeleteSubfolder(subfolder.Id)"
                                                 @onclick:stopPropagation="true">
-                                            <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Delete())"/>
+                                            <FluentIcon Color="Color.Neutral"
+                                                        Value="@(new Icons.Regular.Size20.Delete())"/>
                                         </button>
                                     </div>
                                 }
@@ -100,13 +104,13 @@
         else
         {
             <div class="empty-state">
-               
+
             </div>
         }
     </div>
 
     <button class="fab" @onclick="ShowDialog">
-        <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size24.Add())" />
+        <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size24.Add())"/>
     </button>
 
     @if (_showDialog)
@@ -185,7 +189,8 @@
                                 <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Add())"/>
                                 <span>Neuer Unterordner hinfügen</span>
                             </button>
-                            <button class="modal-menu-item danger" @onclick="() => ShowDeleteConfirmation(folderObject.Id, folderObject.Name)">
+                            <button class="modal-menu-item danger"
+                                    @onclick="() => ShowDeleteConfirmation(folderObject.Id, folderObject.Name)">
                                 <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Delete())"/>
                                 <span>Ordner löschen</span>
                             </button>
@@ -323,13 +328,14 @@
     private int? _folderToDeleteId = null;
     private string _folderToDeleteName = string.Empty;
 
-    private async Task ShowDeleteConfirmation(int folderId, string folderName)
+    private Task ShowDeleteConfirmation(int folderId, string folderName)
     {
         _folderToDeleteId = folderId;
         _folderToDeleteName = folderName;
         _showDeleteConfirmation = true;
-        _activeMenuId = null; // Close the action menu
+        _activeMenuId = null;
         StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private void CancelDelete()
@@ -354,7 +360,6 @@
     {
         try
         {
-            // First delete all subfolders
             var subfolders = await Db.GetSubfoldersAsync(folderId);
             if (subfolders != null && subfolders.Any())
             {
@@ -363,7 +368,7 @@
                     await Db.DeleteSubfolderAsync(subfolder.Id);
                 }
             }
-        
+
             await Db.DeleteFolderAsync(folderId);
             await LoadAllFolders();
         }
@@ -377,13 +382,13 @@
     {
         await LoadAllFolders();
     }
-   
+
     private async Task OnSearchInput(ChangeEventArgs e)
     {
         _searchTerm = e.Value?.ToString() ?? string.Empty;
         await FilterFolders();
     }
-   
+
     private async Task LoadAllFolders()
     {
         _allFolders = await Db.GetFoldersAsync() ?? [];
@@ -399,7 +404,7 @@
     {
         folder.IsFavorite = !folder.IsFavorite;
         await Db.ToggleFavoriteAsync(folder.Id, folder.IsFavorite);
-        await LoadAllFolders(); // Reload all data
+        await LoadAllFolders();
     }
 
     private async Task DeleteSubfolder(int subfolderId)
@@ -462,11 +467,12 @@
         }
 
         _folders = foldersFromDb.Select(f => new FolderWithSubfolders
-        {
-            Folder = f,
-            Subfolders = [],
-            IsExpanded = false
-        }).ToList();
+            {
+                Folder = f,
+                Subfolders = [],
+                IsExpanded = false
+            }
+        ).ToList();
     }
 
     private async Task SaveFolderAsync()
@@ -479,16 +485,16 @@
             await LoadAllFolders();
         }
     }
-   
+
     private async Task FilterFolders()
     {
         var filtered = _allFolders.AsEnumerable();
-   
+
         if (_showFavoritesOnly)
         {
             filtered = filtered.Where(f => f.IsFavorite);
         }
-   
+
         if (!string.IsNullOrWhiteSpace(_searchTerm))
         {
             filtered = filtered.Where(f =>
@@ -506,6 +512,7 @@
                 IsExpanded = false
             });
         }
+
         StateHasChanged();
     }
 
@@ -518,7 +525,7 @@
     private async Task ToggleExpand(FolderWithSubfolders clickedFolder)
     {
         clickedFolder.IsExpanded = !clickedFolder.IsExpanded;
-    
+
         if (clickedFolder.IsExpanded && !clickedFolder.Subfolders.Any())
         {
             clickedFolder.Subfolders = await Db.GetSubfoldersAsync(clickedFolder.Folder.Id) ?? [];

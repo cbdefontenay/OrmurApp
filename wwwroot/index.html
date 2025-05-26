@@ -26,6 +26,7 @@
         element.innerHTML = html;
     };
 </script>
+
 <script>
     function setInnerHtml(element, html) {
         element.innerHTML = html;
@@ -45,10 +46,8 @@
 <!--Light - Dark mode setup-->
 <script>
     function applyTheme(theme) {
-        // Remove all theme classes first
         document.documentElement.classList.remove('default', 'purple', 'green', 'dark');
 
-        // Add the selected theme class
         document.documentElement.classList.add(theme);
 
         const isAndroid = /Android/i.test(navigator.userAgent);

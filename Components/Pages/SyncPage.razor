@@ -1,22 +1,21 @@
 ﻿@page "/sync"
-@layout GoBackLayout
 @inject SyncService SyncService
 @inject NavigationManager NavigationManager
 @implements IDisposable
 
 <div class="sync-container">
     <h3>Gerätesynchronisation</h3>
-    
+
     <div class="sync-instructions">
         <p><strong>So synchronisieren Sie:</strong></p>
         <ol>
-            <li>Stellen Sie sicher, dass beide Geräte im gleichen WLAN-Netzwerk sind</li>
-            <li>Starten Sie die Synchronisation auf einem Gerät</li>
-            <li>Geben Sie die IP-Adresse des anderen Geräts ein</li>
-            <li>Klicken Sie auf "Synchronisation starten"</li>
+            <li>Stellen Sie sicher, dass beide Geräte im gleichen WLAN-Netzwerk sind (Hotspot aktivieren).</li>
+            <li>Starten Sie die Synchronisation auf einem Gerät.</li>
+            <li>Geben Sie die IP-Adresse des anderen Geräts ein.</li>
+            <li>Klicken Sie auf "Synchronisation starten".</li>
         </ol>
     </div>
-    
+
     <div class="ip-display">
         <label>Ihre Geräte-IP:</label>
         <div class="ip-address">
@@ -36,13 +35,13 @@
     </div>
 
     <div class="sync-controls">
-        <input type="text" 
-               @bind="_remoteIp" 
+        <input type="text"
+               @bind="_remoteIp"
                placeholder="IP des anderen Geräts eingeben"
                class="ip-input"
-               inputmode="decimal" />
-               
-        <button @onclick="StartSync" 
+               inputmode="decimal"/>
+
+        <button @onclick="StartSync"
                 disabled="@_isSyncing"
                 class="sync-button @(_isSyncing ? "syncing" : "")">
             @if (_isSyncing)
@@ -84,14 +83,14 @@
     {
         _ipLoading = true;
         StateHasChanged();
-        
+
         for (var i = 0; i < 3; i++)
         {
             _localIp = SyncService.GetLocalIpAddress();
             if (!string.IsNullOrEmpty(_localIp)) break;
             await Task.Delay(500);
         }
-        
+
         _ipLoading = false;
         StateHasChanged();
     }
@@ -135,4 +134,5 @@
         _isError = isError;
         StateHasChanged();
     }
+
 }
