@@ -196,29 +196,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText =
-                "SELECT Id, Name, ParentFolderId, DateCreated FROM Subfolders WHERE ParentFolderId = @parentId ORDER BY DateCreated DESC";
-            command.Parameters.AddWithValue("@parentId", parentFolderId);
-
-            var subfolders = new List<SubfolderModel>();
-            await using var reader = await command.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                subfolders.Add(new SubfolderModel
-                    {
-                        Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        ParentFolderId = reader.GetInt32(2),
-                        DateCreated = DateTime.Parse(reader.GetString(3))
-                    }
-                );
-            }
-
-            return subfolders;
+            var getSubfolders = new SubFoldersMethods();
+            return await getSubfolders.GetSubfolders(parentFolderId, _dbPath);
         }
         finally
         {
@@ -233,33 +212,12 @@ public class SqliteConnector
         {
             await using var connection = new SqliteConnection($"Data Source={_dbPath}");
             await connection.OpenAsync();
-
-            // Start a transaction
             await using var transaction = await connection.BeginTransactionAsync();
 
             try
             {
-                // First delete all notes in this subfolder
-                var deleteTodosCmd = connection.CreateCommand();
-                deleteTodosCmd.CommandText = @"
-                DELETE FROM TodoItems 
-                WHERE NoteId IN (SELECT Id FROM Notes WHERE SubfolderId = @subfolderId)";
-                deleteTodosCmd.Parameters.AddWithValue("@subfolderId", id);
-                await deleteTodosCmd.ExecuteNonQueryAsync();
-
-                // Then delete all notes in this subfolder
-                var deleteNotesCmd = connection.CreateCommand();
-                deleteNotesCmd.CommandText = "DELETE FROM Notes WHERE SubfolderId = @subfolderId";
-                deleteNotesCmd.Parameters.AddWithValue("@subfolderId", id);
-                await deleteNotesCmd.ExecuteNonQueryAsync();
-
-                // Finally delete the subfolder itself
-                var deleteSubfolderCmd = connection.CreateCommand();
-                deleteSubfolderCmd.CommandText = "DELETE FROM Subfolders WHERE Id = @id";
-                deleteSubfolderCmd.Parameters.AddWithValue("@id", id);
-                await deleteSubfolderCmd.ExecuteNonQueryAsync();
-
-                await transaction.CommitAsync();
+                var deleteSubfolder = new SubFoldersMethods();
+                await deleteSubfolder.DeleteSubfolder(id, _dbPath);
             }
             catch
             {
@@ -278,26 +236,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = "SELECT Id, Name, ParentFolderId, DateCreated FROM Subfolders WHERE Id = @id";
-            command.Parameters.AddWithValue("@id", id);
-
-            await using var reader = await command.ExecuteReaderAsync();
-            if (await reader.ReadAsync())
-            {
-                return new SubfolderModel
-                {
-                    Id = reader.GetInt32(0),
-                    Name = reader.GetString(1),
-                    ParentFolderId = reader.GetInt32(2),
-                    DateCreated = DateTime.Parse(reader.GetString(3))
-                };
-            }
-
-            return null;
+            var getSubfolder = new SubFoldersMethods();
+            return await getSubfolder.GetSubfolder(id, _dbPath);
         }
         finally
         {
@@ -306,28 +246,13 @@ public class SqliteConnector
     }
 
     // Notes sqlite:
-    // Add these methods to your SqliteConnector class
     public async Task<int> AddNoteAsync(int subfolderId, string title, string content)
     {
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = @"
-            INSERT INTO Notes (SubfolderId, Title, Content, DateCreated, DateModified)
-            VALUES (@subfolderId, @title, @content, @dateCreated, @dateModified);
-            SELECT last_insert_rowid();";
-
-            command.Parameters.AddWithValue("@subfolderId", subfolderId);
-            command.Parameters.AddWithValue("@title", title);
-            command.Parameters.AddWithValue("@content", content);
-            command.Parameters.AddWithValue("@dateCreated", DateTime.UtcNow.ToString("o"));
-            command.Parameters.AddWithValue("@dateModified", DateTime.UtcNow.ToString("o"));
-
-            return Convert.ToInt32(await command.ExecuteScalarAsync());
+            var addNote = new NotesMethods();
+            return await addNote.AddNote(subfolderId, title, content, _dbPath);
         }
         finally
         {
@@ -340,23 +265,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = @"
-            UPDATE Notes
-            SET Title = @title,
-                Content = @content,
-                DateModified = @dateModified
-            WHERE Id = @noteId";
-
-            command.Parameters.AddWithValue("@noteId", noteId);
-            command.Parameters.AddWithValue("@title", title);
-            command.Parameters.AddWithValue("@content", content);
-            command.Parameters.AddWithValue("@dateModified", DateTime.UtcNow.ToString("o"));
-
-            await command.ExecuteNonQueryAsync();
+            var updateNote = new NotesMethods();
+            await updateNote.UpdateNote(noteId, title, content, _dbPath);
         }
         finally
         {
@@ -369,33 +279,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = @"
-            SELECT Id, Title, Content, DateCreated, DateModified
-            FROM Notes
-            WHERE SubfolderId = @subfolderId
-            ORDER BY DateModified DESC";
-
-            command.Parameters.AddWithValue("@subfolderId", subfolderId);
-
-            var notes = new List<NoteModel>();
-            await using var reader = await command.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                notes.Add(new NoteModel
-                {
-                    Id = reader.GetInt32(0),
-                    Title = reader.GetString(1),
-                    Content = reader.GetString(2),
-                    DateCreated = DateTime.Parse(reader.GetString(3)),
-                    DateModified = DateTime.Parse(reader.GetString(4))
-                });
-            }
-
-            return notes;
+            var getNotesBySubfolder = new NotesMethods();
+            return await getNotesBySubfolder.GetNotesBySubfolder(subfolderId, _dbPath);
         }
         finally
         {
@@ -408,27 +293,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = "SELECT Id, Title, Content, DateCreated, DateModified FROM Notes WHERE Id = @noteId";
-            command.Parameters.AddWithValue("@noteId", noteId);
-
-            await using var reader = await command.ExecuteReaderAsync();
-            if (await reader.ReadAsync())
-            {
-                return new NoteModel
-                {
-                    Id = reader.GetInt32(0),
-                    Title = reader.GetString(1),
-                    Content = reader.GetString(2),
-                    DateCreated = DateTime.Parse(reader.GetString(3)),
-                    DateModified = DateTime.Parse(reader.GetString(4))
-                };
-            }
-
-            return null;
+            var getNote = new NotesMethods();
+            return await getNote.GetNote(noteId, _dbPath);
         }
         finally
         {
@@ -441,14 +307,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM Notes WHERE Id = @noteId";
-            command.Parameters.AddWithValue("@noteId", noteId);
-
-            await command.ExecuteNonQueryAsync();
+            var deleteNote = new NotesMethods();
+            await deleteNote.DeleteNote(noteId, _dbPath);
         }
         finally
         {
@@ -461,20 +321,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = @"
-            INSERT INTO TodoItems (NoteId, Content, IsCompleted, Position)
-            VALUES (@noteId, @content, @isCompleted, @position)";
-
-            command.Parameters.AddWithValue("@noteId", noteId);
-            command.Parameters.AddWithValue("@content", content);
-            command.Parameters.AddWithValue("@isCompleted", false);
-            command.Parameters.AddWithValue("@position", position);
-
-            await command.ExecuteNonQueryAsync();
+            var addTodoItemInNote = new NoteTodoMethods();
+            await addTodoItemInNote.AddTodoItem(noteId, content, position, _dbPath);
         }
         finally
         {
@@ -487,15 +335,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync().ConfigureAwait(false);
-
-            var command = connection.CreateCommand();
-            command.CommandText = "UPDATE TodoItems SET IsCompleted = @isCompleted WHERE Id = @todoId";
-            command.Parameters.AddWithValue("@todoId", todoId);
-            command.Parameters.AddWithValue("@isCompleted", isCompleted);
-
-            await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+            var toggleTodoItem = new NoteTodoMethods();
+            await toggleTodoItem.ToggleTodoItem(todoId, isCompleted, _dbPath);
         }
         finally
         {
@@ -508,14 +349,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM TodoItems WHERE Id = @todoId";
-            command.Parameters.AddWithValue("@todoId", todoId);
-
-            await command.ExecuteNonQueryAsync();
+            var deleteTodoItem = new NoteTodoMethods();
+            await deleteTodoItem.DeleteTodoItem(todoId, _dbPath);
         }
         finally
         {
@@ -528,28 +363,8 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-
-            var command = connection.CreateCommand();
-            command.CommandText =
-                "SELECT Id, Content, IsCompleted, Position FROM TodoItems WHERE NoteId = @noteId ORDER BY Position";
-            command.Parameters.AddWithValue("@noteId", noteId);
-
-            var todos = new List<TodoItemModel>();
-            await using var reader = await command.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                todos.Add(new TodoItemModel
-                {
-                    Id = reader.GetInt32(0),
-                    Content = reader.GetString(1),
-                    IsCompleted = reader.GetBoolean(2),
-                    Position = reader.GetInt32(3)
-                });
-            }
-
-            return todos;
+            var getTodoItemsByNote = new NoteTodoMethods();
+            return await getTodoItemsByNote.GetTodoItemsByNote(noteId, _dbPath);
         }
         finally
         {
@@ -557,6 +372,13 @@ public class SqliteConnector
         }
     }
 
+    /// <summary>
+    /// Adds a new column to a specified table in the SQLite database if it does not already exist.
+    /// </summary>
+    /// <param name="connection">The SQLite connection to the database.</param>
+    /// <param name="tableName">The name of the table to which the column will be added.</param>
+    /// <param name="columnName">The name of the column to be added.</param>
+    /// <param name="columnDefinition">The definition of the column, including its data type and constraints.</param>
     private void AddColumnIfNotExists(SqliteConnection connection, string tableName, string columnName,
         string columnDefinition)
     {
@@ -568,11 +390,9 @@ public class SqliteConnector
         while (reader.Read())
         {
             var name = reader.GetString(1);
-            if (string.Equals(name, columnName, StringComparison.OrdinalIgnoreCase))
-            {
-                columnExists = true;
-                break;
-            }
+            if (!string.Equals(name, columnName, StringComparison.OrdinalIgnoreCase)) continue;
+            columnExists = true;
+            break;
         }
 
         switch (columnExists)
@@ -587,6 +407,18 @@ public class SqliteConnector
         }
     }
 
+    /// <summary>
+    /// Executes the SQLite "VACUUM" command to rebuild the database file, reducing its size by defragmenting
+    /// and reclaiming unused space.
+    /// </summary>
+    /// <remarks>
+    /// This method locks the database using a semaphore to ensure thread safety during the vacuum operation.
+    /// The "VACUUM" command creates a new compact database file and transfers all data into it, optimizing
+    /// performance and storage efficiency.
+    /// </remarks>
+    /// <returns>
+    /// A task representing the asynchronous operation of vacuuming the database.
+    /// </returns>
     public async Task VacuumDatabaseAsync()
     {
         await Semaphore.WaitAsync();
