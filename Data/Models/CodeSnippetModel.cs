@@ -1,10 +1,9 @@
 ﻿namespace Ormur.Data.Models;
 
-public class TodoItemModel
+public class CodeSnippetModel
 {
     public int Id { get; set; }
     public int NoteId { get; set; }
+    public string Language { get; set; } = string.Empty;
     public string Content { get; set; } = string.Empty;
-    public bool IsCompleted { get; set; }
-    public int Position { get; set; }
 }

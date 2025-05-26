@@ -1,4 +1,4 @@
-﻿namespace Ormur.Models;
+﻿namespace Ormur.Data.Models;
 
 public class NoteModel
 {

@@ -22,7 +22,7 @@ global using Microsoft.Maui.Controls.Shapes;
 global using Microsoft.Maui.Layouts;
 global using Ormur.Components.Layout;
 global using Ormur.Data;
-global using Ormur.Models;
+global using Ormur.Data.Models;
 global using Ormur.Services;
 global using Ormur.Views;
 global using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons;

@@ -1,5 +1,5 @@
-﻿@page "/markdown-editor/{SubfolderId:int}"
-@page "/markdown-editor/{SubfolderId:int}/{NoteId:int}"
+﻿@page "/code-editor/{SubfolderId:int}"
+@page "/code-editor/{SubfolderId:int}/{NoteId:int}"
 @inject SqliteConnector Db
 @layout GoBackLayout
 @inject NavigationManager Navigation
@@ -7,14 +7,16 @@
 @using CommunityToolkit.Maui.Alerts
 @using Markdig
 @using Microsoft.FluentUI.AspNetCore.Components
-@using Ormur.Data.Models
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+@using Markdig.SyntaxHighlighting
+@using ColorCode
+@using Ormur.Data.Models
 
 @if (_subfolder != null)
 {
     <div class="editor-container">
         <div class="editor-header">
-            <input class="title-input" @bind="_noteTitle" placeholder="Notiz Titel"/>
+            <input class="title-input" @bind="_noteTitle" placeholder="Code Snippet Title"/>
             <div class="header-actions">
                 <button class="save-button" @onclick="SaveNote" disabled="@_isSaving">
                     @if (_isSaving)
@@ -39,7 +41,7 @@
                 Vorschau
             </button>
             <button class="@(_activeTab == 2 ? "active" : "")" @onclick="() => SetActiveTab(2)">
-                Todos
+                Snippets
             </button>
         </div>
 
@@ -49,14 +51,13 @@
                 case 0:
                     <div class="editor-area">
                         <div class="toolbar">
-                            <span class="hint">Markdown Format (## Überschrift, *kursiv*, **fett**, ![image](...dein Url...))</span>
+                            <span class="hint">Markdown mit Code-Support (```language für Syntax-Highlighting)</span>
                         </div>
                         <textarea @bind="_markdownText"
                                   @bind:event="oninput"
-                                  placeholder="Was hast du im Kopf?"
-                                  class="editor-input"
+                                  placeholder="Schreibe deinen Code oder Dokumentation..."
+                                  class="editor-input code-input"
                                   id="editor-input">
-    
                         </textarea>
                     </div>
                     break;
@@ -66,8 +67,8 @@
                         @if (string.IsNullOrEmpty(_markdownText))
                         {
                             <div class="empty-state">
-                                <FluentIcon Value="@(new Icons.Regular.Size24.Edit())" Color="Color.Lightweight"/>
-                                <p>Schreibe etwas im Editor, um die Vorschau zu sehen</p>
+                                <FluentIcon Value="@(new Icons.Regular.Size24.Code())" Color="Color.Lightweight"/>
+                                <p>Schreibe Code oder Dokumentation im Editor, um die Vorschau zu sehen</p>
                             </div>
                         }
                         else
@@ -81,29 +82,35 @@
                 }
                 case 2:
                 {
-                    <div class="todo-management">
-                        <div class="todo-header">
-                            <h3>Todos</h3>
-                            <button class="add-todo-button" @onclick="ShowAddTodoDialog">
-                                <FluentIcon Value="@(new Icons.Regular.Size20.Add())" Color="Color.Lightweight"/>
-                                <span>Neues Todo</span>
-                            </button>
+                    <div class="snippet-management">
+                        <div class="snippet-header">
+                            <h3>Code Snippets</h3>
+                            <div class="language-selector">
+                                <select @bind="_selectedLanguage">
+                                    @foreach (var lang in _supportedLanguages)
+                                    {
+                                        <option value="@lang">@lang</option>
+                                    }
+                                </select>
+                                <button class="add-snippet-button" @onclick="ShowAddSnippetDialog">
+                                    <FluentIcon Value="@(new Icons.Regular.Size20.Add())" Color="Color.Lightweight"/>
+                                    <span>Snippet hinzufügen</span>
+                                </button>
+                            </div>
                         </div>
 
-                        @if (_todos.Any())
+                        @if (_snippets.Any())
                         {
-                            <div class="todo-list">
-                                @foreach (var todo in _todos.OrderBy(t => t.Position))
+                            <div class="snippet-list">
+                                @foreach (var snippet in _snippets.OrderBy(s => s.Language))
                                 {
-                                    <div class="todo-item">
-                                        <input type="checkbox"
-                                               checked="@todo.IsCompleted"
-                                               @onchange="(e) => ToggleTodo(todo, e.Value)"/>
-                                        <input class="todo-content"
-                                               @bind="todo.Content"
-                                               @onblur="() => UpdateTodo(todo)"
-                                               @onkeydown="(e) => HandleTodoKeyDown(e, todo)"/>
-                                        <button class="delete-todo" @onclick="() => DeleteTodo(todo)">
+                                    <div class="snippet-item">
+                                        <div class="snippet-language">@snippet.Language</div>
+                                        <div class="snippet-content">@snippet.Content</div>
+                                        <button class="insert-snippet" @onclick="() => InsertSnippet(snippet)">
+                                            <FluentIcon Value="@(new Icons.Regular.Size20.ArrowAutofitUp())"/>
+                                        </button>
+                                        <button class="delete-snippet" @onclick="() => DeleteSnippet(snippet)">
                                             <FluentIcon Value="@(new Icons.Regular.Size20.Delete())"/>
                                         </button>
                                     </div>
@@ -113,8 +120,8 @@
                         else
                         {
                             <div class="empty-state">
-                                <FluentIcon Value="@(new Icons.Regular.Size24.CheckboxChecked())"/>
-                                <p>Noch keine Todos</p>
+                                <FluentIcon Value="@(new Icons.Regular.Size24.CodeCircle())"/>
+                                <p>Noch keine Code-Snippets</p>
                             </div>
                         }
                     </div>
@@ -132,28 +139,36 @@ else
     </div>
 }
 
-@if (_showAddTodoDialog)
+@if (_showAddSnippetDialog)
 {
-    <div class="modal-backdrop" @onclick="CloseAddTodoDialog">
+    <div class="modal-backdrop" @onclick="CloseAddSnippetDialog">
         <div class="modal" @onclick:stopPropagation>
             <div class="modal-header">
-                <h3>Todo hinzufügen</h3>
-                <button class="icon-button" @onclick="CloseAddTodoDialog">
+                <h3>Code-Snippet hinzufügen</h3>
+                <button class="icon-button" @onclick="CloseAddSnippetDialog">
                     <FluentIcon Value="@(new Icons.Regular.Size20.Dismiss())"/>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="input-field">
-                    <input @bind="_newTodoContent"
-                           placeholder="Todo Beschreibung"
-                           @onkeyup="HandleTodoKeyUp"
-                           @ref="_todoInputRef"/>
+                    <select @bind="_selectedLanguage" class="language-select">
+                        @foreach (var lang in _supportedLanguages)
+                        {
+                            <option value="@lang">@lang</option>
+                        }
+                    </select>
+                </div>
+                <div class="input-field">
+                    <textarea @bind="_newSnippetContent"
+                           placeholder="Code einfügen..."
+                           @ref="_snippetInputRef"
+                           class="snippet-textarea"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="text-button" @onclick="CloseAddTodoDialog">Abbrechen</button>
-                <button class="text-button primary" @onclick="AddTodo"
-                        disabled="@string.IsNullOrWhiteSpace(_newTodoContent)">
+                <button class="text-button" @onclick="CloseAddSnippetDialog">Abbrechen</button>
+                <button class="text-button primary" @onclick="AddSnippet"
+                        disabled="@string.IsNullOrWhiteSpace(_newSnippetContent)">
                     Hinzufügen
                 </button>
             </div>
@@ -170,17 +185,26 @@ else
     private string _noteTitle = string.Empty;
     private MarkdownPipeline? _pipeline;
     private int _activeTab = 0;
-    private bool _showAddTodoDialog = false;
-    private string _newTodoContent = string.Empty;
+    private bool _showAddSnippetDialog = false;
+    private string _newSnippetContent = string.Empty;
+    private string _selectedLanguage = "csharp";
     private bool _isNewNote = true;
-    private ElementReference _todoInputRef;
-    private List<TodoItemModel> _todos = [];
+    private ElementReference _snippetInputRef;
+    private List<CodeSnippetModel> _snippets = [];
     private bool _isSaving = false;
+    
+    private readonly List<string> _supportedLanguages = new()
+    {
+        "csharp", "javascript", "typescript", "python", "java", 
+        "html", "css", "sql", "xml", "json", "bash", "powershell",
+        "php", "ruby", "go", "rust", "kotlin", "swift"
+    };
 
     protected override async Task OnInitializedAsync()
     {
         _pipeline = new MarkdownPipelineBuilder()
             .UseAdvancedExtensions()
+            .UseSyntaxHighlighting()
             .Build();
 
         await LoadSubfolderAsync();
@@ -190,13 +214,15 @@ else
             await LoadNoteAsync();
             _isNewNote = false;
         }
+        
+        _snippets = await Db.GetCodeSnippetsByNoteAsync(NoteId);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (_showAddTodoDialog)
+        if (_showAddSnippetDialog)
         {
-            await _todoInputRef.FocusAsync();
+            await _snippetInputRef.FocusAsync();
         }
     }
 
@@ -225,7 +251,6 @@ else
             {
                 _noteTitle = note.Title;
                 _markdownText = note.Content;
-                _todos = await Db.GetTodoItemsByNoteAsync(NoteId);
             }
         }
         catch (Exception ex)
@@ -239,106 +264,59 @@ else
         _activeTab = tabIndex;
     }
 
-    private void ShowAddTodoDialog()
+    private void ShowAddSnippetDialog()
     {
-        _showAddTodoDialog = true;
-        _newTodoContent = string.Empty;
+        _showAddSnippetDialog = true;
+        _newSnippetContent = string.Empty;
     }
 
-    private void CloseAddTodoDialog()
+    private void CloseAddSnippetDialog()
     {
-        _showAddTodoDialog = false;
+        _showAddSnippetDialog = false;
     }
 
-    private async Task AddTodo()
+    private async Task AddSnippet()
     {
-        if (string.IsNullOrWhiteSpace(_newTodoContent)) return;
+        if (string.IsNullOrWhiteSpace(_newSnippetContent)) return;
 
-        var newTodo = new TodoItemModel
+        var newSnippet = new CodeSnippetModel
         {
             NoteId = NoteId,
-            Content = _newTodoContent,
-            IsCompleted = false,
-            Position = _todos.Count + 1
+            Language = _selectedLanguage,
+            Content = _newSnippetContent
         };
 
         try
         {
-            await Db.AddTodoItemAsync(NoteId, _newTodoContent, _todos.Count + 1);
-            _todos.Add(newTodo);
-            _showAddTodoDialog = false;
+            await Db.AddCodeSnippetAsync(NoteId, _selectedLanguage, _newSnippetContent);
+            _snippets.Add(newSnippet);
+            _showAddSnippetDialog = false;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error adding todo: {ex.Message}");
+            Console.WriteLine($"Error adding snippet: {ex.Message}");
         }
     }
 
-    private async Task ToggleTodo(TodoItemModel todo, object isChecked)
-    {
-        var completed = isChecked as bool? ?? false;
-        todo.IsCompleted = completed;
-
-        try
-        {
-            await Task.Delay(1);
-
-            await Db.ToggleTodoItemAsync(todo.Id, completed);
-            StateHasChanged();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error toggling todo: {ex.Message}");
-            todo.IsCompleted = !completed;
-            StateHasChanged();
-        }
-    }
-
-    private async Task UpdateTodo(TodoItemModel todo)
+    private async Task DeleteSnippet(CodeSnippetModel snippet)
     {
         try
         {
-            await Db.DeleteTodoItemAsync(todo.Id);
-            await Db.AddTodoItemAsync(todo.NoteId, todo.Content, todo.Position);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error updating todo: {ex.Message}");
-        }
-    }
-
-    private async Task DeleteTodo(TodoItemModel todo)
-    {
-        try
-        {
-            await Db.DeleteTodoItemAsync(todo.Id);
-            _todos.Remove(todo);
+            await Db.DeleteCodeSnippetAsync(snippet.Id);
+            _snippets.Remove(snippet);
             await InvokeAsync(StateHasChanged);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error deleting todo: {ex.Message}");
+            Console.WriteLine($"Error deleting snippet: {ex.Message}");
         }
     }
 
-    private void HandleTodoKeyUp(KeyboardEventArgs e)
+    private void InsertSnippet(CodeSnippetModel snippet)
     {
-        if (e.Key == "Enter")
-        {
-            _ = AddTodo();
-        }
-    }
-
-    private void HandleTodoKeyDown(KeyboardEventArgs e, TodoItemModel todo)
-    {
-        switch (e.Key)
-        {
-            case "Enter":
-                _ = UpdateTodo(todo);
-                break;
-            case "Escape":
-                break;
-        }
+        var markdownSnippet = $"```{snippet.Language}\n{snippet.Content}\n```\n";
+        _markdownText += markdownSnippet;
+        _activeTab = 0; // Switch to editor tab
     }
 
     private async Task SaveNote()
@@ -359,9 +337,9 @@ else
             }
 
             await Task.Delay(300);
-            await Toast.Make("Wurde erfolgreich gespeichert", CommunityToolkit.Maui.Core.ToastDuration.Short, 20).Show();
+            await Toast.Make("Code erfolgreich gespeichert", ToastDuration.Short, 20).Show();
 
-            Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{NoteId}");
+            Navigation.NavigateTo($"/code-editor/{SubfolderId}/{NoteId}");
         }
         catch (Exception ex)
         {
@@ -373,5 +351,4 @@ else
             StateHasChanged();
         }
     }
-
 }

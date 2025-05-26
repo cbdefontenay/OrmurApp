@@ -2,6 +2,7 @@
 @inject SqliteConnector Db
 @inject NavigationManager Navigation
 @using Microsoft.FluentUI.AspNetCore.Components
+@using Ormur.Data.Models
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 @layout GoBackLayout
 
@@ -19,6 +20,10 @@
         <button class="create-note-button" @onclick="CreateNewNote">
             <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size20.Add())"/>
            <span>Neue Notiz</span>
+        </button>
+        <button class="create-note-button" @onclick="CreateNewCodeNote">
+            <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size20.Code())"/>
+           <span>Neue Code Notiz</span>
         </button>
     </div>
 
@@ -148,6 +153,26 @@
             var newNoteId = await Db.AddNoteAsync(_subfolder.Id, defaultTitle, defaultContent);
 
             Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{newNoteId}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating new note: {ex.Message}");
+        }
+    }
+
+    private async Task CreateNewCodeNote()
+    {
+        if (_subfolder == null)
+            return;
+
+        try
+        {
+            const string defaultTitle = "Neuer Code";
+            var defaultContent = string.Empty;
+
+            var newNoteId = await Db.AddNoteAsync(_subfolder.Id, defaultTitle, defaultContent);
+
+            Navigation.NavigateTo($"/code-editor/{SubfolderId}/{newNoteId}");
         }
         catch (Exception ex)
         {
