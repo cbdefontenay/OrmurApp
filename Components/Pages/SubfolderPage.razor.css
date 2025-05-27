@@ -161,6 +161,7 @@
 .accordion-content {
     padding: 16px;
     border-top: 1px solid var(--outline-variant);
+    user-select: text;
 }
 
 .note-content {

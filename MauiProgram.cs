@@ -16,6 +16,7 @@ public static class MauiProgram
 
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents();
+        builder.Services.AddLocalization();
         builder.Services.AddSingleton<SqliteConnector>();
         builder.Services.AddHostedService<DatabaseMaintenanceService>();
         builder.Services.AddSingleton<SyncService>();

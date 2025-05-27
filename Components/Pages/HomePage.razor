@@ -1,25 +1,27 @@
 ﻿@page "/"
 @inject SqliteConnector Db
 @inject NavigationManager Navigation
+@inject IStringLocalizer<Languages> Loc
 @using Microsoft.FluentUI.AspNetCore.Components
-@using Ormur.Data.Models
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 
 <div class="app-container">
     <div class="sidebar">
         <div class="sidebar-header">
             <h2>
-                Notizen
+                @Loc["HomeSideNavNotice"]
             </h2>
         </div>
         <nav class="sidebar-nav">
             <button class="sidebar-item @(!_showFavoritesOnly ? "active" : "")" @onclick="DisplayAllFavorites">
-                <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Notebook())"/>
-                <span>Alle Ordner</span>
+                <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                            Value="@(new Icons.Regular.Size20.Notebook())"/>
+                <span>@Loc["HomeSideNavAllFolders"]</span>
             </button>
             <button class="sidebar-item @(_showFavoritesOnly ? "active" : "")" @onclick="DisplayAllFavorites">
-                <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Star())"/>
-                <span>Favoriten</span>
+                <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                            Value="@(new Icons.Regular.Size20.Star())"/>
+                <span>@Loc["HomeSideNavFavourites"]</span>
             </button>
         </nav>
     </div>
@@ -28,7 +30,8 @@
         <div class="content-header">
             <h3>@(_showFavoritesOnly ? "Favoriten" : "Alle Ordner")</h3>
             <div class="search-box">
-                <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Search())"/>
+                <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                            Value="@(new Icons.Regular.Size20.Search())"/>
                 <input type="text"
                        placeholder="Ordner suchen..."
                        @bind="_searchTerm"
@@ -40,7 +43,8 @@
                 <div class="filter-options">
                     <button class="filter-button @(_showFavoritesOnly ? "active" : "")"
                             @onclick="ToggleFavoritesFilter">
-                        <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size16.Star())"/>
+                        <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                    Value="@(new Icons.Regular.Size16.StarEmphasis())"/>
                         <span>Favoriten</span>
                     </button>
                 </div>
@@ -55,27 +59,31 @@
                     <div class="note-card" @onclick="() => ToggleExpand(folder)">
                         <div class="note-card-header">
                             <button>
-                                <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size12.ArrowDown())"/>
+                                <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                            Value="@(new Icons.Regular.Size12.ArrowDown())"/>
                             </button>
-                            <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Folder())"/>
+                            <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                        Value="@(new Icons.Regular.Size20.Folder())"/>
                             <h3 class="folder-name">@folder.Folder.Name</h3>
 
                             <button class="icon-button" @onclick="() => ToggleFavorite(folder.Folder)"
                                     @onclick:stopPropagation="true" title="Toggle Favorite">
                                 @if (folder.Folder.IsFavorite)
                                 {
-                                    <FluentIcon Color="Color.Neutral" Value="@(new Icons.Filled.Size24.Save())"/>
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Filled.Size24.StarEmphasis())"/>
                                 }
                                 else
                                 {
-                                    <FluentIcon Color="Color.Neutral" Value="new Icons.Regular.Size20.Star()"/>
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="new Icons.Regular.Size20.Star()"/>
                                 }
                             </button>
 
                             <div class="note-actions">
                                 <button class="icon-button" @onclick="() => ToggleMenu(folder.Folder.Id)"
                                         @onclick:stopPropagation="true">
-                                    <FluentIcon Color="Color.Neutral"
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.MoreVertical())"/>
                                 </button>
                             </div>
@@ -87,11 +95,12 @@
                                 @foreach (var subfolder in folder.Subfolders)
                                 {
                                     <div class="subfolder-item" @onclick="() => NavigateToSubfolder(subfolder)">
-                                        <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Folder())"/>
+                                        <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                    Value="@(new Icons.Regular.Size20.Folder())"/>
                                         <span>@subfolder.Name</span>
                                         <button class="icon-button small" @onclick="() => DeleteSubfolder(subfolder.Id)"
                                                 @onclick:stopPropagation="true">
-                                            <FluentIcon Color="Color.Neutral"
+                                            <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                         Value="@(new Icons.Regular.Size20.Delete())"/>
                                         </button>
                                     </div>
@@ -119,14 +128,16 @@
         <div class="modal-backdrop" @onclick="CloseDialog">
             <div class="modal" @onclick:stopPropagation>
                 <div class="modal-header">
-                    <h3>Neuer Ordner</h3>
+                    <h3>@Loc["HomeNewFolderHeader"]</h3>
                     <button class="icon-button" @onclick="CloseDialog">
-                        <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Dismiss())"/>
+                        <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                    Value="@(new Icons.Regular.Size20.Dismiss())"/>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="input-field">
-                        <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Folder())"/>
+                        <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                    Value="@(new Icons.Regular.Size20.Folder())"/>
                         <input @bind="_newFolderName" placeholder="Name des Ordners" @onkeyup="HandleKeyUp"/>
                     </div>
                 </div>
@@ -147,12 +158,14 @@
                 <div class="modal-header">
                     <h3>Neuer Unterordner</h3>
                     <button class="icon-button" @onclick="CloseSubfolderDialog">
-                        <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Dismiss())"/>
+                        <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                    Value="@(new Icons.Regular.Size20.Dismiss())"/>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="input-field">
-                        <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Folder())"/>
+                        <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                    Value="@(new Icons.Regular.Size20.Folder())"/>
                         <input @bind="_newSubfolderName" placeholder="Name des Unterordners..."
                                @onkeyup="HandleSubfolderKeyUp"/>
                     </div>
@@ -181,18 +194,21 @@
                     <div class="modal-header">
                         <h3>Was möchtest du für @folderObject.Name machen?</h3>
                         <button class="icon-button" @onclick="CloseMenu">
-                            <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Dismiss())"/>
+                            <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                        Value="@(new Icons.Regular.Size20.Dismiss())"/>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="actions-menu-items-container">
                             <button class="modal-menu-item" @onclick="() => ShowSubfolderDialog(folderObject.Id)">
-                                <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Add())"/>
+                                <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                            Value="@(new Icons.Regular.Size20.Add())"/>
                                 <span>Neuer Unterordner hinfügen</span>
                             </button>
                             <button class="modal-menu-item danger"
                                     @onclick="() => ShowDeleteConfirmation(folderObject.Id, folderObject.Name)">
-                                <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Delete())"/>
+                                <FluentIcon Color="Color.Custom" CustomColor="var(--error)"
+                                            Value="@(new Icons.Regular.Size20.Delete())"/>
                                 <span>Ordner löschen</span>
                             </button>
                         </div>
@@ -213,21 +229,24 @@
     <div class="modal-backdrop" @onclick="CloseDialog">
         <div class="modal" @onclick:stopPropagation>
             <div class="modal-header">
-                <h3>Neuer Ordner</h3>
+                <h3>@Loc["HomeNewFolderHeader"]</h3>
                 <button class="icon-button" @onclick="CloseDialog">
-                    <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Dismiss())"/>
+                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                Value="@(new Icons.Regular.Size20.Dismiss())"/>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="input-field">
-                    <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Folder())"/>
-                    <input @bind="_newFolderName" placeholder="Name des Ordners..." @onkeyup="HandleKeyUp"/>
+                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                Value="@(new Icons.Regular.Size20.Folder())"/>
+                    <input @bind="_newFolderName" placeholder=@Loc["HomePlaceholder"] @onkeyup="HandleKeyUp"/>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="text-button" @onclick="CloseDialog">Abbrechen</button>
+                <button class="text-button" @onclick="CloseDialog">@Loc["HomeDismiss"]</button>
                 <button class="text-button primary" @onclick="SaveFolderAsync"
-                        disabled="@string.IsNullOrWhiteSpace(_newFolderName)">Kreieren
+                        disabled="@string.IsNullOrWhiteSpace(_newFolderName)">
+                    @Loc["HomeCreate"]
                 </button>
             </div>
         </div>
@@ -241,12 +260,14 @@
             <div class="modal-header">
                 <h3>Neuer Unterordner</h3>
                 <button class="icon-button" @onclick="CloseSubfolderDialog">
-                    <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Dismiss())"/>
+                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                Value="@(new Icons.Regular.Size20.Dismiss())"/>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="input-field">
-                    <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Folder())"/>
+                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                Value="@(new Icons.Regular.Size20.Folder())"/>
                     <input @bind="_newSubfolderName" placeholder="Name des Unterordners..."
                            @onkeyup="HandleSubfolderKeyUp"/>
                 </div>
@@ -292,22 +313,24 @@
     <div class="modal-backdrop" @onclick="CancelDelete">
         <div class="modal" @onclick:stopPropagation>
             <div class="modal-header">
-                <h3>Ordner löschen</h3>
+                <h3>@Loc["HomeDeleteFolder"]</h3>
                 <button class="icon-button" @onclick="CancelDelete">
-                    <FluentIcon Color="Color.Neutral" Value="@(new Icons.Regular.Size20.Dismiss())"/>
+                    <FluentIcon Color="Color.Custom" CustomColor="var(--error)"
+                                Value="@(new Icons.Regular.Size20.Dismiss())"/>
                 </button>
             </div>
             <div class="modal-body">
                 <p>Möchten Sie den Ordner "@_folderToDeleteName" wirklich löschen?</p>
                 <p class="warning-text">
-                    <FluentIcon Color="Color.Neutral" Value="@(new Icons.Filled.Size20.Warning())"/>
+                    <FluentIcon Color="Color.Custom" CustomColor="var(--error)"
+                                Value="@(new Icons.Filled.Size20.Warning())"/>
                     Dies wird auch alle Unterordner und Notizen in diesem Ordner löschen.
                 </p>
             </div>
             <div class="modal-footer">
-                <button class="text-button" @onclick="CancelDelete">Abbrechen</button>
+                <button class="text-button" @onclick="CancelDelete">@Loc["HomeDismiss"]</button>
                 <button class="text-button danger" @onclick="ConfirmDelete">
-                    Löschen
+                    @Loc["HomeDelete"]
                 </button>
             </div>
         </div>
@@ -361,14 +384,8 @@
     {
         try
         {
-            var subfolders = await Db.GetSubfoldersAsync(folderId);
-            if (subfolders != null && subfolders.Any())
-            {
-                foreach (var subfolder in subfolders)
-                {
-                    await Db.DeleteSubfolderAsync(subfolder.Id);
-                }
-            }
+            // Show loading indicator
+            await InvokeAsync(StateHasChanged);
 
             await Db.DeleteFolderAsync(folderId);
             await LoadAllFolders();
@@ -376,6 +393,12 @@
         catch (Exception ex)
         {
             Console.WriteLine($"Error deleting folder: {ex.Message}");
+            // Show error to user
+        }
+        finally
+        {
+            // Hide loading indicator
+            await InvokeAsync(StateHasChanged);
         }
     }
 

@@ -9,25 +9,25 @@
     top: 0;
     left: 0;
     box-sizing: border-box;
-    padding-top: 150px;
+    padding-top: 100px;
     padding-bottom: calc(56px + var(--keyboard-height));
 }
 
 /* Header styling */
 .editor-header {
-    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 16px;
+    padding: 8px 30px;
     background-color: var(--surface-container-high);
     border-bottom: 1px solid var(--outline-variant);
-    margin-top: 90px;
     z-index: 10;
     height: 55px;
+    border-radius: 20px;
+    margin: 0 2em;
 }
 
 .title-input {
@@ -37,7 +37,7 @@
     border: none;
     background: transparent;
     color: var(--on-surface);
-    padding: 12px 8px;
+    padding: 12px 15px;
     margin-right: 8px;
     border-radius: 4px;
     min-height: 48px;
@@ -64,6 +64,7 @@
     min-width: 80px;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 2em;
 }
 
 .save-button:active {
@@ -180,6 +181,7 @@
 
 /* Preview area */
 .preview-area {
+    user-select: text;
     flex: 1;
     padding: 16px;
     overflow: auto;
@@ -525,7 +527,7 @@ button, [role="button"] {
         font-size: 15px;
         padding: 12px;
     }
-    
+
     .editor-header {
         margin-top: 60px;
     }
@@ -575,18 +577,62 @@ button:focus:not(:active)::after {
 }
 
 @media (pointer: coarse) {
-    .editor-container {
-        height: auto;
-        min-height: 100vh;
-        padding-bottom: calc(56px + var(--keyboard-height));
+    .editor-header {
+        padding: 8px 12px; /* Reduced padding */
+        margin: 0; /* Remove any margins */
+        width: 100%; /* Full width */
+        box-sizing: border-box; /* Include padding in width calculation */
+        border-radius: 0; /* Remove rounded corners for Android */
     }
 
-    .tab-content {
-        padding-bottom: calc(56px + var(--keyboard-height));
+    .title-input {
+        padding: 8px 8px; /* Reduced padding */
+        margin-right: 4px; /* Reduced margin */
+        font-size: 1rem; /* Slightly smaller font */
     }
 
-    .editor-input {
-        font-size: 16px !important;
-        line-height: 1.6;
+    .save-button {
+        min-width: auto; /* Remove fixed width */
+        padding: 0 12px; /* Reduced padding */
+        margin-right: 0; /* Remove right margin */
     }
+
+    .save-button span {
+        display: none; /* Hide text on small screens */
+    }
+
+    .save-button fluent-icon {
+        margin-right: 0; /* Remove icon margin when text is hidden */
+    }
+}
+
+.formatting-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.formatting-buttons button {
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--on-surface-variant);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formatting-buttons button:hover {
+    background-color: var(--surface-container-high);
+}
+
+.formatting-buttons button:active {
+    transform: scale(0.95);
+}
+
+.formatting-buttons fluent-icon {
+    font-size: 20px;
 }

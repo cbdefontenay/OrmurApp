@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
+@inject IStringLocalizer<Languages> Loc
+@using Microsoft.Extensions.Localization
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 
@@ -30,7 +32,7 @@
                                 @foreach (var item in _navItems)
                                 {
                                     <li class="menu-item" @onclick="@(() => Navigate(item.Url))">
-                                        <FluentIcon Value="@item.Icon" Color="Color.Neutral" />
+                                        <FluentIcon Value="@item.Icon" Color="Color.Neutral"/>
                                         <span>@item.Title</span>
                                     </li>
                                 }
@@ -71,9 +73,9 @@
                 <ul class="desktop-menu-items">
                     @foreach (var item in _navItems)
                     {
-                        <li class="desktop-menu-item @(item.Url == _activeNavItem ? "active" : "")" 
+                        <li class="desktop-menu-item @(item.Url == _activeNavItem ? "active" : "")"
                             @onclick="@(() => Navigate(item.Url))">
-                            <FluentIcon Value="@item.Icon" Color="Color.Neutral" />
+                            <FluentIcon Value="@item.Icon" Color="Color.Neutral"/>
                             <span>@item.Title</span>
                         </li>
                     }
@@ -134,12 +136,7 @@
         NavigationManager.NavigateTo(url);
     }
 
-    private readonly List<(string Title, string Url, Icon Icon)> _navItems =
-    [
-        ("Startseite", "/", new Icons.Regular.Size20.Home()),
-        ("Einstellungen", "/settings", new Icons.Regular.Size20.Settings()),
-        ("Synchronisation", "/sync", new Icons.Regular.Size20.Share())
-    ];
+    private List<(string Title, string Url, Icon Icon)>? _navItems;
 
     protected override void OnInitialized()
     {
@@ -148,6 +145,12 @@
 #else
         IsAndroidPlatform = false;
 #endif
+        _navItems =
+        [
+            (Loc["NavHome"], "/", new Icons.Regular.Size20.Home()),
+            (Loc["NavSettings"], "/settings", new Icons.Regular.Size20.Settings()),
+            (Loc["NavSync"], "/sync", new Icons.Regular.Size20.Share())
+        ];
     }
 
     private static void OnHelpClicked()

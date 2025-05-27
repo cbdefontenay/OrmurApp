@@ -2,6 +2,7 @@
 @inject SqliteConnector Db
 @using Markdig
 @using Markdig.SyntaxHighlighting
+@using Markdown.ColorCode
 @inject NavigationManager Navigation
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Ormur.Data.Models
@@ -20,12 +21,8 @@
 
     <div class="notes-actions">
         <button class="create-note-button" @onclick="CreateNewNote">
-            <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size20.Add())"/>
+            <FluentIcon Color="Color.Custom" CustomColor="var(--on-primary)" Value="@(new Icons.Regular.Size20.Add())"/>
             <span>Neue Notiz</span>
-        </button>
-        <button class="create-note-button" @onclick="CreateNewCodeNote">
-            <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size20.Code())"/>
-            <span>Neue Code Notiz</span>
         </button>
     </div>
 
@@ -40,11 +37,11 @@
                             @switch (note.IsExpanded)
                             {
                                 case true:
-                                    <FluentIcon Color="Color.Neutral"
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.ChevronDown())"/>
                                     break;
                                 default:
-                                    <FluentIcon Color="Color.Neutral"
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.ChevronRight())"/>
                                     break;
                             }
@@ -52,9 +49,10 @@
                             <span class="note-date">@note.Note.DateModified.ToString("g")</span>
                         </div>
                         <div class="accordion-actions">
-                            <button class="icon-button" @onclick="async (e) => await DeleteNote(note.Note.Id)"
+                            <button class="icon-button" @onclick="async e => await DeleteNote(note.Note.Id)"
                                     @onclick:stopPropagation="true">
-                                <FluentIcon Value="@(new Icons.Regular.Size20.Delete())"/>
+                                <FluentIcon Color="Color.Custom" CustomColor="var(--error)"
+                                            Value="@(new Icons.Regular.Size20.Delete())"/>
                             </button>
                         </div>
                     </div>
@@ -88,12 +86,15 @@
                                             <div class="todo-item">
                                                 <input type="checkbox"
                                                        checked="@todo.IsCompleted"
-                                                       @onchange="(e) => ToggleTodo(todo, e.Value)"/>
+                                                       @onchange="e => ToggleTodo(todo, e.Value)"/>
                                                 <span
-                                                    class="@(todo.IsCompleted ? "completed" : "")">@todo.Content</span>
+                                                    class="@(todo.IsCompleted ? "completed" : "")">
+                                                    @todo.Content
+                                                </span>
                                                 <button class="delete-todo" @onclick="() => DeleteTodo(todo)"
                                                         @onclick:stopPropagation="true">
-                                                    <FluentIcon Value="@(new Icons.Regular.Size12.Dismiss())"/>
+                                                    <FluentIcon Color="Color.Custom" CustomColor="var(--error)"
+                                                                Value="@(new Icons.Regular.Size12.Dismiss())"/>
                                                 </button>
                                             </div>
                                         }
@@ -102,7 +103,8 @@
                             </div>
                             <div class="note-actions">
                                 <button class="edit-button" @onclick="() => EditNote(note.Note.Id)">
-                                    <FluentIcon Color="Color.Lightweight" Value="@(new Icons.Regular.Size20.Edit())"/>
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--on-primary)"
+                                                Value="@(new Icons.Regular.Size20.Edit())"/>
                                     <span>Bearbeiten</span>
                                 </button>
                             </div>
@@ -114,7 +116,8 @@
         else
         {
             <div class="empty-state">
-                <FluentIcon Value="@(new Icons.Regular.Size48.Note())"/>
+                <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                            Value="@(new Icons.Regular.Size48.Note())"/>
                 <h3>Noch keine Notizen</h3>
                 <p>Erstelle eine neue Notiz, um loszulegen</p>
             </div>
@@ -142,7 +145,7 @@
         _markdownPipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
         _codePipeline = new MarkdownPipelineBuilder()
             .UseAdvancedExtensions()
-            .UseSyntaxHighlighting()
+            .UseColorCode()
             .Build();
     }
 
@@ -171,26 +174,6 @@
             var newNoteId = await Db.AddNoteAsync(_subfolder.Id, defaultTitle, defaultContent);
 
             Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{newNoteId}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error creating new note: {ex.Message}");
-        }
-    }
-
-    private async Task CreateNewCodeNote()
-    {
-        if (_subfolder == null)
-            return;
-
-        try
-        {
-            const string defaultTitle = "Neuer Code";
-            var defaultContent = string.Empty;
-
-            var newNoteId = await Db.AddNoteAsync(_subfolder.Id, defaultTitle, defaultContent);
-
-            Navigation.NavigateTo($"/code-editor/{SubfolderId}/{newNoteId}");
         }
         catch (Exception ex)
         {

@@ -63,14 +63,6 @@ public class SqliteConnector
             IsCompleted BOOLEAN NOT NULL DEFAULT FALSE,
             Position INTEGER NOT NULL,
             FOREIGN KEY(NoteId) REFERENCES Notes(Id) ON DELETE CASCADE
-        );
-
-        CREATE TABLE IF NOT EXISTS CodeSnippets (
-            Id INTEGER PRIMARY KEY AUTOINCREMENT,
-            NoteId INTEGER NOT NULL,
-            Language TEXT NOT NULL,
-            Content TEXT NOT NULL,
-            FOREIGN KEY(NoteId) REFERENCES Notes(Id) ON DELETE CASCADE
         );";
         tableCmd.ExecuteNonQuery();
 
@@ -373,48 +365,6 @@ public class SqliteConnector
         {
             var getTodoItemsByNote = new NoteTodoMethods();
             return await getTodoItemsByNote.GetTodoItemsByNote(noteId, _dbPath);
-        }
-        finally
-        {
-            Semaphore.Release();
-        }
-    }
-
-    // Add to SqliteConnector class
-    private readonly CodeSnippetMethods _codeSnippetMethods = new();
-
-    public async Task<List<CodeSnippetModel>> GetCodeSnippetsByNoteAsync(int noteId)
-    {
-        await Semaphore.WaitAsync();
-        try
-        {
-            return await _codeSnippetMethods.GetCodeSnippetsByNoteAsync(noteId, _dbPath);
-        }
-        finally
-        {
-            Semaphore.Release();
-        }
-    }
-
-    public async Task<int> AddCodeSnippetAsync(int noteId, string language, string content)
-    {
-        await Semaphore.WaitAsync();
-        try
-        {
-            return await _codeSnippetMethods.AddCodeSnippetAsync(noteId, language, content, _dbPath);
-        }
-        finally
-        {
-            Semaphore.Release();
-        }
-    }
-
-    public async Task DeleteCodeSnippetAsync(int snippetId)
-    {
-        await Semaphore.WaitAsync();
-        try
-        {
-            await _codeSnippetMethods.DeleteCodeSnippetAsync(snippetId, _dbPath);
         }
         finally
         {

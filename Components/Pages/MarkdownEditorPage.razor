@@ -6,6 +6,7 @@
 @inject IJSRuntime Js
 @using CommunityToolkit.Maui.Alerts
 @using Markdig
+@using Markdown.ColorCode
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Ormur.Data.Models
 @using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
@@ -49,24 +50,66 @@
                 case 0:
                     <div class="editor-area">
                         <div class="toolbar">
-                            <span class="hint">Markdown Format (## Überschrift, *kursiv*, **fett**, ![image](...dein Url...))</span>
+                            <div class="formatting-buttons">
+                                <button @onclick="FormatBold" title="Bold">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.TextBold())"/>
+                                </button>
+                                <button @onclick="FormatItalic" title="Italic">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.TextItalic())"/>
+                                </button>
+                                <button @onclick="FormatList" title="List Item">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.List())"/>
+                                </button>
+                                <button @onclick="FormatNumberedList" title="Number list">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.TextNumberListLtr())"/>
+                                </button>
+                                <button @onclick="FormatNewLine" title="New Line">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.DocumentPageBreak())"/>
+                                </button>
+                                <button @onclick="FormatNewAccordion" title="Expander">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.TextExpand())"/>
+                                </button>
+                                <button @onclick="FormatBlockquote" title="Quote">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.TextQuote())"/>
+                                </button>
+                                <button @onclick="FormatLink" title="Link">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.Link())"/>
+                                </button>
+                                <button @onclick="FormatImage" title="Image">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.Image())"/>
+                                </button>
+                                <button @onclick="FormatCode" title="Code">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.Code())"/>
+                                </button>
+                            </div>
                         </div>
                         <textarea @bind="_markdownText"
                                   @bind:event="oninput"
                                   placeholder="Was hast du im Kopf?"
                                   class="editor-input"
                                   id="editor-input">
-    
                         </textarea>
                     </div>
                     break;
                 case 1:
                 {
                     <div class="preview-area">
+                        <h3>Vorschau:</h3>
                         @if (string.IsNullOrEmpty(_markdownText))
                         {
                             <div class="empty-state">
-                                <FluentIcon Value="@(new Icons.Regular.Size24.Edit())" Color="Color.Lightweight"/>
+                                <FluentIcon Value="@(new Icons.Regular.Size24.Edit())" Color="Color.Custom"
+                                            CustomColor="var(--primary)"/>
                                 <p>Schreibe etwas im Editor, um die Vorschau zu sehen</p>
                             </div>
                         }
@@ -85,7 +128,8 @@
                         <div class="todo-header">
                             <h3>Todos</h3>
                             <button class="add-todo-button" @onclick="ShowAddTodoDialog">
-                                <FluentIcon Value="@(new Icons.Regular.Size20.Add())" Color="Color.Lightweight"/>
+                                <FluentIcon Value="@(new Icons.Regular.Size20.Add())" Color="Color.Custom"
+                                            CustomColor="var(--on-primary)"/>
                                 <span>Neues Todo</span>
                             </button>
                         </div>
@@ -104,7 +148,8 @@
                                                @onblur="() => UpdateTodo(todo)"
                                                @onkeydown="(e) => HandleTodoKeyDown(e, todo)"/>
                                         <button class="delete-todo" @onclick="() => DeleteTodo(todo)">
-                                            <FluentIcon Value="@(new Icons.Regular.Size20.Delete())"/>
+                                            <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                        Value="@(new Icons.Regular.Size20.Delete())"/>
                                         </button>
                                     </div>
                                 }
@@ -177,10 +222,34 @@ else
     private List<TodoItemModel> _todos = [];
     private bool _isSaving = false;
 
+    private void FormatBold() => InsertMarkdown("**", "**");
+    private void FormatItalic() => InsertMarkdown("*", "*");
+    private void FormatNewLine() => InsertMarkdown("</br>", "");
+    private void FormatNewAccordion() => InsertMarkdown("<details>\n<summary>Title</summary>\n\n", "</details>");
+    private void FormatCode() => InsertMarkdown("```csharp\n", "```");
+    private void FormatList() => InsertMarkdown("- ", "");
+    private void FormatNumberedList() => InsertMarkdown("1. ", "");
+    private void FormatBlockquote() => InsertMarkdown("> ", "");
+    private void FormatLink() => InsertMarkdown("[", "](url)");
+    private void FormatImage() => InsertMarkdown("![", "](image-url)");
+
+    private void InsertMarkdown(string prefix, string suffix)
+    {
+        if (string.IsNullOrEmpty(_markdownText))
+        {
+            _markdownText = prefix + suffix;
+        }
+        else
+        {
+            _markdownText += $"{prefix}{suffix}";
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         _pipeline = new MarkdownPipelineBuilder()
             .UseAdvancedExtensions()
+            .UseColorCode()
             .Build();
 
         await LoadSubfolderAsync();
@@ -359,7 +428,7 @@ else
             }
 
             await Task.Delay(300);
-            await Toast.Make("Wurde erfolgreich gespeichert", CommunityToolkit.Maui.Core.ToastDuration.Short, 20).Show();
+            await Toast.Make("Wurde erfolgreich gespeichert", ToastDuration.Short, 10).Show();
 
             Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{NoteId}");
         }
@@ -372,6 +441,35 @@ else
             _isSaving = false;
             StateHasChanged();
         }
+    }
+
+    private void FormatText(string formatType)
+    {
+        var (prefix, suffix) = formatType switch
+        {
+            "bold" => ("**", "**"),
+            "italic" => ("*", "*"),
+            "code" => ("`", "`"),
+            "codeblock" => ("```\n", "\n```"),
+            "list" => ("- ", ""),
+            "numberedlist" => ("1. ", ""),
+            "blockquote" => ("> ", ""),
+            "link" => ("[", "](url)"),
+            "image" => ("![", "](image-url)"),
+            _ => ("", "")
+        };
+
+        if (string.IsNullOrEmpty(_markdownText))
+        {
+            _markdownText = prefix + suffix;
+        }
+        else
+        {
+            _markdownText += $"\n{prefix}{suffix}";
+        }
+
+        // In a real implementation, you'd want to focus the textarea here
+        // and position the cursor between the formatting marks
     }
 
 }

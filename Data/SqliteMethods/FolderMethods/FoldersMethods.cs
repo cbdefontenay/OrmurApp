@@ -61,58 +61,68 @@ public class FoldersMethods
     /// <returns>A task representing the asynchronous operation.</returns>
     public async Task DeleteFolder(int id, string dbPath)
     {
-        await using var connection = new SqliteConnection($"Data Source={dbPath}");
-        await connection.OpenAsync();
-
-        await using var transaction = await connection.BeginTransactionAsync();
-
+        await Semaphore.WaitAsync();
         try
         {
-            var subfoldersCmd = connection.CreateCommand();
-            subfoldersCmd.CommandText = "SELECT Id FROM Subfolders WHERE ParentFolderId = @folderId";
-            subfoldersCmd.Parameters.AddWithValue("@folderId", id);
+            await using var connection = new SqliteConnection($"Data Source={dbPath}");
+            await connection.OpenAsync();
 
-            var subfolderIds = new List<int>();
-            await using (var reader = await subfoldersCmd.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
-                {
-                    subfolderIds.Add(reader.GetInt32(0));
-                }
-            }
+            // Enable foreign keys if not already enabled
+            var fkCmd = connection.CreateCommand();
+            fkCmd.CommandText = "PRAGMA foreign_keys = ON;";
+            await fkCmd.ExecuteNonQueryAsync();
 
-            foreach (var subfolderId in subfolderIds)
+            // Use a single transaction for all operations
+            await using var transaction = await connection.BeginTransactionAsync();
+
+            try
             {
+                // First delete all TodoItems associated with notes in subfolders
                 var deleteTodosCmd = connection.CreateCommand();
                 deleteTodosCmd.CommandText = @"
-                    DELETE FROM TodoItems 
-                    WHERE NoteId IN (SELECT Id FROM Notes WHERE SubfolderId = @subfolderId)";
-                deleteTodosCmd.Parameters.AddWithValue("@subfolderId", subfolderId);
+                DELETE FROM TodoItems 
+                WHERE NoteId IN (
+                    SELECT n.Id FROM Notes n
+                    JOIN Subfolders s ON n.SubfolderId = s.Id
+                    WHERE s.ParentFolderId = @folderId
+                )";
+                deleteTodosCmd.Parameters.AddWithValue("@folderId", id);
                 await deleteTodosCmd.ExecuteNonQueryAsync();
 
+                // Then delete all Notes in subfolders
                 var deleteNotesCmd = connection.CreateCommand();
-                deleteNotesCmd.CommandText = "DELETE FROM Notes WHERE SubfolderId = @subfolderId";
-                deleteNotesCmd.Parameters.AddWithValue("@subfolderId", subfolderId);
+                deleteNotesCmd.CommandText = @"
+                DELETE FROM Notes 
+                WHERE SubfolderId IN (
+                    SELECT Id FROM Subfolders WHERE ParentFolderId = @folderId
+                )";
+                deleteNotesCmd.Parameters.AddWithValue("@folderId", id);
                 await deleteNotesCmd.ExecuteNonQueryAsync();
+
+                // Then delete all Subfolders
+                var deleteSubfoldersCmd = connection.CreateCommand();
+                deleteSubfoldersCmd.CommandText = "DELETE FROM Subfolders WHERE ParentFolderId = @folderId";
+                deleteSubfoldersCmd.Parameters.AddWithValue("@folderId", id);
+                await deleteSubfoldersCmd.ExecuteNonQueryAsync();
+
+                // Finally delete the folder itself
+                var deleteFolderCmd = connection.CreateCommand();
+                deleteFolderCmd.CommandText = "DELETE FROM Folders WHERE Id = @folderId";
+                deleteFolderCmd.Parameters.AddWithValue("@folderId", id);
+                await deleteFolderCmd.ExecuteNonQueryAsync();
+
+                await transaction.CommitAsync();
+                Interlocked.Increment(ref _deletionCount);
             }
-
-            var deleteSubfoldersCmd = connection.CreateCommand();
-            deleteSubfoldersCmd.CommandText = "DELETE FROM Subfolders WHERE ParentFolderId = @folderId";
-            deleteSubfoldersCmd.Parameters.AddWithValue("@folderId", id);
-            await deleteSubfoldersCmd.ExecuteNonQueryAsync();
-
-            var deleteFolderCmd = connection.CreateCommand();
-            deleteFolderCmd.CommandText = "DELETE FROM Folders WHERE Id = @folderId";
-            deleteFolderCmd.Parameters.AddWithValue("@folderId", id);
-            await deleteFolderCmd.ExecuteNonQueryAsync();
-
-            await transaction.CommitAsync();
-            Interlocked.Increment(ref _deletionCount);
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
-        catch
+        finally
         {
-            await transaction.RollbackAsync();
-            throw;
+            Semaphore.Release();
         }
     }
 

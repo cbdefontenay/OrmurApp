@@ -13,12 +13,12 @@
             <div class="current-theme-display">
                 <span>@GetCurrentThemeName()</span>
                 <span class="dropdown-icon">
-                    @(showThemeMenu ? "▲" : "▼")
+                    @(_showThemeMenu ? "▲" : "▼")
                 </span>
             </div>
         </div>
 
-        @if (showThemeMenu)
+        @if (_showThemeMenu)
         {
             <div class="theme-menu">
                 <div class="theme-option @GetActiveClass("default")" @onclick="SetDefaultTheme">
@@ -60,14 +60,23 @@
         }
     </div>
 
+    @* Popup to choose language *@
+    
+    
     <!-- Placeholder for future settings -->
     <div class="settings-section coming-soon">
         <div class="section-header">
-            <h4 class="section-title">Benachrichtigungen</h4>
-            <span class="coming-soon-text">Bald verfügbar</span>
+            <h4 class="section-title">Kultur:</h4>
+            <strong>Culture:</strong>
+            <select class="form-control" @bind="Culture" style="width:300px; margin-left:10px;">
+                @foreach (var culture in _cultures)
+                {
+                    <option value="@culture">@culture.DisplayName</option>
+                }
+            </select>
         </div>
     </div>
-
+    
     <div class="settings-section coming-soon">
         <div class="section-header">
             <h4 class="section-title">Datenschutz</h4>
@@ -77,7 +86,7 @@
 </div>
 
 @code {
-    private bool showThemeMenu = false;
+    private bool _showThemeMenu = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -102,7 +111,7 @@
 
     private void ToggleThemeMenu()
     {
-        showThemeMenu = !showThemeMenu;
+        _showThemeMenu = !_showThemeMenu;
     }
 
     private async Task SetDefaultTheme() => await SetTheme("default");
@@ -112,13 +121,35 @@
 
     private async Task SetTheme(string theme)
     {
-        showThemeMenu = false;
+        _showThemeMenu = false;
         await ThemeService.SetThemeAsync(theme);
     }
 
     public void Dispose()
     {
         ThemeService.OnThemeChanged -= StateHasChanged;
+    }
+
+    readonly CultureInfo[] _cultures =
+    [
+        new("de-DE"),
+        new("fr-FR")
+    ];
+
+    CultureInfo Culture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            if (CultureInfo.CurrentCulture != value)
+            {
+                Thread.CurrentThread.CurrentCulture = value;
+                Thread.CurrentThread.CurrentUICulture = value;
+                CultureInfo.DefaultThreadCurrentCulture = value;
+                CultureInfo.DefaultThreadCurrentUICulture = value;
+                Preferences.Set("language", value.Name);
+            }
+        }
     }
 
 }
