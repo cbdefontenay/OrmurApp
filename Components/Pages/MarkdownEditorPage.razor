@@ -93,7 +93,7 @@
                                 </button>
                             </div>
                         </div>
-                        <textarea @bind="_markdownText"
+                        <textarea @bind="MarkdownText"
                                   @bind:event="oninput"
                                   placeholder="Was hast du im Kopf?"
                                   class="editor-input"
@@ -105,7 +105,7 @@
                 {
                     <div class="preview-area">
                         <h3>Vorschau:</h3>
-                        @if (string.IsNullOrEmpty(_markdownText))
+                        @if (string.IsNullOrEmpty(MarkdownText))
                         {
                             <div class="empty-state">
                                 <FluentIcon Value="@(new Icons.Regular.Size24.Edit())" Color="Color.Custom"
@@ -116,7 +116,7 @@
                         else
                         {
                             <div class="rendered-content">
-                                @((MarkupString)Markdown.ToHtml(_markdownText, _pipeline))
+                                @((MarkupString)Markdown.ToHtml(MarkdownText, _pipeline))
                             </div>
                         }
                     </div>
@@ -211,7 +211,7 @@ else
     [Parameter] public int NoteId { get; set; }
 
     private SubfolderModel? _subfolder;
-    private string _markdownText = string.Empty;
+    private string? MarkdownText { get; set; }
     private string _noteTitle = string.Empty;
     private MarkdownPipeline? _pipeline;
     private int _activeTab = 0;
@@ -222,27 +222,21 @@ else
     private List<TodoItemModel> _todos = [];
     private bool _isSaving = false;
 
-    private void FormatBold() => InsertMarkdown("**", "**");
-    private void FormatItalic() => InsertMarkdown("*", "*");
-    private void FormatNewLine() => InsertMarkdown("</br>", "");
-    private void FormatNewAccordion() => InsertMarkdown("<details>\n<summary>Title</summary>\n\n", "</details>");
-    private void FormatCode() => InsertMarkdown("```csharp\n", "```");
-    private void FormatList() => InsertMarkdown("- ", "");
-    private void FormatNumberedList() => InsertMarkdown("1. ", "");
-    private void FormatBlockquote() => InsertMarkdown("> ", "");
-    private void FormatLink() => InsertMarkdown("[", "](url)");
-    private void FormatImage() => InsertMarkdown("![", "](image-url)");
+    private async Task FormatBold() => await InsertMarkdown("**", "**");
+    private async Task FormatItalic() => await InsertMarkdown("*", "*");
+    private async Task FormatNewLine() => await InsertMarkdown("</br>", "");
+    private async Task FormatNewAccordion() => await InsertMarkdown("<details>\n<summary>Title</summary>\n\n", "</details>");
+    private async Task FormatCode() => await InsertMarkdown("```csharp\n", "```");
+    private async Task FormatList() => await InsertMarkdown("- ", "");
+    private async Task FormatNumberedList() => await InsertMarkdown("1. ", "");
+    private async Task FormatBlockquote() => await InsertMarkdown("> ", "");
+    private async Task FormatLink() => await InsertMarkdown("[", "](url)");
+    private async Task FormatImage() => await InsertMarkdown("![", "](image-url)");
 
-    private void InsertMarkdown(string prefix, string suffix)
+    private async Task InsertMarkdown(string prefix, string suffix)
     {
-        if (string.IsNullOrEmpty(_markdownText))
-        {
-            _markdownText = prefix + suffix;
-        }
-        else
-        {
-            _markdownText += $"{prefix}{suffix}";
-        }
+        MarkdownText = await Js.InvokeAsync<string>("markdownEditorUtils.insertMarkdownAtCursor", "editor-input", prefix, suffix);
+        // StateHasChanged();
     }
 
     protected override async Task OnInitializedAsync()
@@ -293,7 +287,7 @@ else
             if (note != null)
             {
                 _noteTitle = note.Title;
-                _markdownText = note.Content;
+                MarkdownText = note.Content;
                 _todos = await Db.GetTodoItemsByNoteAsync(NoteId);
             }
         }
@@ -419,12 +413,12 @@ else
         {
             if (_isNewNote)
             {
-                NoteId = await Db.AddNoteAsync(_subfolder.Id, _noteTitle, _markdownText);
+                NoteId = await Db.AddNoteAsync(_subfolder.Id, _noteTitle, MarkdownText);
                 _isNewNote = false;
             }
             else
             {
-                await Db.UpdateNoteAsync(NoteId, _noteTitle, _markdownText);
+                await Db.UpdateNoteAsync(NoteId, _noteTitle, MarkdownText);
             }
 
             await Task.Delay(300);
@@ -459,17 +453,14 @@ else
             _ => ("", "")
         };
 
-        if (string.IsNullOrEmpty(_markdownText))
+        if (string.IsNullOrEmpty(MarkdownText))
         {
-            _markdownText = prefix + suffix;
+            MarkdownText = prefix + suffix;
         }
         else
         {
-            _markdownText += $"\n{prefix}{suffix}";
+            MarkdownText += $"\n{prefix}{suffix}";
         }
-
-        // In a real implementation, you'd want to focus the textarea here
-        // and position the cursor between the formatting marks
     }
 
 }
