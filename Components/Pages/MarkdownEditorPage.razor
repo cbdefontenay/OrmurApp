@@ -98,7 +98,6 @@
                 case 1:
                 {
                     <div class="preview-area">
-                        <h3>Vorschau:</h3>
                         @if (string.IsNullOrEmpty(MarkdownText))
                         {
                             <div class="empty-state">
@@ -152,7 +151,8 @@
                         else
                         {
                             <div class="empty-state">
-                                <FluentIcon Value="@(new Icons.Regular.Size24.CheckboxChecked())"/>
+                                <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                            Value="@(new Icons.Regular.Size24.CheckboxChecked())"/>
                                 <p>Noch keine Todos</p>
                             </div>
                         }
@@ -283,6 +283,7 @@ else
                 _noteTitle = note.Title;
                 MarkdownText = note.Content;
                 _todos = await Db.GetTodoItemsByNoteAsync(NoteId);
+                StateHasChanged(); // Force refresh
             }
         }
         catch (Exception ex)
@@ -333,21 +334,16 @@ else
 
     private async Task ToggleTodo(TodoItemModel todo, object isChecked)
     {
-        var completed = isChecked as bool? ?? false;
-        todo.IsCompleted = completed;
-
         try
         {
-            await Task.Delay(1);
-
+            var completed = isChecked as bool? ?? false;
             await Db.ToggleTodoItemAsync(todo.Id, completed);
-            StateHasChanged();
+            todo.IsCompleted = completed;
+            StateHasChanged(); 
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error toggling todo: {ex.Message}");
-            todo.IsCompleted = !completed;
-            StateHasChanged();
         }
     }
 
@@ -355,8 +351,8 @@ else
     {
         try
         {
-            await Db.DeleteTodoItemAsync(todo.Id);
-            await Db.AddTodoItemAsync(todo.NoteId, todo.Content, todo.Position);
+            await Db.UpdateTodoItemAsync(todo.Id, todo.Content, todo.IsCompleted, todo.Position);
+            StateHasChanged();
         }
         catch (Exception ex)
         {
@@ -428,32 +424,6 @@ else
         {
             _isSaving = false;
             StateHasChanged();
-        }
-    }
-
-    private void FormatText(string formatType)
-    {
-        var (prefix, suffix) = formatType switch
-        {
-            "bold" => ("**", "**"),
-            "italic" => ("*", "*"),
-            "code" => ("`", "`"),
-            "codeblock" => ("```\n", "\n```"),
-            "list" => ("- ", ""),
-            "numberedlist" => ("1. ", ""),
-            "blockquote" => ("> ", ""),
-            "link" => ("[", "](url)"),
-            "image" => ("![", "](image-url)"),
-            _ => ("", "")
-        };
-
-        if (string.IsNullOrEmpty(MarkdownText))
-        {
-            MarkdownText = prefix + suffix;
-        }
-        else
-        {
-            MarkdownText += $"\n{prefix}{suffix}";
         }
     }
 

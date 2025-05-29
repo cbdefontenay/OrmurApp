@@ -83,4 +83,25 @@ public class NoteTodoMethods
 
             return todos;
     }
+    
+    public async Task UpdateTodoItem(int todoId, string content, bool isCompleted, int position, string dbPath)
+    {
+        await using var connection = new SqliteConnection($"Data Source={dbPath}");
+        await connection.OpenAsync();
+
+        var command = connection.CreateCommand();
+        command.CommandText = @"
+        UPDATE TodoItems 
+        SET Content = @content, 
+            IsCompleted = @isCompleted, 
+            Position = @position 
+        WHERE Id = @todoId";
+    
+        command.Parameters.AddWithValue("@content", content);
+        command.Parameters.AddWithValue("@isCompleted", isCompleted);
+        command.Parameters.AddWithValue("@position", position);
+        command.Parameters.AddWithValue("@todoId", todoId);
+
+        await command.ExecuteNonQueryAsync();
+    }
 }

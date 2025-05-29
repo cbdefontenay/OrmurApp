@@ -357,6 +357,35 @@ public class SqliteConnector
             Semaphore.Release();
         }
     }
+    
+    public async Task UpdateTodoItemAsync(int todoId, string content, bool isCompleted, int position)
+    {
+        await Semaphore.WaitAsync();
+        try
+        {
+            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
+            await connection.OpenAsync();
+
+            var command = connection.CreateCommand();
+            command.CommandText = @"
+            UPDATE TodoItems 
+            SET Content = @content, 
+                IsCompleted = @isCompleted, 
+                Position = @position 
+            WHERE Id = @todoId";
+        
+            command.Parameters.AddWithValue("@content", content);
+            command.Parameters.AddWithValue("@isCompleted", isCompleted);
+            command.Parameters.AddWithValue("@position", position);
+            command.Parameters.AddWithValue("@todoId", todoId);
+
+            await command.ExecuteNonQueryAsync();
+        }
+        finally
+        {
+            Semaphore.Release();
+        }
+    }
 
     public async Task<List<TodoItemModel>> GetTodoItemsByNoteAsync(int noteId)
     {
