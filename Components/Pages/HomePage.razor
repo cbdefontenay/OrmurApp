@@ -2,8 +2,6 @@
 @inject SqliteConnector Db
 @inject NavigationManager Navigation
 @inject IStringLocalizer<Languages> Loc
-@using Microsoft.FluentUI.AspNetCore.Components
-@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
 
 <div class="app-container">
     <div class="sidebar">
@@ -114,7 +112,7 @@
         else
         {
             <div class="empty-state">
-
+                <NoFolderComponent CreateFolder="ShowDialog"/>
             </div>
         }
     </div>

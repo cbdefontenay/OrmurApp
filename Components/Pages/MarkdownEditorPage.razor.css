@@ -144,6 +144,9 @@
     flex-direction: column;
     padding: 16px;
     min-height: min-content;
+    background-color: var(--surface-container-highest);
+    margin: 1em;
+    border-radius: 20px;
 }
 
 .toolbar {

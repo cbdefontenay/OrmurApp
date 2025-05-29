@@ -1,0 +1,23 @@
+﻿<div class="empty-state-wrapper">
+    <div class="empty-state-content">
+        <div class="empty-state-icon">
+            <FluentIcon Color="Color.Custom" 
+                        CustomColor="var(--primary)"
+                        Value="@(new Icons.Filled.Size48.DocumentFolder())"/>
+        </div>
+        <h2 class="empty-state-title">
+            Du hast noch keine Ordner erstellt
+        </h2>
+        <p class="empty-state-description">
+            Erstelle deinen ersten Ordner, um deine Notizen zu organisieren.
+        </p>
+        <button class="empty-state-action" @onclick="CreateFolder">
+            Ordner erstellen
+        </button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback CreateFolder { get; set; }
+}
