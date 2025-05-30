@@ -1,0 +1,56 @@
+﻿@* ImportToTxt.razor *@
+@inject IJSRuntime Js
+
+<button class="export-button" @onclick="ExportAsTxt">
+    <FluentIcon Value="@(new Icons.Regular.Size20.ArrowDownload())"
+                Color="Color.Custom"
+                CustomColor="var(--on-primary)"/>
+    <span>Export als TXT</span>
+</button>
+
+@code {
+    [Parameter] public string? MarkdownText { get; set; }
+    [Parameter] public string? NoteTitle { get; set; }
+    [Parameter] public MarkdownPipeline? Pipeline { get; set; }
+
+    private async Task ExportAsTxt()
+    {
+        if (string.IsNullOrWhiteSpace(MarkdownText))
+        {
+            await Toast.Make("Kein Text zum Exportieren vorhanden", ToastDuration.Short, 10).Show();
+            return;
+        }
+
+        var plainText = ConvertMarkdownToPlainText(MarkdownText);
+        var filename = $"{NoteTitle ?? "untitled"}.txt";
+        await Js.InvokeVoidAsync("markdownEditorUtils.exportAsTxt", filename, plainText);
+        await Toast.Make("Text erfolgreich exportiert", ToastDuration.Short, 10).Show();
+    }
+
+    private string ConvertMarkdownToPlainText(string markdown)
+    {
+        if (string.IsNullOrEmpty(markdown))
+            return string.Empty;
+
+        // Convert line breaks first
+        markdown = markdown.Replace("\n", "  \n");
+
+        // Render to HTML
+        var html = Markdown.ToHtml(markdown, Pipeline);
+
+        // Preserve line breaks
+        html = html.Replace("<br>", "\n")
+            .Replace("<br />", "\n")
+            .Replace("<p>", "\n\n")
+            .Replace("</p>", "\n\n");
+
+        // Remove other HTML tags
+        return WebUtility.HtmlDecode(
+            System.Text.RegularExpressions.Regex.Replace(
+                html,
+                "<[^>]*(>|$)",
+                string.Empty
+            )
+        ).Trim();
+    }
+}

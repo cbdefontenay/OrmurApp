@@ -12,6 +12,7 @@ global using CommunityToolkit.Maui.Behaviors;
 global using CommunityToolkit.Maui.Core;
 global using CommunityToolkit.Maui.Core.Platform;
 global using CommunityToolkit.Maui.Markup;
+global using CommunityToolkit.Maui.Views;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using Markdig;

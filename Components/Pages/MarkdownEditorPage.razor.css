@@ -30,6 +30,12 @@
     margin: 0 2em;
 }
 
+.header-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
 .title-input {
     flex: 1;
     font-size: 1.1rem;
@@ -259,7 +265,25 @@
     padding: 0;
 }
 
-/* Todo management */
+/* Targets all tables in rendered Markdown */
+.rendered-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    border: 1px solid var(--secondary-container);
+}
+
+.rendered-content th,
+.rendered-content td {
+    border: 1px solid var(--secondary-container);
+    padding: 8px;
+}
+
+.rendered-content th {
+    background-color: var(--tertiary);
+    font-weight: bold;
+}
+
 .todo-management {
     flex: 1;
     display: flex;

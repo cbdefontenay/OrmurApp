@@ -11,6 +11,9 @@
         <div class="editor-header">
             <input class="title-input" @bind="_noteTitle" placeholder="Notiz Titel"/>
             <div class="header-actions">
+                <ExportToTxtComponent MarkdownText="@MarkdownText"
+                                      NoteTitle="@_noteTitle"
+                                      Pipeline="@_pipeline"/>
                 <button class="save-button" @onclick="SaveNote" disabled="@_isSaving">
                     @if (_isSaving)
                     {
@@ -69,9 +72,21 @@
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TextExpand())"/>
                                 </button>
+                                <button @onclick="FormatTables" title="Tables">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.TableAdd())"/>
+                                </button>
                                 <button @onclick="FormatBlockquote" title="Quote">
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TextQuote())"/>
+                                </button>
+                                <button @onclick="FormatLineThrough" title="Gestriechelt">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.TextStrikethrough())"/>
+                                </button>
+                                <button @onclick="FormatTaskList" title="Todo">
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.TaskListAdd())"/>
                                 </button>
                                 <button @onclick="FormatLink" title="Link">
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
@@ -108,8 +123,9 @@
                         }
                         else
                         {
+                            var html = ProcessHtmlContent(Markdown.ToHtml(MarkdownText, _pipeline));
                             <div class="rendered-content">
-                                @((MarkupString)Markdown.ToHtml(MarkdownText, _pipeline))
+                                @((MarkupString)html)
                             </div>
                         }
                     </div>
@@ -219,11 +235,14 @@ else
     private async Task FormatBold() => await InsertMarkdown("**", "**");
     private async Task FormatItalic() => await InsertMarkdown("*", "*");
     private async Task FormatNewLine() => await InsertMarkdown("</br>", "");
-    private async Task FormatNewAccordion() => await InsertMarkdown("<details>\n<summary>Title</summary>\n\n", "</details>");
-    private async Task FormatCode() => await InsertMarkdown("```csharp\n", "```");
+    private async Task FormatLineThrough() => await InsertMarkdown("~~", "~~");
+    private async Task FormatTaskList() => await InsertMarkdown("- [ ]", " Title");
+    private async Task FormatNewAccordion() => await InsertMarkdown("<details>\n<summary>Title</summary>\n\n", "\n</details>");
+    private async Task FormatCode() => await InsertMarkdown("```\n", "```");
     private async Task FormatList() => await InsertMarkdown("- ", "");
     private async Task FormatNumberedList() => await InsertMarkdown("1. ", "");
     private async Task FormatBlockquote() => await InsertMarkdown("> ", "");
+    private async Task FormatTables() => await InsertMarkdown("| Syntax | Description |\n| --- | ----------- |\n| Header | Title |\n| Paragraph | Text | ", "");
     private async Task FormatLink() => await InsertMarkdown("[", "](url)");
     private async Task FormatImage() => await InsertMarkdown("![", "](image-url)");
 
@@ -237,7 +256,8 @@ else
     {
         _pipeline = new MarkdownPipelineBuilder()
             .UseAdvancedExtensions()
-            .UseColorCode()
+            .UsePipeTables()
+            .UseGridTables()
             .Build();
 
         await LoadSubfolderAsync();
@@ -339,7 +359,7 @@ else
             var completed = isChecked as bool? ?? false;
             await Db.ToggleTodoItemAsync(todo.Id, completed);
             todo.IsCompleted = completed;
-            StateHasChanged(); 
+            StateHasChanged();
         }
         catch (Exception ex)
         {
@@ -374,23 +394,19 @@ else
         }
     }
 
-    private void HandleTodoKeyUp(KeyboardEventArgs e)
+    private async Task HandleTodoKeyDown(KeyboardEventArgs e, TodoItemModel todo)
     {
         if (e.Key == "Enter")
         {
-            _ = AddTodo();
+            await UpdateTodo(todo);
         }
     }
 
-    private void HandleTodoKeyDown(KeyboardEventArgs e, TodoItemModel todo)
+    private async Task HandleTodoKeyUp(KeyboardEventArgs e)
     {
-        switch (e.Key)
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(_newTodoContent))
         {
-            case "Enter":
-                _ = UpdateTodo(todo);
-                break;
-            case "Escape":
-                break;
+            await AddTodo();
         }
     }
 
@@ -425,6 +441,91 @@ else
             _isSaving = false;
             StateHasChanged();
         }
+    }
+
+    private string ProcessHtmlContent(string html)
+    {
+        // Apply table styling
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<table(.*?)>",
+            "<table$1 style='border-collapse: collapse; width: 100%; margin: 1em 0; border: 1px solid #000000;'>",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
+
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<(th|td)(.*?)>",
+            "<$1$2 style='border: 1px solid #000000; padding: 8px;'>",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
+
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<th(.*?)>",
+            "<th$1 style='border: 1px solid #ddd; padding: 8px; background-color: #f2f2f2; font-weight: bold;'>",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
+
+        // Apply code block styling
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<pre><code(.*?)>",
+            @"<pre style='background-color: #2d2d2d; border-radius: 4px; margin: 1em 0;'><code$1 style='color: #f8f8f2; display: block; padding: 1em; overflow-x: auto; font-family: Consolas, Monaco, 'Andale Mono', monospace;'>",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
+
+        // Apply inline code styling
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<code(?!.*?pre)(.*?)>",
+            @"<code$1 style='background-color: #2d2d2d; color: #f8f8f2; padding: 0.2em 0.4em; border-radius: 3px; font-family: Consolas, Monaco, 'Andale Mono', monospace;'>",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
+
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<blockquote(.*?)>",
+            @"<blockquote$1 style='
+            border-left: 4px solid #ccc;
+            margin: 1em 0;
+            padding: 0.5em 1em;
+            background-color: var(--on-primary);
+            border-radius: 15px;
+            color: #555;
+            font-style: italic;
+            position: relative;
+        '>",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
+
+        // Add quote symbol before blockquotes
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<blockquote(.*?)>",
+            @"<blockquote$1><span style='
+            content: ""\201C"";
+            font-size: 3em;
+            color: #ccc;
+            position: absolute;
+            left: 10px;
+            top: -10px;
+        '></span>",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
+
+        // Style the paragraph inside blockquotes
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<blockquote(.*?)><p>",
+            @"<blockquote$1><p style='
+            margin: 0.5em 0;
+            padding-left: 2em;
+        '>",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase
+        );
+
+        return html;
     }
 
 }
