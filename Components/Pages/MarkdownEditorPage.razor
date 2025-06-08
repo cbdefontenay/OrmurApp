@@ -240,7 +240,44 @@ else
     private async Task FormatNewAccordion() => await InsertMarkdown("<details>\n<summary>Title</summary>\n\n", "\n</details>");
     private async Task FormatCode() => await InsertMarkdown("```\n", "```");
     private async Task FormatList() => await InsertMarkdown("- ", "");
-    private async Task FormatNumberedList() => await InsertMarkdown("1. ", "");
+
+    private async Task FormatNumberedList()
+    {
+        // First insert the basic numbered list format
+        MarkdownText = await Js.InvokeAsync<string>("markdownEditorUtils.insertMarkdownAtCursor", "editor-input", "1. ", "");
+
+        // Then set up the event handler for Enter key
+        await Js.InvokeVoidAsync("eval",
+            @"document.getElementById('editor-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                // Get current line
+                const textarea = e.target;
+                const startPos = textarea.selectionStart;
+                const value = textarea.value;
+                let lineStart = value.lastIndexOf('\n', startPos - 1) + 1;
+                let lineEnd = value.indexOf('\n', startPos);
+                if (lineEnd === -1) lineEnd = value.length;
+                const currentLine = value.substring(lineStart, lineEnd);
+                
+                // Check if it's a numbered list item
+                const match = currentLine.match(/^(\s*)(\d+)\.\s/);
+                if (match) {
+                    e.preventDefault();
+                    const spaces = match[1];
+                    const num = parseInt(match[2]);
+                    const newLine = '\n' + spaces + (num + 1) + '. ';
+                    const before = value.substring(0, startPos);
+                    const after = value.substring(startPos);
+                    textarea.value = before + newLine + after;
+                    
+                    // Set cursor position
+                    const newCursorPos = startPos + newLine.length;
+                    textarea.setSelectionRange(newCursorPos, newCursorPos);
+                }
+            }
+        });");
+    }
+
     private async Task FormatBlockquote() => await InsertMarkdown("> ", "");
     private async Task FormatTables() => await InsertMarkdown("| Syntax | Description |\n| --- | ----------- |\n| Header | Title |\n| Paragraph | Text | ", "");
     private async Task FormatLink() => await InsertMarkdown("[", "](url)");
