@@ -258,7 +258,7 @@ else
                 let lineEnd = value.indexOf('\n', startPos);
                 if (lineEnd === -1) lineEnd = value.length;
                 const currentLine = value.substring(lineStart, lineEnd);
-                
+               
                 // Check if it's a numbered list item
                 const match = currentLine.match(/^(\s*)(\d+)\.\s/);
                 if (match) {
@@ -269,7 +269,7 @@ else
                     const before = value.substring(0, startPos);
                     const after = value.substring(startPos);
                     textarea.value = before + newLine + after;
-                    
+                   
                     // Set cursor position
                     const newCursorPos = startPos + newLine.length;
                     textarea.setSelectionRange(newCursorPos, newCursorPos);
@@ -458,16 +458,17 @@ else
             {
                 NoteId = await Db.AddNoteAsync(_subfolder.Id, _noteTitle, MarkdownText);
                 _isNewNote = false;
+                // Only navigate if it's a new note
+                Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{NoteId}");
             }
             else
             {
                 await Db.UpdateNoteAsync(NoteId, _noteTitle, MarkdownText);
+                // Don't navigate if it's an existing note
             }
 
             await Task.Delay(300);
             await Toast.Make("Wurde erfolgreich gespeichert", ToastDuration.Short, 10).Show();
-
-            Navigation.NavigateTo($"/markdown-editor/{SubfolderId}/{NoteId}");
         }
         catch (Exception ex)
         {

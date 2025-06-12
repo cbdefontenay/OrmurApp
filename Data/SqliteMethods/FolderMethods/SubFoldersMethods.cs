@@ -52,38 +52,45 @@ public class SubFoldersMethods
     /// <returns>A task representing the asynchronous delete operation.</returns>
     public async Task DeleteSubfolder(int id, string dbPath)
     {
-        await using var connection = new SqliteConnection($"Data Source={dbPath}");
-        await connection.OpenAsync();
+        using var cts = new CancellationTokenSource();
+        cts.CancelAfter(TimeSpan.FromSeconds(10));
 
-        await using var transaction = await connection.BeginTransactionAsync();
+        await using var connection = new SqliteConnection($"Data Source={dbPath}");
+        await connection.OpenAsync(cts.Token);
+
+        // Enable foreign key support
+        var fkCmd = connection.CreateCommand();
+        fkCmd.CommandText = "PRAGMA foreign_keys = ON;";
+        await fkCmd.ExecuteNonQueryAsync(cts.Token);
+
+        await using var transaction = await connection.BeginTransactionAsync(cts.Token);
 
         try
         {
-            // First delete all notes in this subfolder
+            // First delete todos (let foreign keys handle the rest)
             var deleteTodosCmd = connection.CreateCommand();
             deleteTodosCmd.CommandText = @"
-                DELETE FROM TodoItems 
-                WHERE NoteId IN (SELECT Id FROM Notes WHERE SubfolderId = @subfolderId)";
+            DELETE FROM TodoItems 
+            WHERE NoteId IN (SELECT Id FROM Notes WHERE SubfolderId = @subfolderId)";
             deleteTodosCmd.Parameters.AddWithValue("@subfolderId", id);
-            await deleteTodosCmd.ExecuteNonQueryAsync();
+            await deleteTodosCmd.ExecuteNonQueryAsync(cts.Token);
 
-            // Then delete all notes in this subfolder
-            var deleteNotesCmd = connection.CreateCommand();
-            deleteNotesCmd.CommandText = "DELETE FROM Notes WHERE SubfolderId = @subfolderId";
-            deleteNotesCmd.Parameters.AddWithValue("@subfolderId", id);
-            await deleteNotesCmd.ExecuteNonQueryAsync();
-
-            // Finally delete the subfolder itself
+            // Then delete the subfolder (cascade will handle notes)
             var deleteSubfolderCmd = connection.CreateCommand();
             deleteSubfolderCmd.CommandText = "DELETE FROM Subfolders WHERE Id = @id";
             deleteSubfolderCmd.Parameters.AddWithValue("@id", id);
-            await deleteSubfolderCmd.ExecuteNonQueryAsync();
+            await deleteSubfolderCmd.ExecuteNonQueryAsync(cts.Token);
 
-            await transaction.CommitAsync();
+            await transaction.CommitAsync(cts.Token);
         }
-        catch
+        catch (OperationCanceledException)
         {
-            await transaction.RollbackAsync();
+            try { await transaction.RollbackAsync(cts.Token); } catch { /* Ignore */ }
+            throw new TimeoutException("Subfolder deletion timed out");
+        }
+        catch (Exception)
+        {
+            try { await transaction.RollbackAsync(cts.Token); } catch { /* Ignore */ }
             throw;
         }
     }

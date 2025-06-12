@@ -199,19 +199,58 @@
 }
 
 /* Syntax highlighting colors */
-.note-content-rendered .keyword { color: #ff7b72; }
-.note-content-rendered .string { color: #a5d6ff; }
-.note-content-rendered .comment { color: #8b949e; font-style: italic; }
-.note-content-rendered .type { color: #79c0ff; }
-.note-content-rendered .literal { color: #ffa657; }
-.note-content-rendered .punctuation { color: #d2a8ff; }
-.note-content-rendered .operator { color: #ff7b72; }
-.note-content-rendered .number { color: #79c0ff; }
-.note-content-rendered .function { color: #d2a8ff; }
-.note-content-rendered .class-name { color: #ffa657; }
-.note-content-rendered .tag { color: #7ee787; }
-.note-content-rendered .attribute { color: #79c0ff; }
-.note-content-rendered .regex { color: #a5d6ff; }
+.note-content-rendered .keyword {
+    color: #ff7b72;
+}
+
+.note-content-rendered .string {
+    color: #a5d6ff;
+}
+
+.note-content-rendered .comment {
+    color: #8b949e;
+    font-style: italic;
+}
+
+.note-content-rendered .type {
+    color: #79c0ff;
+}
+
+.note-content-rendered .literal {
+    color: #ffa657;
+}
+
+.note-content-rendered .punctuation {
+    color: #d2a8ff;
+}
+
+.note-content-rendered .operator {
+    color: #ff7b72;
+}
+
+.note-content-rendered .number {
+    color: #79c0ff;
+}
+
+.note-content-rendered .function {
+    color: #d2a8ff;
+}
+
+.note-content-rendered .class-name {
+    color: #ffa657;
+}
+
+.note-content-rendered .tag {
+    color: #7ee787;
+}
+
+.note-content-rendered .attribute {
+    color: #79c0ff;
+}
+
+.note-content-rendered .regex {
+    color: #a5d6ff;
+}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -219,6 +258,10 @@
         border-radius: 0;
         margin-left: -16px;
         margin-right: -16px;
+    }
+
+    .note-h3 {
+        font-size: 16px;
     }
 }
 

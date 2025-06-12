@@ -97,9 +97,16 @@
                                                     Value="@(new Icons.Regular.Size20.Folder())"/>
                                         <span>@subfolder.Name</span>
                                         <button class="icon-button small" @onclick="() => DeleteSubfolder(subfolder.Id)"
-                                                @onclick:stopPropagation="true">
-                                            <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
-                                                        Value="@(new Icons.Regular.Size20.Delete())"/>
+                                                @onclick:stopPropagation="true" disabled="@_isDeleting">
+                                            @if (_isDeleting)
+                                            {
+                                                <div class="spinner"></div>
+                                            }
+                                            else
+                                            {
+                                                <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                            Value="@(new Icons.Regular.Size20.Delete())"/>
+                                            }
                                         </button>
                                     </div>
                                 }
@@ -172,8 +179,7 @@
                     <button class="text-button" @onclick="CloseSubfolderDialog">
                         Abbrechen
                     </button>
-                    <button class="text-button primary" @onclick="SaveSubfolderAsync"
-                            disabled="@string.IsNullOrWhiteSpace(_newSubfolderName)">
+                    <button class="text-button primary" @onclick="SaveSubfolderAsync">
                         Kreieren
                     </button>
                 </div>
@@ -242,8 +248,7 @@
             </div>
             <div class="modal-footer">
                 <button class="text-button" @onclick="CloseDialog">@Loc["HomeDismiss"]</button>
-                <button class="text-button primary" @onclick="SaveFolderAsync"
-                        disabled="@string.IsNullOrWhiteSpace(_newFolderName)">
+                <button class="text-button primary" @onclick="SaveFolderAsync">
                     @Loc["HomeCreate"]
                 </button>
             </div>
@@ -272,8 +277,7 @@
             </div>
             <div class="modal-footer">
                 <button class="text-button" @onclick="CloseSubfolderDialog">Abbrechen</button>
-                <button class="text-button primary" @onclick="SaveSubfolderAsync"
-                        disabled="@string.IsNullOrWhiteSpace(_newSubfolderName)">Kreieren
+                <button class="text-button primary" @onclick="SaveSubfolderAsync">Kreieren
                 </button>
             </div>
         </div>
@@ -349,6 +353,7 @@
     private bool _showDeleteConfirmation = false;
     private int? _folderToDeleteId = null;
     private string _folderToDeleteName = string.Empty;
+    private bool _isDeleting = false;
 
     private Task ShowDeleteConfirmation(int folderId, string folderName)
     {
@@ -382,7 +387,7 @@
     {
         try
         {
-            // Show loading indicator
+// Show loading indicator
             await InvokeAsync(StateHasChanged);
 
             await Db.DeleteFolderAsync(folderId);
@@ -391,11 +396,11 @@
         catch (Exception ex)
         {
             Console.WriteLine($"Error deleting folder: {ex.Message}");
-            // Show error to user
+// Show error to user
         }
         finally
         {
-            // Hide loading indicator
+// Hide loading indicator
             await InvokeAsync(StateHasChanged);
         }
     }
@@ -431,14 +436,40 @@
 
     private async Task DeleteSubfolder(int subfolderId)
     {
+        if (_isDeleting) return;
+
+        _isDeleting = true;
+        StateHasChanged();
+
         try
         {
             await Db.DeleteSubfolderAsync(subfolderId);
-            await LoadFoldersAsync();
+            await InvokeAsync(async () =>
+            {
+                await LoadFoldersAsync();
+                StateHasChanged();
+            });
+        }
+        catch (TimeoutException ex)
+        {
+            await InvokeAsync(() =>
+            {
+                Console.WriteLine($"Timeout: {ex.Message}");
+                StateHasChanged();
+            });
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error deleting subfolder: {ex.Message}");
+            await InvokeAsync(() =>
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                StateHasChanged();
+            });
+        }
+        finally
+        {
+            _isDeleting = false;
+            await InvokeAsync(StateHasChanged);
         }
     }
 

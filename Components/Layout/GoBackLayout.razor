@@ -1,7 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager NavManager
-
-<link href="css/SharedLayout.css" rel="stylesheet"/>
+@inject IJSRuntime Js
 
 <div class="layout-header">
     <button @onclick="GoBack" class="back-button" aria-label="Zurück">
@@ -22,11 +21,21 @@
 
 @code {
 
-    private void GoBack()
+    private async Task GoBack()
     {
-        if (NavManager.Uri != NavManager.BaseUri)
+        try
         {
-            NavManager.NavigateTo("javascript:history.back()");
+            await Js.InvokeVoidAsync("history.back");
+
+            await Task.Delay(300);
+            if (NavManager.Uri == NavManager.BaseUri)
+            {
+                NavManager.NavigateTo("/");
+            }
+        }
+        catch
+        {
+            NavManager.NavigateTo("/");
         }
     }
 

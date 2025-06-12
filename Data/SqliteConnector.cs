@@ -210,19 +210,20 @@ public class SqliteConnector
         await Semaphore.WaitAsync();
         try
         {
-            await using var connection = new SqliteConnection($"Data Source={_dbPath}");
-            await connection.OpenAsync();
-            await using var transaction = await connection.BeginTransactionAsync();
-
-            try
+            var deleteSubfolder = new SubFoldersMethods();
+            await deleteSubfolder.DeleteSubfolder(id, _dbPath);
+        
+            if (Interlocked.Increment(ref _deletionCount) >= 5)
             {
-                var deleteSubfolder = new SubFoldersMethods();
-                await deleteSubfolder.DeleteSubfolder(id, _dbPath);
-            }
-            catch
-            {
-                await transaction.RollbackAsync();
-                throw;
+                _ = Task.Run(async () => 
+                {
+                    try 
+                    {
+                        await VacuumDatabaseAsync();
+                        ResetVacuumCount();
+                    }
+                    catch {}
+                });
             }
         }
         finally

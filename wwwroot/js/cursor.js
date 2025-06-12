@@ -1,4 +1,24 @@
 ﻿window.markdownEditorUtils = {
+    exportAsTxt: function (filename, text) {
+        // Create a Blob with the text content
+        const blob = new Blob([text], {type: 'text/plain'});
+
+        // Create a temporary anchor element
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+
+        // Trigger the download
+        document.body.appendChild(a);
+        a.click();
+
+        // Clean up
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+        }, 100);
+    },
+
     insertMarkdownAtCursor: function (elementId, prefix, suffix) {
         const editor = document.getElementById(elementId);
         if (!editor) {

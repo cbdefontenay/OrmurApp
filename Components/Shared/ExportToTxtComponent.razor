@@ -1,17 +1,28 @@
-﻿@* ImportToTxt.razor *@
-@inject IJSRuntime Js
+﻿@inject IJSRuntime Js
 
-<button class="export-button" @onclick="ExportAsTxt">
-    <FluentIcon Value="@(new Icons.Regular.Size20.ArrowDownload())"
-                Color="Color.Custom"
-                CustomColor="var(--on-primary)"/>
-    <span>Export als TXT</span>
+<button class="export-button" @onclick="ExportAsTxt" disabled="@_isExporting">
+    @if (_isExporting)
+    {
+        <FluentIcon Value="@(new Icons.Filled.Size20.SpinnerIos())"
+                    Color="Color.Custom"
+                    CustomColor="var(--on-primary)"/>
+        <span>Exporting...</span>
+    }
+    else
+    {
+        <FluentIcon Value="@(new Icons.Regular.Size20.ArrowDownload())"
+                    Color="Color.Custom"
+                    CustomColor="var(--on-primary)"/>
+        <span>Export als TXT</span>
+    }
 </button>
 
 @code {
     [Parameter] public string? MarkdownText { get; set; }
     [Parameter] public string? NoteTitle { get; set; }
     [Parameter] public MarkdownPipeline? Pipeline { get; set; }
+
+    private bool _isExporting = false;
 
     private async Task ExportAsTxt()
     {
@@ -21,10 +32,25 @@
             return;
         }
 
-        var plainText = ConvertMarkdownToPlainText(MarkdownText);
-        var filename = $"{NoteTitle ?? "untitled"}.txt";
-        await Js.InvokeVoidAsync("markdownEditorUtils.exportAsTxt", filename, plainText);
-        await Toast.Make("Text erfolgreich exportiert", ToastDuration.Short, 10).Show();
+        _isExporting = true;
+       
+        try
+        {
+            var plainText = await Task.Run(() => ConvertMarkdownToPlainText(MarkdownText));
+            var filename = $"{SanitizeFileName(NoteTitle ?? "untitled")}.txt";
+           
+            await Js.InvokeVoidAsync("markdownEditorUtils.exportAsTxt", filename, plainText);
+            await Toast.Make("Text erfolgreich exportiert", ToastDuration.Short, 10).Show();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Export error: {ex.Message}");
+            await Toast.Make("Fehler beim Exportieren", ToastDuration.Short, 10).Show();
+        }
+        finally
+        {
+            _isExporting = false;
+        }
     }
 
     private string ConvertMarkdownToPlainText(string markdown)
@@ -32,25 +58,34 @@
         if (string.IsNullOrEmpty(markdown))
             return string.Empty;
 
-        // Convert line breaks first
         markdown = markdown.Replace("\n", "  \n");
 
-        // Render to HTML
         var html = Markdown.ToHtml(markdown, Pipeline);
 
-        // Preserve line breaks
         html = html.Replace("<br>", "\n")
+            .Replace("<br/>", "\n")
             .Replace("<br />", "\n")
-            .Replace("<p>", "\n\n")
-            .Replace("</p>", "\n\n");
+            .Replace("</p>", "\n\n")
+            .Replace("<p>", "");
 
-        // Remove other HTML tags
-        return WebUtility.HtmlDecode(
-            System.Text.RegularExpressions.Regex.Replace(
-                html,
-                "<[^>]*(>|$)",
-                string.Empty
-            )
-        ).Trim();
+        var plainText = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            "<[^>]*(>|$)",
+            string.Empty
+        );
+
+        plainText = WebUtility.HtmlDecode(plainText)
+            .Replace("\r", "")
+            .Replace("\n\n\n", "\n\n")
+            .Trim();
+
+        return plainText;
+    }
+
+    private string SanitizeFileName(string fileName)
+    {
+        var invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
+        var invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
+        return System.Text.RegularExpressions.Regex.Replace(fileName, invalidRegStr, "_");
     }
 }

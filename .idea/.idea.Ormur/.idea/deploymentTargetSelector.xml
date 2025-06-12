@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="Ormur">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-05-25T21:13:50.644509500Z">
+        <DropdownSelection timestamp="2025-06-09T10:07:41.926302200Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\cbdef\.android\avd\Pixel_9.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\cbdef\.android\avd\Pixel_8a.avd" />
             </handle>
           </Target>
         </DropdownSelection>
