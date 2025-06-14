@@ -211,7 +211,8 @@
     color: var(--on-secondary-container);
 
     &:hover {
-        background-color: var(--secondary-container);
+        background-color: var(--background);
+        color:  var(--scrim);
         border-radius: 20px;
     }
 }

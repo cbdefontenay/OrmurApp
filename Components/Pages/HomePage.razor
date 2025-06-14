@@ -18,7 +18,7 @@
             </button>
             <button class="sidebar-item @(_showFavoritesOnly ? "active" : "")" @onclick="DisplayAllFavorites">
                 <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
-                            Value="@(new Icons.Regular.Size20.Star())"/>
+                            Value="@(new Icons.Regular.Size20.StarEmphasis())"/>
                 <span>@Loc["HomeSideNavFavourites"]</span>
             </button>
         </nav>
@@ -37,13 +37,13 @@
             </div>
 
             <div class="mobile-filter">
-                <div class="filter-hint">Ordner filtern:</div>
+                <div class="filter-hint">@Loc["HomeFilterFolder"]</div>
                 <div class="filter-options">
                     <button class="filter-button @(_showFavoritesOnly ? "active" : "")"
                             @onclick="ToggleFavoritesFilter">
                         <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                     Value="@(new Icons.Regular.Size16.StarEmphasis())"/>
-                        <span>Favoriten</span>
+                        <span>@Loc["HomeSideNavFavourites"]</span>
                     </button>
                 </div>
             </div>
@@ -147,9 +147,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="text-button" @onclick="CloseDialog">Abbrechen</button>
+                    <button class="text-button" @onclick="CloseDialog">@Loc["HomeDismiss"]</button>
                     <button class="text-button primary" @onclick="SaveFolderAsync"
-                            disabled="@string.IsNullOrWhiteSpace(_newFolderName)">Kreieren
+                            disabled="@string.IsNullOrWhiteSpace(_newFolderName)">@Loc["HomeCreate"]
                     </button>
                 </div>
             </div>
@@ -161,7 +161,9 @@
         <div class="modal-backdrop" @onclick="CloseSubfolderDialog">
             <div class="modal" @onclick:stopPropagation>
                 <div class="modal-header">
-                    <h3>Neuer Unterordner</h3>
+                    <h3>
+                        @Loc["HomeNewSubfolder"]
+                    </h3>
                     <button class="icon-button" @onclick="CloseSubfolderDialog">
                         <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                     Value="@(new Icons.Regular.Size20.Dismiss())"/>
@@ -177,10 +179,10 @@
                 </div>
                 <div class="modal-footer">
                     <button class="text-button" @onclick="CloseSubfolderDialog">
-                        Abbrechen
+                        @Loc["HomeDismiss"]
                     </button>
                     <button class="text-button primary" @onclick="SaveSubfolderAsync">
-                        Kreieren
+                        @Loc["HomeCreate"]
                     </button>
                 </div>
             </div>
@@ -196,7 +198,9 @@
             <div class="modal-backdrop" @onclick="CloseMenu">
                 <div class="modal actions-menu-popup-modal" @onclick:stopPropagation>
                     <div class="modal-header">
-                        <h3>Was möchtest du für @folderObject.Name machen?</h3>
+                        <h3>
+                            @Loc["HomeSubfolderWhatTodo", folderObject.Name!]
+                        </h3>
                         <button class="icon-button" @onclick="CloseMenu">
                             <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                         Value="@(new Icons.Regular.Size20.Dismiss())"/>
@@ -207,10 +211,12 @@
                             <button class="modal-menu-item" @onclick="() => ShowSubfolderDialog(folderObject.Id)">
                                 <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                             Value="@(new Icons.Regular.Size20.Add())"/>
-                                <span>Neuer Unterordner hinfügen</span>
+                                <span>
+                                    @Loc["HomeAddNewSubfolder"]
+                                </span>
                             </button>
                             <button class="modal-menu-item danger"
-                                    @onclick="() => ShowDeleteConfirmation(folderObject.Id, folderObject.Name)">
+                                    @onclick="() => ShowDeleteConfirmation(folderObject.Id, folderObject.Name!)">
                                 <FluentIcon Color="Color.Custom" CustomColor="var(--error)"
                                             Value="@(new Icons.Regular.Size20.Delete())"/>
                                 <span>Ordner löschen</span>

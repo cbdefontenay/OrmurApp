@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 12px;
+    padding: 10px 12px;
     background-color: var(--tertiary);
     color: var(--on-tertiary);
     border: none;
@@ -13,7 +13,94 @@
 
 .export-button:hover {
     background-color: var(--secondary);
-    color:  var(--on-secondary);
+    color: var(--on-secondary);
+}
+
+.export-container {
+    position: relative;
+    display: inline-block;
+}
+
+.export-options-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.export-options-content {
+    background-color: var(--background);
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.export-options-content h3 {
+    margin-top: 0;
+    color: var(--primary);
+}
+
+.export-options-content p {
+    margin-bottom: 1.5rem;
+    color: var(--on-background);
+}
+
+.export-option {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: 1px solid var(--outline);
+}
+
+.export-option:hover {
+    background-color: var(--primary-container);
+}
+
+.export-option .fluent-icon {
+    margin-right: 1rem;
+}
+
+.export-option div {
+    flex: 1;
+}
+
+.export-option strong {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.export-option small {
+    color: var(--on-background);
+    opacity: 0.7;
+    font-size: 0.85rem;
+}
+
+.cancel-export {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.5rem;
+    background: none;
+    border: 1px solid var(--outline);
+    border-radius: 6px;
+    color: var(--on-background);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cancel-export:hover {
+    background-color: var(--surface);
 }
 
 @media (max-width: 758px) {

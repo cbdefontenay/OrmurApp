@@ -46,12 +46,24 @@
         <value>Abbrechen</value>
     </data>
     <data name="HomeCreate" xml:space="preserve">
-        <value>Kreieren</value>
+        <value>Erstellen</value>
     </data>
     <data name="HomeDelete" xml:space="preserve">
         <value>Löschen</value>
     </data>
     <data name="HomeDelteFolder" xml:space="preserve">
         <value>Ordner löschen</value>
+    </data>
+    <data name="HomeFilterFolder" xml:space="preserve">
+        <value>Ordner filtern:</value>
+    </data>
+    <data name="HomeNewSubfolder" xml:space="preserve">
+        <value>Neuer Unterordner</value>
+    </data>
+    <data name="HomeSubfolderWhatTodo" xml:space="preserve">
+        <value>Was möchtest du für {0} machen?</value>
+    </data>
+    <data name="HomeAddNewSubfolder" xml:space="preserve">
+        <value>Neuer Unterordner hinfügen</value>
     </data>
 </root>

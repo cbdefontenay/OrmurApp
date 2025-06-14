@@ -1,21 +1,57 @@
 ﻿@inject IJSRuntime Js
 
-<button class="export-button" @onclick="ExportAsTxt" disabled="@_isExporting">
-    @if (_isExporting)
+<div class="export-container">
+    <button class="export-button" @onclick="() => _showExportOptions = true" disabled="@_isExporting">
+        @if (_isExporting)
+        {
+            <FluentIcon Value="@(new Icons.Filled.Size20.SpinnerIos())"
+                        Color="Color.Custom"
+                        CustomColor="var(--on-primary)"/>
+            <span>Wird exportiert...</span>
+        }
+        else
+        {
+            <FluentIcon Value="@(new Icons.Regular.Size20.ArrowDownload())"
+                        Color="Color.Custom"
+                        CustomColor="var(--on-primary)"/>
+            <span>Als .txt exportieren</span>
+        }
+    </button>
+
+    @if (_showExportOptions)
     {
-        <FluentIcon Value="@(new Icons.Filled.Size20.SpinnerIos())"
-                    Color="Color.Custom"
-                    CustomColor="var(--on-primary)"/>
-        <span>Exporting...</span>
+        <div class="export-options-modal">
+            <div class="export-options-content">
+                <h3>Export Optionen</h3>
+                <p>Wie möchtest du deine Notiz exportieren?</p>
+                
+                <div class="export-option" @onclick="() => ExportWithOption(true)">
+                    <FluentIcon Value="@(new Icons.Regular.Size20.Code())" 
+                               Color="Color.Custom"
+                               CustomColor="var(--primary)"/>
+                    <div>
+                        <strong>Preserve Markdown</strong>
+                        <small>Export with original Markdown formatting</small>
+                    </div>
+                </div>
+                
+                <div class="export-option" @onclick="() => ExportWithOption(false)">
+                    <FluentIcon Value="@(new Icons.Regular.Size20.TextParagraph())" 
+                               Color="Color.Custom"
+                               CustomColor="var(--primary)"/>
+                    <div>
+                        <strong>Plain Text</strong>
+                        <small>Export as readable text without formatting</small>
+                    </div>
+                </div>
+                
+                <button class="cancel-export" @onclick="() => _showExportOptions = false">
+                    Cancel
+                </button>
+            </div>
+        </div>
     }
-    else
-    {
-        <FluentIcon Value="@(new Icons.Regular.Size20.ArrowDownload())"
-                    Color="Color.Custom"
-                    CustomColor="var(--on-primary)"/>
-        <span>Export als TXT</span>
-    }
-</button>
+</div>
 
 @code {
     [Parameter] public string? MarkdownText { get; set; }
@@ -23,8 +59,15 @@
     [Parameter] public MarkdownPipeline? Pipeline { get; set; }
 
     private bool _isExporting = false;
+    private bool _showExportOptions = false;
 
-    private async Task ExportAsTxt()
+    private async Task ExportWithOption(bool preserveMarkdown)
+    {
+        _showExportOptions = false;
+        await ExportAsTxt(preserveMarkdown);
+    }
+
+    private async Task ExportAsTxt(bool preserveMarkdown = false)
     {
         if (string.IsNullOrWhiteSpace(MarkdownText))
         {
@@ -36,11 +79,15 @@
        
         try
         {
-            var plainText = await Task.Run(() => ConvertMarkdownToPlainText(MarkdownText));
+            var content = preserveMarkdown 
+                ? MarkdownText 
+                : await Task.Run(() => ConvertMarkdownToPlainText(MarkdownText));
+                
             var filename = $"{SanitizeFileName(NoteTitle ?? "untitled")}.txt";
            
-            await Js.InvokeVoidAsync("markdownEditorUtils.exportAsTxt", filename, plainText);
-            await Toast.Make("Text erfolgreich exportiert", ToastDuration.Short, 10).Show();
+            await Js.InvokeVoidAsync("markdownEditorUtils.exportAsTxt", filename, content);
+            await Toast.Make($"Text erfolgreich als {(preserveMarkdown ? "Markdown" : "Plain Text")} exportiert", 
+                           ToastDuration.Short, 10).Show();
         }
         catch (Exception ex)
         {
@@ -58,28 +105,116 @@
         if (string.IsNullOrEmpty(markdown))
             return string.Empty;
 
-        markdown = markdown.Replace("\n", "  \n");
-
+        // Improved plain text conversion that better preserves structure
         var html = Markdown.ToHtml(markdown, Pipeline);
 
-        html = html.Replace("<br>", "\n")
-            .Replace("<br/>", "\n")
-            .Replace("<br />", "\n")
-            .Replace("</p>", "\n\n")
-            .Replace("<p>", "");
+        // Convert headings
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<h(\d)>(.*?)</h\d>",
+            (match) => {
+                var level = int.Parse(match.Groups[1].Value);
+                var text = match.Groups[2].Value;
+                var underline = new string(level <= 2 ? '=' : '-', text.Length);
+                return $"\n{text}\n{underline}\n";
+            },
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline
+        );
 
-        var plainText = System.Text.RegularExpressions.Regex.Replace(
+        // Convert lists with proper indentation
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<li>(.*?)</li>",
+            (match) => {
+                var text = match.Groups[1].Value;
+                // Detect if it's in an ordered list by checking parent elements
+                var isOrdered = match.Value.Contains("<ol>");
+                return $"\n- {text}";
+            },
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline
+        );
+
+        // Convert blockquotes with proper indentation
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<blockquote>(.*?)</blockquote>",
+            (match) => {
+                var text = match.Groups[1].Value;
+                // Remove any HTML tags from the quote
+                text = System.Text.RegularExpressions.Regex.Replace(
+                    text, 
+                    "<[^>]*(>|$)", 
+                    string.Empty
+                );
+                // Add > prefix to each line
+                return "\n" + string.Join("\n", 
+                    text.Split('\n')
+                        .Select(line => $"> {line.Trim()}"))
+                    + "\n";
+            },
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline
+        );
+
+        // Convert code blocks
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<pre><code>(.*?)</code></pre>",
+            (match) => {
+                var code = match.Groups[1].Value;
+                return $"\n```\n{code}\n```\n";
+            },
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline
+        );
+
+        // Convert inline code
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<code>(.*?)</code>",
+            (match) => {
+                var code = match.Groups[1].Value;
+                return $"`{code}`";
+            },
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline
+        );
+
+        // Convert images
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<img.*?alt=""(.*?)"".*?src=""(.*?)"".*?>",
+            (match) => {
+                var alt = match.Groups[1].Value;
+                var src = match.Groups[2].Value;
+                return $"[Image: {alt}]({src})";
+            },
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline
+        );
+
+        // Convert links
+        html = System.Text.RegularExpressions.Regex.Replace(
+            html,
+            @"<a.*?href=""(.*?)"".*?>(.*?)</a>",
+            (match) => {
+                var href = match.Groups[1].Value;
+                var text = match.Groups[2].Value;
+                return $"[{text}]({href})";
+            },
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline
+        );
+
+        // Convert remaining HTML to plain text
+        html = System.Text.RegularExpressions.Regex.Replace(
             html,
             "<[^>]*(>|$)",
             string.Empty
         );
 
-        plainText = WebUtility.HtmlDecode(plainText)
+        // Clean up whitespace
+        html = WebUtility.HtmlDecode(html)
             .Replace("\r", "")
             .Replace("\n\n\n", "\n\n")
             .Trim();
 
-        return plainText;
+        return html;
     }
 
     private string SanitizeFileName(string fileName)

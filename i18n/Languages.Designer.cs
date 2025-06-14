@@ -60,7 +60,16 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kreieren.
+        ///   Looks up a localized string similar to Neuer Unterordner hinfügen.
+        /// </summary>
+        internal static string HomeAddNewSubfolder {
+            get {
+                return ResourceManager.GetString("HomeAddNewSubfolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erstellen.
         /// </summary>
         internal static string HomeCreate {
             get {
@@ -96,11 +105,29 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ordner filtern:.
+        /// </summary>
+        internal static string HomeFilterFolder {
+            get {
+                return ResourceManager.GetString("HomeFilterFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Neuer Ordner.
         /// </summary>
         internal static string HomeNewFolderHeader {
             get {
                 return ResourceManager.GetString("HomeNewFolderHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neuer Unterordner.
+        /// </summary>
+        internal static string HomeNewSubfolder {
+            get {
+                return ResourceManager.GetString("HomeNewSubfolder", resourceCulture);
             }
         }
         
@@ -137,6 +164,15 @@ namespace Ormur.i18n {
         internal static string HomeSideNavNotice {
             get {
                 return ResourceManager.GetString("HomeSideNavNotice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Was möchtest du für {0} machen?.
+        /// </summary>
+        internal static string HomeSubfolderWhatTodo {
+            get {
+                return ResourceManager.GetString("HomeSubfolderWhatTodo", resourceCulture);
             }
         }
         
