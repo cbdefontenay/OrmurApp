@@ -69,4 +69,37 @@
     <data name="HomeDeleteFolder" xml:space="preserve">
         <value>Ordner löschen</value>
     </data>
+    <data name="HomeSubfolderPlaceholder" xml:space="preserve">
+        <value>Name des Unterordners...</value>
+    </data>
+    <data name="HomeDeleteConfirmText" xml:space="preserve">
+        <value>Möchten Sie den Ordner "{0}" wirklich löschen?</value>
+    </data>
+    <data name="HomeDeleteConfirmTextTwo" xml:space="preserve">
+        <value>Dies wird auch alle Unterordner und Notizen in diesem Ordner löschen.</value>
+    </data>
+    <data name="SettingsHeader" xml:space="preserve">
+        <value>Einstellungen</value>
+    </data>
+    <data name="SettingsStandardColor" xml:space="preserve">
+        <value>Standard (Hell Blau)</value>
+    </data>
+    <data name="SettingsPurpleColor" xml:space="preserve">
+        <value>Lila</value>
+    </data>
+    <data name="SettingsGreenColor" xml:space="preserve">
+        <value>Grün</value>
+    </data>
+    <data name="SettingsDarkBlueColor" xml:space="preserve">
+        <value>Dunkel blau</value>
+    </data>
+    <data name="SettingsCultureHeader" xml:space="preserve">
+        <value>Sprache:</value>
+    </data>
+    <data name="SyncHeader" xml:space="preserve">
+        <value>Gerätesynchronisation</value>
+    </data>
+    <data name="SyncSubHeader" xml:space="preserve">
+        <value>So synchronisieren Sie:</value>
+    </data>
 </root>

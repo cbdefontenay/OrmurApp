@@ -62,4 +62,37 @@
     <data name="HomeDeleteFolder" xml:space="preserve">
         <value>Supprimer le dossier</value>
     </data>
+    <data name="HomeSubfolderPlaceholder" xml:space="preserve">
+        <value>Nom du sous-dossier...</value>
+    </data>
+    <data name="HomeDeleteConfirmText" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer le dossier {0} ?</value>
+    </data>
+    <data name="HomeDeleteConfirmTextTwo" xml:space="preserve">
+        <value>Cela supprimera également tous les sous-dossiers et toutes les notes de ce dossier.</value>
+    </data>
+    <data name="SettingsHeader" xml:space="preserve">
+        <value>Paramètres</value>
+    </data>
+    <data name="SettingsStandardColor" xml:space="preserve">
+        <value>Standard (bleu clair)</value>
+    </data>
+    <data name="SettingsPurpleColor" xml:space="preserve">
+        <value>Violet</value>
+    </data>
+    <data name="SettingsGreenColor" xml:space="preserve">
+        <value>Vert</value>
+    </data>
+    <data name="SettingsDarkBlueColor" xml:space="preserve">
+        <value>Bleu sombre</value>
+    </data>
+    <data name="SettingsCultureHeader" xml:space="preserve">
+        <value>Langue :</value>
+    </data>
+    <data name="SyncHeader" xml:space="preserve">
+        <value>Synchronisation de l'appareil</value>
+    </data>
+    <data name="SyncSubHeader" xml:space="preserve">
+        <value>Comment synchroniser :</value>
+    </data>
 </root>

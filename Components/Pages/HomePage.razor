@@ -1,7 +1,4 @@
 ﻿@page "/"
-@inject SqliteConnector Db
-@inject NavigationManager Navigation
-@inject IStringLocalizer<Languages> Loc
 
 <div class="app-container">
     <div class="sidebar">
@@ -227,7 +224,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="text-button" @onclick="CloseMenu">
-                            Abbrechen
+                            @Loc["HomeDismiss"]
                         </button>
                     </div>
                 </div>
@@ -269,7 +266,9 @@
     <div class="modal-backdrop" @onclick="CloseSubfolderDialog">
         <div class="modal" @onclick:stopPropagation>
             <div class="modal-header">
-                <h3>Neuer Unterordner</h3>
+                <h3>
+                    @Loc["HomeNewSubfolder"]
+                </h3>
                 <button class="icon-button" @onclick="CloseSubfolderDialog">
                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                 Value="@(new Icons.Regular.Size20.Dismiss())"/>
@@ -279,39 +278,16 @@
                 <div class="input-field">
                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                 Value="@(new Icons.Regular.Size20.Folder())"/>
-                    <input @bind="_newSubfolderName" placeholder="Name des Unterordners..."
+                    <input @bind="_newSubfolderName" placeholder=@Loc["HomeSubfolderPlaceholder"]
                            @onkeyup="HandleSubfolderKeyUp"/>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="text-button" @onclick="CloseSubfolderDialog">Abbrechen</button>
-                <button class="text-button primary" @onclick="SaveSubfolderAsync">Kreieren
+                <button class="text-button" @onclick="CloseSubfolderDialog">
+                    @Loc["HomeDismiss"]
                 </button>
-            </div>
-        </div>
-    </div>
-}
-
-@if (_showSubfolderDialog)
-{
-    <div class="dialog-backdrop" @onclick="CloseSubfolderDialog">
-        <div class="dialog-container" @onclick:stopPropagation>
-            <div class="dialog-header">
-                <h2>Unterordner kreieren</h2>
-            </div>
-            <div class="dialog-body">
-                <div class="input-container">
-                    <input class="input"
-                           @bind="_newSubfolderName"
-                           placeholder="Name des Unterordners..."
-                           @onkeyup="HandleSubfolderKeyUp"/>
-                    <div class="underline"></div>
-                </div>
-            </div>
-            <div class="dialog-footer">
-                <button class="btn text-btn" @onclick="CloseSubfolderDialog">Abbrechen</button>
-                <button class="btn text-btn primary" @onclick="SaveSubfolderAsync"
-                        disabled="@string.IsNullOrWhiteSpace(_newSubfolderName)">Kreieren
+                <button class="text-button primary" @onclick="SaveSubfolderAsync">
+                    @Loc["HomeCreate"]
                 </button>
             </div>
         </div>
@@ -323,18 +299,22 @@
     <div class="modal-backdrop" @onclick="CancelDelete">
         <div class="modal" @onclick:stopPropagation>
             <div class="modal-header">
-                <h3>@Loc["HomeDeleteFolder"]</h3>
+                <h3>
+                    @Loc["HomeDeleteFolder"]
+                </h3>
                 <button class="icon-button" @onclick="CancelDelete">
                     <FluentIcon Color="Color.Custom" CustomColor="var(--error)"
                                 Value="@(new Icons.Regular.Size20.Dismiss())"/>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Möchten Sie den Ordner "@_folderToDeleteName" wirklich löschen?</p>
+                <p>
+                    @Loc["HomeDeleteConfirmText", @_folderToDeleteName]
+                </p>
                 <p class="warning-text">
                     <FluentIcon Color="Color.Custom" CustomColor="var(--error)"
                                 Value="@(new Icons.Filled.Size20.Warning())"/>
-                    Dies wird auch alle Unterordner und Notizen in diesem Ordner löschen.
+                    @Loc["HomeDeleteConfirmTextTwo"]
                 </p>
             </div>
             <div class="modal-footer">

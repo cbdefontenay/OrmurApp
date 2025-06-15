@@ -87,6 +87,24 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Möchten Sie den Ordner &quot;{0}&quot; wirklich löschen?.
+        /// </summary>
+        internal static string HomeDeleteConfirmText {
+            get {
+                return ResourceManager.GetString("HomeDeleteConfirmText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dies wird auch alle Unterordner und Notizen in diesem Ordner löschen..
+        /// </summary>
+        internal static string HomeDeleteConfirmTextTwo {
+            get {
+                return ResourceManager.GetString("HomeDeleteConfirmTextTwo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ordner löschen.
         /// </summary>
         internal static string HomeDeleteFolder {
@@ -177,6 +195,15 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name des Unterordners....
+        /// </summary>
+        internal static string HomeSubfolderPlaceholder {
+            get {
+                return ResourceManager.GetString("HomeSubfolderPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Was möchtest du für {0} machen?.
         /// </summary>
         internal static string HomeSubfolderWhatTodo {
@@ -209,6 +236,78 @@ namespace Ormur.i18n {
         internal static string NavSync {
             get {
                 return ResourceManager.GetString("NavSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sprache:.
+        /// </summary>
+        internal static string SettingsCultureHeader {
+            get {
+                return ResourceManager.GetString("SettingsCultureHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dunkel blau.
+        /// </summary>
+        internal static string SettingsDarkBlueColor {
+            get {
+                return ResourceManager.GetString("SettingsDarkBlueColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grün.
+        /// </summary>
+        internal static string SettingsGreenColor {
+            get {
+                return ResourceManager.GetString("SettingsGreenColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Einstellungen.
+        /// </summary>
+        internal static string SettingsHeader {
+            get {
+                return ResourceManager.GetString("SettingsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lila.
+        /// </summary>
+        internal static string SettingsPurpleColor {
+            get {
+                return ResourceManager.GetString("SettingsPurpleColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standard (Hell Blau).
+        /// </summary>
+        internal static string SettingsStandardColor {
+            get {
+                return ResourceManager.GetString("SettingsStandardColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gerätesynchronisation.
+        /// </summary>
+        internal static string SyncHeader {
+            get {
+                return ResourceManager.GetString("SyncHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to So synchronisieren Sie:.
+        /// </summary>
+        internal static string SyncSubHeader {
+            get {
+                return ResourceManager.GetString("SyncSubHeader", resourceCulture);
             }
         }
     }

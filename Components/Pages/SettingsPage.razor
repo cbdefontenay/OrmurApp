@@ -4,7 +4,9 @@
 
 <div class="settings-container">
     <div class="title-wrapper">
-        <h3 class="settings-title">Einstellungen</h3>
+        <h3 class="settings-title">
+            @Loc["SettingsHeader"]
+        </h3>
     </div>
 
     <div class="settings-section">
@@ -23,7 +25,9 @@
             <div class="theme-menu">
                 <div class="theme-option @GetActiveClass("default")" @onclick="SetDefaultTheme">
                     <div class="theme-color-preview default-theme"></div>
-                    <span class="theme-label">Standard (Hell Blau)</span>
+                    <span class="theme-label">
+                        @Loc["SettingsStandardColor"]
+                    </span>
                     @if (ThemeService.CurrentTheme == "default")
                     {
                         <span class="check-icon">✓</span>
@@ -32,7 +36,9 @@
 
                 <div class="theme-option @GetActiveClass("purple")" @onclick="SetPurpleTheme">
                     <div class="theme-color-preview purple-theme"></div>
-                    <span class="theme-label">Lila</span>
+                    <span class="theme-label">
+                        @Loc["SettingsPurpleColor"]
+                    </span>
                     @if (ThemeService.CurrentTheme == "purple")
                     {
                         <span class="check-icon">✓</span>
@@ -41,7 +47,9 @@
 
                 <div class="theme-option @GetActiveClass("green")" @onclick="SetGreenTheme">
                     <div class="theme-color-preview green-theme"></div>
-                    <span class="theme-label">Grün</span>
+                    <span class="theme-label">
+                        @Loc["SettingsGreenColor"]
+                    </span>
                     @if (ThemeService.CurrentTheme == "green")
                     {
                         <span class="check-icon">✓</span>
@@ -50,7 +58,9 @@
 
                 <div class="theme-option @GetActiveClass("dark")" @onclick="SetDarkTheme">
                     <div class="theme-color-preview dark-theme"></div>
-                    <span class="theme-label">Dunkel Blau</span>
+                    <span class="theme-label">
+                        @Loc["SettingsDarkBlueColor"]
+                        </span>
                     @if (ThemeService.CurrentTheme == "dark")
                     {
                         <span class="check-icon">✓</span>
@@ -60,13 +70,11 @@
         }
     </div>
 
-    @* Popup to choose language *@
-
-
-    <!-- Placeholder for future settings -->
     <div class="settings-section coming-soon">
         <div class="section-header">
-            <h4 class="section-title">Kultur:</h4>
+            <h4 class="section-title">
+                @Loc["SettingsCultureHeader"]
+            </h4>
             <select class="form-control" @bind="Culture" style="width:300px; margin-left:10px;">
                 @foreach (var culture in _cultures)
                 {
