@@ -59,4 +59,7 @@
     <data name="HomeAddNewSubfolder" xml:space="preserve">
         <value>Ajouter un nouveau sous-dossier</value>
     </data>
+    <data name="HomeDeleteFolder" xml:space="preserve">
+        <value>Supprimer le dossier</value>
+    </data>
 </root>

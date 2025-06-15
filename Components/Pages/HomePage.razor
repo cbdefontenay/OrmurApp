@@ -219,7 +219,9 @@
                                     @onclick="() => ShowDeleteConfirmation(folderObject.Id, folderObject.Name!)">
                                 <FluentIcon Color="Color.Custom" CustomColor="var(--error)"
                                             Value="@(new Icons.Regular.Size20.Delete())"/>
-                                <span>Ordner löschen</span>
+                                <span>
+                                    @Loc["HomeDeleteFolder"]
+                                </span>
                             </button>
                         </div>
                     </div>

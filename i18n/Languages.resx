@@ -66,4 +66,7 @@
     <data name="HomeAddNewSubfolder" xml:space="preserve">
         <value>Neuer Unterordner hinfügen</value>
     </data>
+    <data name="HomeDeleteFolder" xml:space="preserve">
+        <value>Ordner löschen</value>
+    </data>
 </root>

@@ -89,6 +89,15 @@ namespace Ormur.i18n {
         /// <summary>
         ///   Looks up a localized string similar to Ordner löschen.
         /// </summary>
+        internal static string HomeDeleteFolder {
+            get {
+                return ResourceManager.GetString("HomeDeleteFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ordner löschen.
+        /// </summary>
         internal static string HomeDelteFolder {
             get {
                 return ResourceManager.GetString("HomeDelteFolder", resourceCulture);
