@@ -11,23 +11,35 @@
     <div class="sync-instructions">
         <p><strong>@Loc["SyncSubHeader"]</strong></p>
         <ol>
-            <li>Stellen Sie sicher, dass beide Geräte im gleichen WLAN-Netzwerk sind (Hotspot aktivieren).</li>
-            <li>Starten Sie die Synchronisation auf einem Gerät.</li>
-            <li>Geben Sie die IP-Adresse des anderen Geräts ein.</li>
-            <li>Klicken Sie auf "Synchronisation starten".</li>
+            <li>
+                @Loc["SyncLiOne"]
+            </li>
+            <li>
+                @Loc["SyncLiTwo"]
+            </li>
+            <li>
+                @Loc["SyncLiThree"]
+            </li>
+            <li>
+                @Loc["SyncLiFour"]
+            </li>
         </ol>
     </div>
 
     <div class="ip-display">
-        <label>Ihre Geräte-IP:</label>
+        <label>
+            @Loc["SyncIpAddress"]
+        </label>
         <div class="ip-address">
             @if (_ipLoading)
             {
-                <span class="loading-text">IP wird ermittelt...</span>
+                <span class="loading-text">@Loc["SyncIpLoad"]</span>
             }
             else if (string.IsNullOrEmpty(_localIp))
             {
-                <span class="error-text">Nicht verfügbar (Netzwerk prüfen)</span>
+                <span class="error-text">
+                    @Loc["SyncIpNotHere"]
+                </span>
             }
             else
             {
@@ -49,11 +61,15 @@
             @if (_isSyncing)
             {
                 <span class="spinner"></span>
-                <span>Wird synchronisiert...</span>
+                <span>
+                    @Loc["SyncSyncLoad"]
+                </span>
             }
             else
             {
-                <span>Synchronisation starten</span>
+                <span>
+                    @Loc["SyncStartSync"]
+                </span>
             }
         </button>
     </div>
@@ -106,23 +122,22 @@
     {
         if (string.IsNullOrWhiteSpace(_remoteIp))
         {
-            ShowStatus("Bitte geben Sie die IP des anderen Geräts ein", true);
+            ShowStatus(@Loc["SyncErrorOne"], true);
             return;
         }
 
         _isSyncing = true;
-        ShowStatus("Verbindung zum Gerät wird hergestellt...", false);
+        ShowStatus(@Loc["SyncWillBe"], false);
 
         try
         {
             await SyncService.SyncViaWiFiAsync(_remoteIp);
-            ShowStatus("Synchronisation erfolgreich!", false);
+            ShowStatus(@Loc["SyncSuccess"], false);
             await Task.Delay(1500);
-            NavigationManager.NavigateTo("/");
         }
         catch (Exception ex)
         {
-            ShowStatus($"Synchronisation fehlgeschlagen: {ex.Message}", true);
+            ShowStatus(@Loc["SyncErrorTwo", ex.Message], true);
         }
         finally
         {

@@ -95,4 +95,43 @@
     <data name="SyncSubHeader" xml:space="preserve">
         <value>Comment synchroniser :</value>
     </data>
+    <data name="SyncLiOne" xml:space="preserve">
+        <value>Assurez-vous que les deux appareils soient connectés sur le même WIFI (activez le hotspot sur vortre portable pour cela).</value>
+    </data>
+    <data name="SyncLiTwo" xml:space="preserve">
+        <value>Commencez la synchronisation sur l'un des appareils.</value>
+    </data>
+    <data name="SyncLiThree" xml:space="preserve">
+        <value>Entrez l'adresse IP de l'autre appareil.</value>
+    </data>
+    <data name="SyncLiFour" xml:space="preserve">
+        <value>Appuyez sur "Commencer la synchronisation".</value>
+    </data>
+    <data name="SyncIpAddress" xml:space="preserve">
+        <value>Votre adresse IP :</value>
+    </data>
+    <data name="SyncIpLoad" xml:space="preserve">
+        <value>En recherche de l'adresse IP...</value>
+    </data>
+    <data name="SyncIpNotHere" xml:space="preserve">
+        <value>Pas d'adresse IP disponible. Vérifiez votre connection internet.</value>
+    </data>
+    <data name="SyncSyncLoad" xml:space="preserve">
+        <value>Synchronisation en cours...</value>
+    </data>
+    <data name="SyncStartSync" xml:space="preserve">
+        <value>Commencer la synchronisation</value>
+    </data>
+    <data name="SyncErrorOne" xml:space="preserve">
+        <value>Veuillez entrer l'adresse IP de l'autre appareil...</value>
+    </data>
+    <data name="SyncWillBe" xml:space="preserve">
+        <value>La connection à l'autre appareil est en cours...</value>
+    </data>
+    <data name="SyncSuccess" xml:space="preserve">
+        <value>Synchronisation réussie !</value>
+    </data>
+    <data name="SyncErrorTwo" xml:space="preserve">
+        <value>Erreur de synchronisation : {0}.</value>
+    </data>
 </root>

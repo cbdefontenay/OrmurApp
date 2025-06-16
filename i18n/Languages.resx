@@ -102,4 +102,43 @@
     <data name="SyncSubHeader" xml:space="preserve">
         <value>So synchronisieren Sie:</value>
     </data>
+    <data name="SyncLiOne" xml:space="preserve">
+        <value>Stellen Sie sicher, dass beide Geräte im gleichen WLAN-Netzwerk sind (Hotspot aktivieren).</value>
+    </data>
+    <data name="SyncLiTwo" xml:space="preserve">
+        <value>Starten Sie die Synchronisation auf einem Gerät.</value>
+    </data>
+    <data name="SyncLiThree" xml:space="preserve">
+        <value>Geben Sie die IP-Adresse des anderen Geräts ein.</value>
+    </data>
+    <data name="SyncLiFour" xml:space="preserve">
+        <value>Klicken Sie auf "Synchronisation starten".</value>
+    </data>
+    <data name="SyncIpAddress" xml:space="preserve">
+        <value>Ihre Geräte-IP:</value>
+    </data>
+    <data name="SyncIpLoad" xml:space="preserve">
+        <value>IP wird ermittelt...</value>
+    </data>
+    <data name="SyncIpNotHere" xml:space="preserve">
+        <value>IP Adresse nicht verfügbar. Prüfen Sie Ihre Netzwerk...</value>
+    </data>
+    <data name="SyncSyncLoad" xml:space="preserve">
+        <value>Wird synchronisiert...</value>
+    </data>
+    <data name="SyncStartSync" xml:space="preserve">
+        <value>Synchronisation starten</value>
+    </data>
+    <data name="SyncErrorOne" xml:space="preserve">
+        <value>Bitte geben Sie die IP des anderen Geräts ein...</value>
+    </data>
+    <data name="SyncWillBe" xml:space="preserve">
+        <value>Verbindung zum Gerät wird hergestellt...</value>
+    </data>
+    <data name="SyncSuccess" xml:space="preserve">
+        <value>Synchronisation erfolgreich!</value>
+    </data>
+    <data name="SyncErrorTwo" xml:space="preserve">
+        <value>Synchronisation fehlgeschlagen: {0}.</value>
+    </data>
 </root>

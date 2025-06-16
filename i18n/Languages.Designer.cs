@@ -294,6 +294,24 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bitte geben Sie die IP des anderen Geräts ein....
+        /// </summary>
+        internal static string SyncErrorOne {
+            get {
+                return ResourceManager.GetString("SyncErrorOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronisation fehlgeschlagen: {0}..
+        /// </summary>
+        internal static string SyncErrorTwo {
+            get {
+                return ResourceManager.GetString("SyncErrorTwo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gerätesynchronisation.
         /// </summary>
         internal static string SyncHeader {
@@ -303,11 +321,110 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ihre Geräte-IP:.
+        /// </summary>
+        internal static string SyncIpAddress {
+            get {
+                return ResourceManager.GetString("SyncIpAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP wird ermittelt....
+        /// </summary>
+        internal static string SyncIpLoad {
+            get {
+                return ResourceManager.GetString("SyncIpLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP Adresse nicht verfügbar. Prüfen Sie Ihre Netzwerk....
+        /// </summary>
+        internal static string SyncIpNotHere {
+            get {
+                return ResourceManager.GetString("SyncIpNotHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klicken Sie auf &quot;Synchronisation starten&quot;..
+        /// </summary>
+        internal static string SyncLiFour {
+            get {
+                return ResourceManager.GetString("SyncLiFour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stellen Sie sicher, dass beide Geräte im gleichen WLAN-Netzwerk sind (Hotspot aktivieren)..
+        /// </summary>
+        internal static string SyncLiOne {
+            get {
+                return ResourceManager.GetString("SyncLiOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geben Sie die IP-Adresse des anderen Geräts ein..
+        /// </summary>
+        internal static string SyncLiThree {
+            get {
+                return ResourceManager.GetString("SyncLiThree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starten Sie die Synchronisation auf einem Gerät..
+        /// </summary>
+        internal static string SyncLiTwo {
+            get {
+                return ResourceManager.GetString("SyncLiTwo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronisation starten.
+        /// </summary>
+        internal static string SyncStartSync {
+            get {
+                return ResourceManager.GetString("SyncStartSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to So synchronisieren Sie:.
         /// </summary>
         internal static string SyncSubHeader {
             get {
                 return ResourceManager.GetString("SyncSubHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronisation erfolgreich!.
+        /// </summary>
+        internal static string SyncSuccess {
+            get {
+                return ResourceManager.GetString("SyncSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wird synchronisiert....
+        /// </summary>
+        internal static string SyncSyncLoad {
+            get {
+                return ResourceManager.GetString("SyncSyncLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verbindung zum Gerät wird hergestellt....
+        /// </summary>
+        internal static string SyncWillBe {
+            get {
+                return ResourceManager.GetString("SyncWillBe", resourceCulture);
             }
         }
     }
