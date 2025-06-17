@@ -23,12 +23,12 @@
 
     <div class="main-content">
         <div class="content-header">
-            <h3>@(_showFavoritesOnly ? "Favoriten" : "Alle Ordner")</h3>
+            <h3>@(_showFavoritesOnly ? @Loc["HomeSideNavFavourites"] : @Loc["HomeSideNavAllFolders"])</h3>
             <div class="search-box">
                 <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                             Value="@(new Icons.Regular.Size20.Search())"/>
                 <input type="text"
-                       placeholder="Ordner suchen..."
+                       placeholder=@Loc["HomeSearchFolder"]
                        @bind="_searchTerm"
                        @oninput="OnSearchInput"/>
             </div>

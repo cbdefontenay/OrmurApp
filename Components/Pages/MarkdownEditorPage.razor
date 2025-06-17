@@ -9,7 +9,7 @@
 {
     <div class="editor-container">
         <div class="editor-header">
-            <input class="title-input" @bind="_noteTitle" placeholder="Notiz Titel"/>
+            <input class="title-input" @bind="_noteTitle" placeholder=@Loc["MdPlaceholderOne"]/>
             <div class="header-actions">
                 <ExportToTxtComponent MarkdownText="@MarkdownText"
                                       NoteTitle="@_noteTitle"
@@ -18,12 +18,14 @@
                     @if (_isSaving)
                     {
                         <FluentIcon Value="@(new Icons.Filled.Size20.SpinnerIos())" Color="Color.Lightweight"/>
-                        <span>Speichern...</span>
+                        <span>@Loc["MdIsSaving"]</span>
                     }
                     else
                     {
                         <FluentIcon Value="@(new Icons.Regular.Size20.Save())" Color="Color.Lightweight"/>
-                        <span>Speichern</span>
+                        <span>
+                            @Loc["MdStore"]
+                        </span>
                     }
                 </button>
             </div>
@@ -31,13 +33,13 @@
 
         <div class="tabs">
             <button class="@(_activeTab == 0 ? "active" : "")" @onclick="() => SetActiveTab(0)">
-                Editor
+                @Loc["MdEditorHeader"]
             </button>
             <button class="@(_activeTab == 1 ? "active" : "")" @onclick="() => SetActiveTab(1)">
-                Vorschau
+                @Loc["MdPreviewHeader"]
             </button>
             <button class="@(_activeTab == 2 ? "active" : "")" @onclick="() => SetActiveTab(2)">
-                Todos
+                @Loc["MdTodosHeader"]
             </button>
         </div>
 
@@ -48,23 +50,23 @@
                     <div class="editor-area">
                         <div class="toolbar">
                             <div class="formatting-buttons">
-                                <button @onclick="FormatBold" title="Bold">
+                                <button @onclick="FormatBold" title=@Loc["MdBold"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TextBold())"/>
                                 </button>
-                                <button @onclick="FormatItalic" title="Italic">
+                                <button @onclick="FormatItalic" title=@Loc["MdItalic"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TextItalic())"/>
                                 </button>
-                                <button @onclick="FormatList" title="List Item">
+                                <button @onclick="FormatList" title=@Loc["MdUlList"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.List())"/>
                                 </button>
-                                <button @onclick="FormatNumberedList" title="Number list">
+                                <button @onclick="FormatNumberedList" title=@Loc["MdNbList"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TextNumberListLtr())"/>
                                 </button>
-                                <button @onclick="FormatNewLine" title="New Line">
+                                <button @onclick="FormatNewLine" title=@Loc["MdNewLine"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.DocumentPageBreak())"/>
                                 </button>

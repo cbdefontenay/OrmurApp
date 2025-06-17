@@ -82,7 +82,7 @@
         <value>Einstellungen</value>
     </data>
     <data name="SettingsStandardColor" xml:space="preserve">
-        <value>Standard (Hell Blau)</value>
+        <value>Aktuell</value>
     </data>
     <data name="SettingsPurpleColor" xml:space="preserve">
         <value>Lila</value>
@@ -140,5 +140,44 @@
     </data>
     <data name="SyncErrorTwo" xml:space="preserve">
         <value>Synchronisation fehlgeschlagen: {0}.</value>
+    </data>
+    <data name="MdPlaceholderOne" xml:space="preserve">
+        <value>Notiz Titel...</value>
+    </data>
+    <data name="MdIsSaving" xml:space="preserve">
+        <value>Speichern...</value>
+    </data>
+    <data name="MdStore" xml:space="preserve">
+        <value>Speichern</value>
+    </data>
+    <data name="MdEditorHeader" xml:space="preserve">
+        <value>Editor</value>
+    </data>
+    <data name="MdPreviewHeader" xml:space="preserve">
+        <value>Vorschau</value>
+    </data>
+    <data name="MdTodosHeader" xml:space="preserve">
+        <value>Todos</value>
+    </data>
+    <data name="MdBold" xml:space="preserve">
+        <value>Groß</value>
+    </data>
+    <data name="MdItalic" xml:space="preserve">
+        <value>Kursivschrift</value>
+    </data>
+    <data name="MdUlList" xml:space="preserve">
+        <value>Liste</value>
+    </data>
+    <data name="MdNbList" xml:space="preserve">
+        <value>Liste mit Zahlen</value>
+    </data>
+    <data name="MdNewLine" xml:space="preserve">
+        <value>Neue Zeile</value>
+    </data>
+    <data name="HomeSearchFolder" xml:space="preserve">
+        <value>Ordner suchen...</value>
+    </data>
+    <data name="SettingsTheme" xml:space="preserve">
+        <value>Farbthema</value>
     </data>
 </root>

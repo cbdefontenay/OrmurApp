@@ -168,6 +168,15 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ordner suchen....
+        /// </summary>
+        internal static string HomeSearchFolder {
+            get {
+                return ResourceManager.GetString("HomeSearchFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle Ordner.
         /// </summary>
         internal static string HomeSideNavAllFolders {
@@ -209,6 +218,105 @@ namespace Ormur.i18n {
         internal static string HomeSubfolderWhatTodo {
             get {
                 return ResourceManager.GetString("HomeSubfolderWhatTodo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groß.
+        /// </summary>
+        internal static string MdBold {
+            get {
+                return ResourceManager.GetString("MdBold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editor.
+        /// </summary>
+        internal static string MdEditorHeader {
+            get {
+                return ResourceManager.GetString("MdEditorHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speichern....
+        /// </summary>
+        internal static string MdIsSaving {
+            get {
+                return ResourceManager.GetString("MdIsSaving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kursivschrift.
+        /// </summary>
+        internal static string MdItalic {
+            get {
+                return ResourceManager.GetString("MdItalic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liste mit Zahlen.
+        /// </summary>
+        internal static string MdNbList {
+            get {
+                return ResourceManager.GetString("MdNbList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neue Zeile.
+        /// </summary>
+        internal static string MdNewLine {
+            get {
+                return ResourceManager.GetString("MdNewLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notiz Titel....
+        /// </summary>
+        internal static string MdPlaceholderOne {
+            get {
+                return ResourceManager.GetString("MdPlaceholderOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vorschau.
+        /// </summary>
+        internal static string MdPreviewHeader {
+            get {
+                return ResourceManager.GetString("MdPreviewHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speichern.
+        /// </summary>
+        internal static string MdStore {
+            get {
+                return ResourceManager.GetString("MdStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Todos.
+        /// </summary>
+        internal static string MdTodosHeader {
+            get {
+                return ResourceManager.GetString("MdTodosHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liste.
+        /// </summary>
+        internal static string MdUlList {
+            get {
+                return ResourceManager.GetString("MdUlList", resourceCulture);
             }
         }
         
@@ -285,11 +393,20 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Standard (Hell Blau).
+        ///   Looks up a localized string similar to Aktuell.
         /// </summary>
         internal static string SettingsStandardColor {
             get {
                 return ResourceManager.GetString("SettingsStandardColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Farbthema.
+        /// </summary>
+        internal static string SettingsTheme {
+            get {
+                return ResourceManager.GetString("SettingsTheme", resourceCulture);
             }
         }
         

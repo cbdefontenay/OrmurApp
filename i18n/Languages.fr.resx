@@ -33,7 +33,7 @@
         <value>Nouveau dossier</value>
     </data>
     <data name="HomePlaceholder" xml:space="preserve">
-        <value>Now du dossier...</value>
+        <value>Nom du dossier...</value>
     </data>
     <data name="HomeDismiss" xml:space="preserve">
         <value>Annuler</value>
@@ -75,7 +75,7 @@
         <value>Paramètres</value>
     </data>
     <data name="SettingsStandardColor" xml:space="preserve">
-        <value>Standard (bleu clair)</value>
+        <value>Actuel</value>
     </data>
     <data name="SettingsPurpleColor" xml:space="preserve">
         <value>Violet</value>
@@ -133,5 +133,44 @@
     </data>
     <data name="SyncErrorTwo" xml:space="preserve">
         <value>Erreur de synchronisation : {0}.</value>
+    </data>
+    <data name="MdPlaceholderOne" xml:space="preserve">
+        <value>Nom de la note...</value>
+    </data>
+    <data name="MdIsSaving" xml:space="preserve">
+        <value>Enregistre...</value>
+    </data>
+    <data name="MdStore" xml:space="preserve">
+        <value>Enregistrer</value>
+    </data>
+    <data name="MdEditorHeader" xml:space="preserve">
+        <value>Editeur</value>
+    </data>
+    <data name="MdPreviewHeader" xml:space="preserve">
+        <value>Aperçu</value>
+    </data>
+    <data name="MdTodosHeader" xml:space="preserve">
+        <value>Todos</value>
+    </data>
+    <data name="MdBold" xml:space="preserve">
+        <value>Gras</value>
+    </data>
+    <data name="MdItalic" xml:space="preserve">
+        <value>Italique</value>
+    </data>
+    <data name="MdUlList" xml:space="preserve">
+        <value>Liste non-numérotée</value>
+    </data>
+    <data name="MdNbList" xml:space="preserve">
+        <value>Liste numérotée</value>
+    </data>
+    <data name="MdNewLine" xml:space="preserve">
+        <value>Nouvelle ligne</value>
+    </data>
+    <data name="HomeSearchFolder" xml:space="preserve">
+        <value>Chercher un dossier...</value>
+    </data>
+    <data name="SettingsTheme" xml:space="preserve">
+        <value>Thèmes</value>
     </data>
 </root>

@@ -1,6 +1,5 @@
 ﻿@page "/settings"
 @inject ThemeService ThemeService
-@inject IJSRuntime JsRuntime
 
 <div class="settings-container">
     <div class="title-wrapper">
@@ -11,7 +10,9 @@
 
     <div class="settings-section">
         <div class="section-header" @onclick="ToggleThemeMenu">
-            <h4 class="section-title">Farbthema</h4>
+            <h4 class="section-title">
+                @Loc["SettingsTheme"]
+            </h4>
             <div class="current-theme-display">
                 <span>@GetCurrentThemeName()</span>
                 <span class="dropdown-icon">
@@ -60,7 +61,7 @@
                     <div class="theme-color-preview dark-theme"></div>
                     <span class="theme-label">
                         @Loc["SettingsDarkBlueColor"]
-                        </span>
+                    </span>
                     @if (ThemeService.CurrentTheme == "dark")
                     {
                         <span class="check-icon">✓</span>
@@ -70,30 +71,47 @@
         }
     </div>
 
-    <div class="settings-section coming-soon">
-        <div class="section-header">
+    <div class="settings-section">
+        <div class="section-header" @onclick="ShowCulturePopup">
             <h4 class="section-title">
                 @Loc["SettingsCultureHeader"]
             </h4>
-            <select class="form-control" @bind="Culture" style="width:300px; margin-left:10px;">
-                @foreach (var culture in _cultures)
-                {
-                    <option value="@culture">@culture.DisplayName</option>
-                }
-            </select>
-        </div>
-    </div>
-
-    <div class="settings-section coming-soon">
-        <div class="section-header">
-            <h4 class="section-title">Datenschutz</h4>
-            <span class="coming-soon-text">Bald verfügbar</span>
+            <div class="current-theme-display">
+                <span>@Culture.DisplayName</span>
+                <span class="dropdown-icon">▼</span>
+            </div>
         </div>
     </div>
 </div>
 
+@if (_showCulturePopup)
+{
+    <div class="culture-popup-overlay" @onclick="CloseCulturePopup">
+        <div class="culture-popup" @onclick:stopPropagation>
+            <div class="culture-popup-header">
+                <h4>@Loc["SettingsCultureHeader"]</h4>
+                <button class="close-button" @onclick="CloseCulturePopup">×</button>
+            </div>
+            <div class="culture-options">
+                @foreach (var culture in _cultures)
+                {
+                    <div class="culture-option @(Culture.Name == culture.Name ? "active" : "")" 
+                         @onclick="() => SelectCulture(culture)">
+                        <span>@culture.DisplayName</span>
+                        @if (Culture.Name == culture.Name)
+                        {
+                            <span class="check-icon">✓</span>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
 @code {
     private bool _showThemeMenu = false;
+    private bool _showCulturePopup = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -105,11 +123,11 @@
     {
         return ThemeService.CurrentTheme switch
         {
-            "default" => "Standard (Hell Blau)",
-            "purple" => "Lila",
-            "green" => "Grün",
-            "dark" => "Dunkel Blau",
-            _ => "Standard"
+            "default" => Loc["SettingsStandardColor"],
+            "purple" => Loc["SettingsPurpleColor"],
+            "green" => Loc["SettingsGreenColor"],
+            "dark" => Loc["SettingsDarkBlueColor"],
+            _ => Loc["SettingsStandardColor"]
         };
     }
 
@@ -132,9 +150,20 @@
         await ThemeService.SetThemeAsync(theme);
     }
 
-    public void Dispose()
+    private void ShowCulturePopup()
     {
-        ThemeService.OnThemeChanged -= StateHasChanged;
+        _showCulturePopup = true;
+    }
+
+    private void CloseCulturePopup()
+    {
+        _showCulturePopup = false;
+    }
+
+    private void SelectCulture(CultureInfo culture)
+    {
+        Culture = culture;
+        CloseCulturePopup();
     }
 
     readonly CultureInfo[] _cultures =
@@ -155,8 +184,8 @@
                 CultureInfo.DefaultThreadCurrentCulture = value;
                 CultureInfo.DefaultThreadCurrentUICulture = value;
                 Preferences.Set("language", value.Name);
+                StateHasChanged(); 
             }
         }
     }
-
 }
