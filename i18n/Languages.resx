@@ -180,4 +180,34 @@
     <data name="SettingsTheme" xml:space="preserve">
         <value>Farbthema</value>
     </data>
+    <data name="SyncPlaceholder" xml:space="preserve">
+        <value>IP des anderen Geräts eingeben...</value>
+    </data>
+    <data name="MdTextareaPlaceholder" xml:space="preserve">
+        <value>Was hast du im Kopf?</value>
+    </data>
+    <data name="MdNothingWrote" xml:space="preserve">
+        <value>Schreibe etwas im Editor, um die Vorschau zu sehen</value>
+    </data>
+    <data name="MdNewTodo" xml:space="preserve">
+        <value>Neues Todo</value>
+    </data>
+    <data name="MdNoTodo" xml:space="preserve">
+        <value>Noch keine Todos</value>
+    </data>
+    <data name="MdDataLoading" xml:space="preserve">
+        <value>Daten werden geladen...</value>
+    </data>
+    <data name="MdAddTodoMessage" xml:space="preserve">
+        <value>Todo hinzufügen</value>
+    </data>
+    <data name="MdTodoPlaceholder" xml:space="preserve">
+        <value>Todo Beschreibung...</value>
+    </data>
+    <data name="MdAdd" xml:space="preserve">
+        <value>Hinzufügen</value>
+    </data>
+    <data name="MdSuccess" xml:space="preserve">
+        <value>Wurde erfolgreich gespeichert</value>
+    </data>
 </root>

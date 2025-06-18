@@ -222,11 +222,38 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hinzufügen.
+        /// </summary>
+        internal static string MdAdd {
+            get {
+                return ResourceManager.GetString("MdAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Todo hinzufügen.
+        /// </summary>
+        internal static string MdAddTodoMessage {
+            get {
+                return ResourceManager.GetString("MdAddTodoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Groß.
         /// </summary>
         internal static string MdBold {
             get {
                 return ResourceManager.GetString("MdBold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daten werden geladen....
+        /// </summary>
+        internal static string MdDataLoading {
+            get {
+                return ResourceManager.GetString("MdDataLoading", resourceCulture);
             }
         }
         
@@ -276,6 +303,33 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Neues Todo.
+        /// </summary>
+        internal static string MdNewTodo {
+            get {
+                return ResourceManager.GetString("MdNewTodo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schreibe etwas im Editor, um die Vorschau zu sehen.
+        /// </summary>
+        internal static string MdNothingWrote {
+            get {
+                return ResourceManager.GetString("MdNothingWrote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noch keine Todos.
+        /// </summary>
+        internal static string MdNoTodo {
+            get {
+                return ResourceManager.GetString("MdNoTodo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notiz Titel....
         /// </summary>
         internal static string MdPlaceholderOne {
@@ -299,6 +353,33 @@ namespace Ormur.i18n {
         internal static string MdStore {
             get {
                 return ResourceManager.GetString("MdStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wurde erfolgreich gespeichert.
+        /// </summary>
+        internal static string MdSuccess {
+            get {
+                return ResourceManager.GetString("MdSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Was hast du im Kopf?.
+        /// </summary>
+        internal static string MdTextareaPlaceholder {
+            get {
+                return ResourceManager.GetString("MdTextareaPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Todo Beschreibung....
+        /// </summary>
+        internal static string MdTodoPlaceholder {
+            get {
+                return ResourceManager.GetString("MdTodoPlaceholder", resourceCulture);
             }
         }
         
@@ -497,6 +578,15 @@ namespace Ormur.i18n {
         internal static string SyncLiTwo {
             get {
                 return ResourceManager.GetString("SyncLiTwo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP des anderen Geräts eingeben....
+        /// </summary>
+        internal static string SyncPlaceholder {
+            get {
+                return ResourceManager.GetString("SyncPlaceholder", resourceCulture);
             }
         }
         

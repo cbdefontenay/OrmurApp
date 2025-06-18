@@ -173,4 +173,34 @@
     <data name="SettingsTheme" xml:space="preserve">
         <value>Thèmes</value>
     </data>
+    <data name="SyncPlaceholder" xml:space="preserve">
+        <value>Adresse IP de l'autre appareil...</value>
+    </data>
+    <data name="MdTextareaPlaceholder" xml:space="preserve">
+        <value>Une idée en tête ?</value>
+    </data>
+    <data name="MdNothingWrote" xml:space="preserve">
+        <value>Commencez par écrire quelque chose dans l'éditeur pour voir l'aperçu</value>
+    </data>
+    <data name="MdNewTodo" xml:space="preserve">
+        <value>Nouveau todo</value>
+    </data>
+    <data name="MdNoTodo" xml:space="preserve">
+        <value>Pas encore de todo</value>
+    </data>
+    <data name="MdDataLoading" xml:space="preserve">
+        <value>Les données sont en cours de chargement...</value>
+    </data>
+    <data name="MdAddTodoMessage" xml:space="preserve">
+        <value>Ajouter un todo</value>
+    </data>
+    <data name="MdTodoPlaceholder" xml:space="preserve">
+        <value>Description...</value>
+    </data>
+    <data name="MdAdd" xml:space="preserve">
+        <value>Ajouter</value>
+    </data>
+    <data name="MdSuccess" xml:space="preserve">
+        <value>Enregistrement réussi</value>
+    </data>
 </root>
