@@ -50,6 +50,14 @@
                     <div class="editor-area">
                         <div class="toolbar">
                             <div class="formatting-buttons">
+                                <button @onclick="FormatHeader" title=@Loc["MdTitle"]>
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.DocumentHeader())"/>
+                                </button>
+                                <button @onclick="FormatUnderline" title=@Loc["MdUnderline"]>
+                                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
+                                                Value="@(new Icons.Regular.Size20.TextUnderline())"/>
+                                </button>
                                 <button @onclick="FormatBold" title=@Loc["MdBold"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TextBold())"/>
@@ -74,27 +82,27 @@
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TextExpand())"/>
                                 </button>
-                                <button @onclick="FormatTables" title="Tables">
+                                <button @onclick="FormatTables" title=@Loc["MdTables"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TableAdd())"/>
                                 </button>
-                                <button @onclick="FormatBlockquote" title="Quote">
+                                <button @onclick="FormatBlockquote" title=@Loc["MdQuote"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TextQuote())"/>
                                 </button>
-                                <button @onclick="FormatLineThrough" title="Gestriechelt">
+                                <button @onclick="FormatLineThrough" title=@Loc["MdThrough"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TextStrikethrough())"/>
                                 </button>
-                                <button @onclick="FormatTaskList" title="Todo">
+                                <button @onclick="FormatTaskList" title=@Loc["MdTask"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.TaskListAdd())"/>
                                 </button>
-                                <button @onclick="FormatLink" title="Link">
+                                <button @onclick="FormatLink" title=@Loc["MdLink"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.Link())"/>
                                 </button>
-                                <button @onclick="FormatImage" title="Image">
+                                <button @onclick="FormatImage" title=@Loc["MdImage"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                                 Value="@(new Icons.Regular.Size20.Image())"/>
                                 </button>
@@ -257,6 +265,8 @@ else
     private bool _isSaving = false;
     private bool _isMarkdownPopupActive = false;
 
+    private async Task FormatHeader() => await InsertMarkdown("#", "");
+    private async Task FormatUnderline() => await InsertMarkdown("<ins>", "</ins>");
     private async Task FormatBold() => await InsertMarkdown("**", "**");
     private async Task FormatItalic() => await InsertMarkdown("*", "*");
     private async Task FormatNewLine() => await InsertMarkdown("\\", "");

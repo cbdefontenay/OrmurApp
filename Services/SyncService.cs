@@ -45,68 +45,78 @@ public class SyncService
         }
     }
 
-    public async Task SyncViaWiFiAsync(string serverIp, int port = 8888)
+public async Task SyncViaWiFiAsync(string serverIp, int port = 8888)
+{
+    await FileSemaphore.WaitAsync();
+    try
     {
-        await FileSemaphore.WaitAsync();
+        // Create a backup of current database
+        var backupFile = $"{_dbFile}.backup";
+        File.Copy(_dbFile, backupFile, overwrite: true);
+
         try
         {
-            // Create a backup of current database
-            var backupFile = $"{_dbFile}.backup";
-            File.Copy(_dbFile, backupFile, overwrite: true);
+            await EnsureDatabaseClosedAsync();
+
+            using var client = new TcpClient();
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
 
             try
             {
-                await EnsureDatabaseClosedAsync();
+                await client.ConnectAsync(serverIp, port, cts.Token);
+                await using var stream = client.GetStream();
 
-                using var client = new TcpClient();
-                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)); // 10 second timeout
+                // Read and send the file
+                var dbBytes = await ReadFileWithRetry(_dbFile);
+                await stream.WriteAsync(BitConverter.GetBytes(dbBytes.Length), cts.Token);
+                await stream.WriteAsync(dbBytes, cts.Token);
 
-                try
+                // Wait for confirmation
+                var responseBuffer = new byte[1];
+                await stream.ReadExactlyAsync(responseBuffer, cts.Token);
+                if (responseBuffer[0] != 1)
                 {
-                    await client.ConnectAsync(serverIp, port, cts.Token);
-                    await using var stream = client.GetStream();
-
-                    // Read and send the file
-                    var dbBytes = await ReadFileWithRetry(_dbFile);
-                    await stream.WriteAsync(BitConverter.GetBytes(dbBytes.Length), cts.Token);
-                    await stream.WriteAsync(dbBytes, cts.Token);
-
-                    // Wait for confirmation
-                    var responseBuffer = new byte[1];
-                    await stream.ReadAsync(responseBuffer, cts.Token);
-                    if (responseBuffer[0] != 1)
-                    {
-                        throw new Exception("Remote device failed to process the database");
-                    }
-                }
-                catch (OperationCanceledException) when (cts.IsCancellationRequested)
-                {
-                    throw new TimeoutException("Connection attempt timed out");
+                    throw new Exception("Remote device failed to process the database");
                 }
             }
-            catch
+            catch (OperationCanceledException) when (cts.IsCancellationRequested)
             {
-                // Restore backup if sync failed
-                if (File.Exists(backupFile))
+                throw new TimeoutException("Connection attempt timed out after 10 seconds");
+            }
+            catch (SocketException ex)
+            {
+                throw new Exception($"Network error: {ex.SocketErrorCode}", ex);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Restore backup if sync failed
+            if (File.Exists(backupFile))
+            {
+                try
                 {
                     File.Copy(backupFile, _dbFile, overwrite: true);
                 }
-
-                throw;
-            }
-            finally
-            {
-                if (File.Exists(backupFile))
+                catch (Exception restoreEx)
                 {
-                    File.Delete(backupFile);
+                    throw new Exception($"Sync failed and backup restore failed: {restoreEx.Message}", ex);
                 }
             }
+            throw;
         }
         finally
         {
-            FileSemaphore.Release();
+            if (File.Exists(backupFile))
+            {
+                File.Delete(backupFile);
+            }
         }
     }
+    finally
+    {
+        FileSemaphore.Release();
+    }
+}
 
     private async Task EnsureDatabaseClosedAsync()
     {
@@ -138,7 +148,7 @@ public class SyncService
 
     private async Task<byte[]> ReadFileWithRetry(string filePath, int maxRetries = 5, int delayMs = 200)
     {
-        for (int i = 0; i < maxRetries; i++)
+        for (var i = 0; i < maxRetries; i++)
         {
             try
             {
@@ -169,12 +179,13 @@ public class SyncService
                 {
                     var client = await _listener.AcceptTcpClientAsync(_cts.Token);
                     _ = HandleClientAsync(client).ContinueWith(t =>
-                    {
-                        if (t.IsFaulted)
                         {
-                            Console.WriteLine($"Client handling error: {t.Exception?.Message}");
+                            if (t.IsFaulted)
+                            {
+                                Console.WriteLine($"Client handling error: {t.Exception?.Message}");
+                            }
                         }
-                    });
+                    );
                 }
             }
             catch (OperationCanceledException)
@@ -202,11 +213,11 @@ public class SyncService
             // Read the size of incoming data
             var sizeBuffer = new byte[4];
             await stream.ReadAsync(sizeBuffer);
-            int size = BitConverter.ToInt32(sizeBuffer, 0);
+            var size = BitConverter.ToInt32(sizeBuffer, 0);
 
             // Read the actual data
             var buffer = new byte[size];
-            int bytesRead = 0;
+            var bytesRead = 0;
             while (bytesRead < size)
             {
                 bytesRead += await stream.ReadAsync(buffer.AsMemory(bytesRead, size - bytesRead));

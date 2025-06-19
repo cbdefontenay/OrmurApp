@@ -531,6 +531,15 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bild.
+        /// </summary>
+        internal static string MdImage {
+            get {
+                return ResourceManager.GetString("MdImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Speichern....
         /// </summary>
         internal static string MdIsSaving {
@@ -545,6 +554,15 @@ namespace Ormur.i18n {
         internal static string MdItalic {
             get {
                 return ResourceManager.GetString("MdItalic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        internal static string MdLink {
+            get {
+                return ResourceManager.GetString("MdLink", resourceCulture);
             }
         }
         
@@ -621,6 +639,15 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zitat.
+        /// </summary>
+        internal static string MdQuote {
+            get {
+                return ResourceManager.GetString("MdQuote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Speichern.
         /// </summary>
         internal static string MdStore {
@@ -639,11 +666,47 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tabellen.
+        /// </summary>
+        internal static string MdTables {
+            get {
+                return ResourceManager.GetString("MdTables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aufgabe.
+        /// </summary>
+        internal static string MdTask {
+            get {
+                return ResourceManager.GetString("MdTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Was hast du im Kopf?.
         /// </summary>
         internal static string MdTextareaPlaceholder {
             get {
                 return ResourceManager.GetString("MdTextareaPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestrichelt.
+        /// </summary>
+        internal static string MdThrough {
+            get {
+                return ResourceManager.GetString("MdThrough", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        internal static string MdTitle {
+            get {
+                return ResourceManager.GetString("MdTitle", resourceCulture);
             }
         }
         
@@ -671,6 +734,15 @@ namespace Ormur.i18n {
         internal static string MdUlList {
             get {
                 return ResourceManager.GetString("MdUlList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unterstricht.
+        /// </summary>
+        internal static string MdUnderline {
+            get {
+                return ResourceManager.GetString("MdUnderline", resourceCulture);
             }
         }
         
@@ -830,6 +902,15 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verbindungstest fehlgeschlagen: Timeout.
+        /// </summary>
+        internal static string SyncConnectionTimeout {
+            get {
+                return ResourceManager.GetString("SyncConnectionTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kopieren der IP-Adresse fehlgeschlagen.
         /// </summary>
         internal static string SyncCopyFailed {
@@ -853,6 +934,15 @@ namespace Ormur.i18n {
         internal static string SyncErrorTwo {
             get {
                 return ResourceManager.GetString("SyncErrorTwo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dateifehler:.
+        /// </summary>
+        internal static string SyncFileError {
+            get {
+                return ResourceManager.GetString("SyncFileError", resourceCulture);
             }
         }
         
@@ -934,6 +1024,15 @@ namespace Ormur.i18n {
         internal static string SyncLiTwo {
             get {
                 return ResourceManager.GetString("SyncLiTwo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Netzwerkfehler:.
+        /// </summary>
+        internal static string SyncNetworkError {
+            get {
+                return ResourceManager.GetString("SyncNetworkError", resourceCulture);
             }
         }
         

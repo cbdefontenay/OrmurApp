@@ -346,6 +346,15 @@
     <data name="SyncLiFour" xml:space="preserve">
         <value>Klicken Sie auf "Synchronisation starten"</value>
     </data>
+    <data name="SyncConnectionTimeout" xml:space="preserve">
+        <value>Verbindungstest fehlgeschlagen: Timeout</value>
+    </data>
+    <data name="SyncNetworkError" xml:space="preserve">
+        <value>Netzwerkfehler:</value>
+    </data>
+        <data name="SyncFileError" xml:space="preserve">
+        <value>Dateifehler:</value>
+    </data>
     <data name="SubCreatedOn" xml:space="preserve">
         <value>Erstellt am</value>
     </data>
@@ -363,5 +372,29 @@
     </data>
     <data name="SubDefaultNoteTitle" xml:space="preserve">
         <value>Neue Notiz</value>
+    </data>
+    <data name="MdTitle" xml:space="preserve">
+        <value>Title</value>
+    </data>
+    <data name="MdUnderline" xml:space="preserve">
+        <value>Unterstricht</value>
+    </data>
+    <data name="MdTables" xml:space="preserve">
+        <value>Tabellen</value>
+    </data>
+    <data name="MdQuote" xml:space="preserve">
+        <value>Zitat</value>
+    </data>
+    <data name="MdThrough" xml:space="preserve">
+        <value>Gestrichelt</value>
+    </data>
+    <data name="MdTask" xml:space="preserve">
+        <value>Aufgabe</value>
+    </data>
+    <data name="MdLink" xml:space="preserve">
+        <value>Link</value>
+    </data>
+    <data name="MdImage" xml:space="preserve">
+        <value>Bild</value>
     </data>
 </root>

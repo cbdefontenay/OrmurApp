@@ -162,25 +162,43 @@
                 await testClient.ConnectAsync(_remoteIp, 8888, testCts.Token);
                 testClient.Dispose();
             }
-            catch
+            catch (OperationCanceledException)
             {
-                ShowStatus(Loc["SyncConnectionFailed"], true);
+                ShowStatus(Loc["SyncConnectionTimeout"], true);
+                return;
+            }
+            catch (SocketException ex)
+            {
+                ShowStatus($"{Loc["SyncConnectionFailed"]}\nError: {ex.SocketErrorCode}", true);
+                return;
+            }
+            catch (Exception ex)
+            {
+                ShowStatus($"{Loc["SyncConnectionFailed"]}\nError: {ex.Message}", true);
                 return;
             }
 
+            // If connection test passed, proceed with sync
             await SyncService.SyncViaWiFiAsync(_remoteIp);
             ShowStatus(Loc["SyncSuccess"], false);
-            await Task.Delay(1500);
+            await Task.Delay(1500, testCts.Token);
             NavigationManager.NavigateTo("/", true);
         }
-        catch (TimeoutException)
+        catch (TimeoutException ex)
         {
-            ShowStatus(Loc["SyncTimeoutError"], true);
+            ShowStatus($"{Loc["SyncTimeoutError"]}\n{ex.Message}", true);
+        }
+        catch (SocketException ex)
+        {
+            ShowStatus($"{Loc["SyncNetworkError"]}\n{ex.SocketErrorCode}", true);
+        }
+        catch (IOException ex)
+        {
+            ShowStatus($"{Loc["SyncFileError"]}\n{ex.Message}", true);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Sync error: {ex}");
-            ShowStatus(string.Format(Loc["SyncErrorTwo"], ex.Message), true);
+            ShowStatus($"{Loc["SyncErrorTwo"]}\n{ex.Message}", true);
         }
         finally
         {

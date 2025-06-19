@@ -334,6 +334,15 @@
     <data name="SyncErrorTwo" xml:space="preserve">
         <value>Erreur: {0}</value>
     </data>
+    <data name="SyncConnectionTimeout" xml:space="preserve">
+        <value>Échec du test de connexion: Timeout</value>
+    </data>
+        <data name="SyncNetworkError" xml:space="preserve">
+        <value>Erreur réseau:</value>
+    </data>
+        <data name="SyncFileError" xml:space="preserve">
+        <value>Erreur de fichier:</value>
+    </data>
     <data name="SubCreatedOn" xml:space="preserve">
     <value>Créé le</value>
     </data>
@@ -350,5 +359,29 @@
     </data>
     <data name="SubDefaultNoteTitle" xml:space="preserve">
         <value>Nouvelle note</value>
+    </data>
+    <data name="MdTitle" xml:space="preserve">
+        <value>Titre</value>
+    </data>
+    <data name="MdUnderline" xml:space="preserve">
+        <value>Souligné</value>
+    </data>
+    <data name="MdTables" xml:space="preserve">
+        <value>Tables</value>
+    </data>
+    <data name="MdQuote" xml:space="preserve">
+        <value>Citation</value>
+    </data>
+    <data name="MdThrough" xml:space="preserve">
+        <value>Hachuré</value>
+    </data>
+    <data name="MdTask" xml:space="preserve">
+        <value>Tâche</value>
+    </data>
+    <data name="MdLink" xml:space="preserve">
+        <value>Lien</value>
+    </data>
+    <data name="MdImage" xml:space="preserve">
+        <value>Image</value>
     </data>
 </root>

@@ -32,6 +32,24 @@
     text-decoration: underline;
 }
 
+.status {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: left;
+    white-space: pre-line;
+}
+
+.status.error {
+    background: var(--error-container);
+    color: var(--on-error-container);
+}
+
+.status.success {
+    background: var(--primary-container);
+    color: var(--on-primary-container);
+}
+
 /* Android-specific styles */
 @media (pointer: coarse) {
     .sync-container {
