@@ -222,6 +222,270 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Erweiterte Formatierung.
+        /// </summary>
+        internal static string MarkdownAdvancedFormatting {
+            get {
+                return ResourceManager.GetString("MarkdownAdvancedFormatting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grundlegende Formatierung.
+        /// </summary>
+        internal static string MarkdownBasicFormatting {
+            get {
+                return ResourceManager.GetString("MarkdownBasicFormatting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to **Fett**.
+        /// </summary>
+        internal static string MarkdownBoldExample {
+            get {
+                return ResourceManager.GetString("MarkdownBoldExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Markdown Spickzettel.
+        /// </summary>
+        internal static string MarkdownCheatSheetLink {
+            get {
+                return ResourceManager.GetString("MarkdownCheatSheetLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kode.
+        /// </summary>
+        internal static string MarkdownCode {
+            get {
+                return ResourceManager.GetString("MarkdownCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///        ```
+        ///           Mehrzeiliger
+        ///           Codeblock
+        ///        ```
+        ///    .
+        /// </summary>
+        internal static string MarkdownCodeBlockExample {
+            get {
+                return ResourceManager.GetString("MarkdownCodeBlockExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Farbiger Text.
+        /// </summary>
+        internal static string MarkdownColoredText {
+            get {
+                return ResourceManager.GetString("MarkdownColoredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Überschrift 1.
+        /// </summary>
+        internal static string MarkdownHeader1Example {
+            get {
+                return ResourceManager.GetString("MarkdownHeader1Example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ## Überschrift 2.
+        /// </summary>
+        internal static string MarkdownHeader2Example {
+            get {
+                return ResourceManager.GetString("MarkdownHeader2Example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Überschriften.
+        /// </summary>
+        internal static string MarkdownHeaders {
+            get {
+                return ResourceManager.GetString("MarkdownHeaders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Markdown Hilfe.
+        /// </summary>
+        internal static string MarkdownHelpTitle {
+            get {
+                return ResourceManager.GetString("MarkdownHelpTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hinweis: HTML kann verwendet werden, wird aber nicht empfohlen.
+        /// </summary>
+        internal static string MarkdownHtmlNote {
+            get {
+                return ResourceManager.GetString("MarkdownHtmlNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ![Alt-Text](bild.jpg).
+        /// </summary>
+        internal static string MarkdownImageExample {
+            get {
+                return ResourceManager.GetString("MarkdownImageExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sie können Bilder mit HTML img-Tag und Inline-Styles formatieren.
+        /// </summary>
+        internal static string MarkdownImageNote {
+            get {
+                return ResourceManager.GetString("MarkdownImageNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to `Inline-Code`.
+        /// </summary>
+        internal static string MarkdownInlineCodeExample {
+            get {
+                return ResourceManager.GetString("MarkdownInlineCodeExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *Kursiv*.
+        /// </summary>
+        internal static string MarkdownItalicExample {
+            get {
+                return ResourceManager.GetString("MarkdownItalicExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erfahren Sie mehr über Markdown-Syntax:.
+        /// </summary>
+        internal static string MarkdownLearnMoreText {
+            get {
+                return ResourceManager.GetString("MarkdownLearnMoreText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Linktext](https://example.com).
+        /// </summary>
+        internal static string MarkdownLinkExample {
+            get {
+                return ResourceManager.GetString("MarkdownLinkExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Links und Bilder.
+        /// </summary>
+        internal static string MarkdownLinksImages {
+            get {
+                return ResourceManager.GetString("MarkdownLinksImages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Ungeordnete Liste
+        ///      - Unterpunkt
+        ///    1. Geordnete Liste
+        ///    2. Zweiter Punkt.
+        /// </summary>
+        internal static string MarkdownListExample {
+            get {
+                return ResourceManager.GetString("MarkdownListExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Listen.
+        /// </summary>
+        internal static string MarkdownLists {
+            get {
+                return ResourceManager.GetString("MarkdownLists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weitere Ressourcen.
+        /// </summary>
+        internal static string MarkdownMoreResources {
+            get {
+                return ResourceManager.GetString("MarkdownMoreResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ~~Durchgestrichen~~.
+        /// </summary>
+        internal static string MarkdownStrikethroughExample {
+            get {
+                return ResourceManager.GetString("MarkdownStrikethroughExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gestyltes Bild.
+        /// </summary>
+        internal static string MarkdownStyledImage {
+            get {
+                return ResourceManager.GetString("MarkdownStyledImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///            | Spalte 1 | Spalte 2 |
+        ///            |----------|----------|
+        ///            | Zelle 1  | Zelle 2  |
+        ///        .
+        /// </summary>
+        internal static string MarkdownTableExample {
+            get {
+                return ResourceManager.GetString("MarkdownTableExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tabellen.
+        /// </summary>
+        internal static string MarkdownTables {
+            get {
+                return ResourceManager.GetString("MarkdownTables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Was ist Markdown?.
+        /// </summary>
+        internal static string MarkdownWhatIs {
+            get {
+                return ResourceManager.GetString("MarkdownWhatIs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Markdown ist eine einfache Auszeichnungssprache, mit der Sie formatierten Text erstellen können. Sie können Überschriften, Listen, Links und mehr formatieren, ohne komplexe HTML-Tags verwenden zu müssen..
+        /// </summary>
+        internal static string MarkdownWhatIsText {
+            get {
+                return ResourceManager.GetString("MarkdownWhatIsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hinzufügen.
         /// </summary>
         internal static string MdAdd {
@@ -281,6 +545,15 @@ namespace Ormur.i18n {
         internal static string MdItalic {
             get {
                 return ResourceManager.GetString("MdItalic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mehr über Markdowns Syntax.
+        /// </summary>
+        internal static string MdMoreAboutMd {
+            get {
+                return ResourceManager.GetString("MdMoreAboutMd", resourceCulture);
             }
         }
         
@@ -492,6 +765,80 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Erstellt am.
+        /// </summary>
+        internal static string SubCreatedOn {
+            get {
+                return ResourceManager.GetString("SubCreatedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erstelle eine neue Notiz, um loszulegen.
+        /// </summary>
+        internal static string SubCreateNotePrompt {
+            get {
+                return ResourceManager.GetString("SubCreateNotePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neue Notiz.
+        /// </summary>
+        internal static string SubDefaultNoteTitle {
+            get {
+                return ResourceManager.GetString("SubDefaultNoteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bearbeiten.
+        /// </summary>
+        internal static string SubEdit {
+            get {
+                return ResourceManager.GetString("SubEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neue Notiz.
+        /// </summary>
+        internal static string SubNewNote {
+            get {
+                return ResourceManager.GetString("SubNewNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noch keine Notizen.
+        /// </summary>
+        internal static string SubNoNotes {
+            get {
+                return ResourceManager.GetString("SubNoNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///            Verbindung fehlgeschlagen. Bitte überprüfen Sie, dass beide Geräte im selben Netzwerk sind - Dass die IP-Adresse korrekt ist- Dass die App auf dem anderen Gerät geöffnet ist
+        ///        .
+        /// </summary>
+        internal static string SyncConnectionFailed {
+            get {
+                return ResourceManager.GetString("SyncConnectionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kopieren der IP-Adresse fehlgeschlagen.
+        /// </summary>
+        internal static string SyncCopyFailed {
+            get {
+                return ResourceManager.GetString("SyncCopyFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bitte geben Sie die IP des anderen Geräts ein....
         /// </summary>
         internal static string SyncErrorOne {
@@ -501,7 +848,7 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Synchronisation fehlgeschlagen: {0}..
+        ///   Looks up a localized string similar to Fehler: {0}.
         /// </summary>
         internal static string SyncErrorTwo {
             get {
@@ -528,6 +875,15 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IP-Adresse kopiert.
+        /// </summary>
+        internal static string SyncIpCopied {
+            get {
+                return ResourceManager.GetString("SyncIpCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IP wird ermittelt....
         /// </summary>
         internal static string SyncIpLoad {
@@ -546,7 +902,7 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klicken Sie auf &quot;Synchronisation starten&quot;..
+        ///   Looks up a localized string similar to Klicken Sie auf &quot;Synchronisation starten&quot;.
         /// </summary>
         internal static string SyncLiFour {
             get {
@@ -555,7 +911,7 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stellen Sie sicher, dass beide Geräte im gleichen WLAN-Netzwerk sind (Hotspot aktivieren)..
+        ///   Looks up a localized string similar to Stellen Sie sicher, dass beide Geräte im gleichen WLAN-Netzwerk sind (Hotspot aktivieren).
         /// </summary>
         internal static string SyncLiOne {
             get {
@@ -564,7 +920,7 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geben Sie die IP-Adresse des anderen Geräts ein..
+        ///   Looks up a localized string similar to Geben Sie die IP-Adresse des anderen Geräts ein.
         /// </summary>
         internal static string SyncLiThree {
             get {
@@ -573,7 +929,7 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Starten Sie die Synchronisation auf einem Gerät..
+        ///   Looks up a localized string similar to Starten Sie die Synchronisation auf einem Gerät.
         /// </summary>
         internal static string SyncLiTwo {
             get {
@@ -623,6 +979,15 @@ namespace Ormur.i18n {
         internal static string SyncSyncLoad {
             get {
                 return ResourceManager.GetString("SyncSyncLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout: Keine Antwort vom Gerät erhalten.
+        /// </summary>
+        internal static string SyncTimeoutError {
+            get {
+                return ResourceManager.GetString("SyncTimeoutError", resourceCulture);
             }
         }
         

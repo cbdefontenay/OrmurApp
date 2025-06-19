@@ -211,6 +211,11 @@
     --surface-container-highest: rgb(225 226 233);
 }
 
+* {
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     user-select: none;

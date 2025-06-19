@@ -1,35 +1,24 @@
 ﻿@page "/sync"
 @inject SyncService SyncService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime Js
 @implements IDisposable
 
 <div class="sync-container">
-    <h3>
-        @Loc["SyncHeader"]
-    </h3>
+    <h3>@Loc["SyncHeader"]</h3>
 
     <div class="sync-instructions">
         <p><strong>@Loc["SyncSubHeader"]</strong></p>
         <ol>
-            <li>
-                @Loc["SyncLiOne"]
-            </li>
-            <li>
-                @Loc["SyncLiTwo"]
-            </li>
-            <li>
-                @Loc["SyncLiThree"]
-            </li>
-            <li>
-                @Loc["SyncLiFour"]
-            </li>
+            <li>@Loc["SyncLiOne"]</li>
+            <li>@Loc["SyncLiTwo"]</li>
+            <li>@Loc["SyncLiThree"]</li>
+            <li>@Loc["SyncLiFour"]</li>
         </ol>
     </div>
 
     <div class="ip-display">
-        <label>
-            @Loc["SyncIpAddress"]
-        </label>
+        <label>@Loc["SyncIpAddress"]</label>
         <div class="ip-address">
             @if (_ipLoading)
             {
@@ -37,13 +26,14 @@
             }
             else if (string.IsNullOrEmpty(_localIp))
             {
-                <span class="error-text">
-                    @Loc["SyncIpNotHere"]
-                </span>
+                <span class="error-text">@Loc["SyncIpNotHere"]</span>
             }
             else
             {
                 @_localIp
+                <button class="copy-button" @onclick="CopyIp">
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Copy())"/>
+                </button>
             }
         </div>
     </div>
@@ -51,25 +41,22 @@
     <div class="sync-controls">
         <input type="text"
                @bind="_remoteIp"
+               @oninput="ValidateIp"
                placeholder=@Loc["SyncPlaceholder"]
-               class="ip-input"
+               class="ip-input @(_ipInvalid ? "invalid" : "")"
                inputmode="decimal"/>
 
         <button @onclick="StartSync"
-                disabled="@_isSyncing"
+                disabled="@(_isSyncing || _ipInvalid)"
                 class="sync-button @(_isSyncing ? "syncing" : "")">
             @if (_isSyncing)
             {
                 <span class="spinner"></span>
-                <span>
-                    @Loc["SyncSyncLoad"]
-                </span>
+                <span>@Loc["SyncSyncLoad"]</span>
             }
             else
             {
-                <span>
-                    @Loc["SyncStartSync"]
-                </span>
+                <span>@Loc["SyncStartSync"]</span>
             }
         </button>
     </div>
@@ -77,7 +64,7 @@
     @if (!string.IsNullOrEmpty(_status))
     {
         <div class="status @(_isError ? "error" : "success")">
-            @_status
+            @((MarkupString)_status)
         </div>
     }
 </div>
@@ -89,6 +76,7 @@
     private bool _isSyncing;
     private bool _isError;
     private bool _ipLoading = true;
+    private bool _ipInvalid = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -102,46 +90,102 @@
         _ipLoading = true;
         StateHasChanged();
 
-        for (var i = 0; i < 3; i++)
+        try
         {
-            _localIp = SyncService.GetLocalIpAddress();
-            if (!string.IsNullOrEmpty(_localIp)) break;
-            await Task.Delay(500);
+            _localIp = await Task.Run(() =>
+            {
+                for (var i = 0; i < 3; i++)
+                {
+                    var ip = SyncService.GetLocalIpAddress();
+                    if (!string.IsNullOrEmpty(ip)) return ip;
+                    Task.Delay(500).Wait();
+                }
+                return null;
+            });
         }
-
-        _ipLoading = false;
-        StateHasChanged();
+        catch
+        {
+            _localIp = null;
+        }
+        finally
+        {
+            _ipLoading = false;
+            StateHasChanged();
+        }
     }
 
-    public void Dispose()
+    private void ValidateIp(ChangeEventArgs e)
     {
-        SyncService.StopWiFiSyncServer();
+        _remoteIp = e.Value?.ToString();
+        _ipInvalid = !IsValidIp(_remoteIp);
+    }
+
+    private bool IsValidIp(string? ip)
+    {
+        return !string.IsNullOrWhiteSpace(ip) && IPAddress.TryParse(ip, out _);
+    }
+
+    private async Task CopyIp()
+    {
+        try
+        {
+            await Js.InvokeVoidAsync("navigator.clipboard.writeText", _localIp);
+            ShowStatus(Loc["SyncIpCopied"], false);
+            await Task.Delay(2000);
+            _status = null;
+            StateHasChanged();
+        }
+        catch
+        {
+            ShowStatus(Loc["SyncCopyFailed"], true);
+        }
     }
 
     private async Task StartSync()
     {
-        if (string.IsNullOrWhiteSpace(_remoteIp))
+        if (string.IsNullOrWhiteSpace(_remoteIp) || _ipInvalid)
         {
-            ShowStatus(@Loc["SyncErrorOne"], true);
+            ShowStatus(Loc["SyncErrorOne"], true);
             return;
         }
 
         _isSyncing = true;
-        ShowStatus(@Loc["SyncWillBe"], false);
+        ShowStatus(Loc["SyncWillBe"], false);
+        StateHasChanged();
 
         try
         {
+            using var testClient = new TcpClient();
+            using var testCts = new CancellationTokenSource(TimeSpan.FromSeconds(2));
+            try
+            {
+                await testClient.ConnectAsync(_remoteIp, 8888, testCts.Token);
+                testClient.Dispose();
+            }
+            catch
+            {
+                ShowStatus(Loc["SyncConnectionFailed"], true);
+                return;
+            }
+
             await SyncService.SyncViaWiFiAsync(_remoteIp);
-            ShowStatus(@Loc["SyncSuccess"], false);
+            ShowStatus(Loc["SyncSuccess"], false);
             await Task.Delay(1500);
+            NavigationManager.NavigateTo("/", true);
+        }
+        catch (TimeoutException)
+        {
+            ShowStatus(Loc["SyncTimeoutError"], true);
         }
         catch (Exception ex)
         {
-            ShowStatus(@Loc["SyncErrorTwo", ex.Message], true);
+            Console.WriteLine($"Sync error: {ex}");
+            ShowStatus(string.Format(Loc["SyncErrorTwo"], ex.Message), true);
         }
         finally
         {
             _isSyncing = false;
+            StateHasChanged();
         }
     }
 
@@ -152,4 +196,8 @@
         StateHasChanged();
     }
 
+    public void Dispose()
+    {
+        SyncService.StopWiFiSyncServer();
+    }
 }

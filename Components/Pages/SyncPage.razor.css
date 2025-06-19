@@ -8,6 +8,30 @@
     user-select: text;
 }
 
+.copy-button {
+    background: none;
+    border: none;
+    padding: 4px;
+    margin-left: 8px;
+    cursor: pointer;
+    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+}
+
+.copy-button:hover {
+    color: var(--primary-container);
+}
+
+.ip-input.invalid {
+    border-color: var(--error);
+}
+
+.status a {
+    color: inherit;
+    text-decoration: underline;
+}
+
 /* Android-specific styles */
 @media (pointer: coarse) {
     .sync-container {

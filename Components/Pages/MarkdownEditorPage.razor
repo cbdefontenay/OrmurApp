@@ -103,6 +103,18 @@
                                                 Value="@(new Icons.Regular.Size20.Code())"/>
                                 </button>
                             </div>
+                            <button type="button" class="help-button" @onclick="ShowMarkdownPopup">
+                                <FluentIcon Value="@(new Icons.Regular.Size20.Question())" Color="Color.Custom"
+                                            CustomColor="var(--primary)"/>
+                                <span>
+                                    @Loc["MdMoreAboutMd"]
+                                </span>
+                            </button>
+
+                            @if (_isMarkdownPopupActive)
+                            {
+                                <MarkdownHelpPanel IsVisible="_isMarkdownPopupActive" OnClose="ClosePanel"/>
+                            }
                         </div>
                         <textarea @bind="MarkdownText"
                                   @bind:event="oninput"
@@ -243,15 +255,20 @@ else
     private ElementReference _todoInputRef;
     private List<TodoItemModel> _todos = [];
     private bool _isSaving = false;
+    private bool _isMarkdownPopupActive = false;
 
     private async Task FormatBold() => await InsertMarkdown("**", "**");
     private async Task FormatItalic() => await InsertMarkdown("*", "*");
-    private async Task FormatNewLine() => await InsertMarkdown("</br>", "");
+    private async Task FormatNewLine() => await InsertMarkdown("\\", "");
     private async Task FormatLineThrough() => await InsertMarkdown("~~", "~~");
     private async Task FormatTaskList() => await InsertMarkdown("- [ ]", " Title");
     private async Task FormatNewAccordion() => await InsertMarkdown("<details>\n<summary>Title</summary>\n\n", "\n</details>");
     private async Task FormatCode() => await InsertMarkdown("```\n", "```");
     private async Task FormatList() => await InsertMarkdown("- ", "");
+    private async Task FormatBlockquote() => await InsertMarkdown("> ", "");
+    private async Task FormatTables() => await InsertMarkdown("| Syntax | Description |\n| --- | ----------- |\n| Header | Title |\n| Paragraph | Text | ", "");
+    private async Task FormatLink() => await InsertMarkdown("[", "](url)");
+    private async Task FormatImage() => await InsertMarkdown("![", "](image-url)");
 
     private async Task FormatNumberedList()
     {
@@ -287,11 +304,6 @@ else
             }
         });");
     }
-
-    private async Task FormatBlockquote() => await InsertMarkdown("> ", "");
-    private async Task FormatTables() => await InsertMarkdown("| Syntax | Description |\n| --- | ----------- |\n| Header | Title |\n| Paragraph | Text | ", "");
-    private async Task FormatLink() => await InsertMarkdown("[", "](url)");
-    private async Task FormatImage() => await InsertMarkdown("![", "](image-url)");
 
     private async Task InsertMarkdown(string prefix, string suffix)
     {
@@ -572,6 +584,16 @@ else
         );
 
         return html;
+    }
+
+    private void ShowMarkdownPopup()
+    {
+        _isMarkdownPopupActive = true;
+    }
+
+    private void ClosePanel()
+    {
+        _isMarkdownPopupActive = false;
     }
 
 }

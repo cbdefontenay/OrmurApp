@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <xsd:element name="root" msdata:IsDataSet="true">
-            
+
         </xsd:element>
     </xsd:schema>
     <resheader name="resmimetype">
@@ -13,10 +14,14 @@
         <value>1.3</value>
     </resheader>
     <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <data name="NavHome" xml:space="preserve">
         <value>Startseite</value>
@@ -209,5 +214,154 @@
     </data>
     <data name="MdSuccess" xml:space="preserve">
         <value>Wurde erfolgreich gespeichert</value>
+    </data>
+    <data name="MdMoreAboutMd" xml:space="preserve">
+        <value>Mehr über Markdowns Syntax</value>
+    </data>
+    <data name="MarkdownHelpTitle" xml:space="preserve">
+        <value>Markdown Hilfe</value>
+    </data>
+    <data name="MarkdownWhatIs" xml:space="preserve">
+        <value>Was ist Markdown?</value>
+    </data>
+    <data name="MarkdownWhatIsText" xml:space="preserve">
+        <value>Markdown ist eine einfache Auszeichnungssprache, mit der Sie formatierten Text erstellen können. Sie können Überschriften, Listen, Links und mehr formatieren, ohne komplexe HTML-Tags verwenden zu müssen.</value>
+    </data>
+    <data name="MarkdownBasicFormatting" xml:space="preserve">
+        <value>Grundlegende Formatierung</value>
+    </data>
+    <data name="MarkdownHeaders" xml:space="preserve">
+        <value>Überschriften</value>
+    </data>
+    <data name="MarkdownLists" xml:space="preserve">
+        <value>Listen</value>
+    </data>
+    <data name="MarkdownLinksImages" xml:space="preserve">
+        <value>Links und Bilder</value>
+    </data>
+    <data name="MarkdownCode" xml:space="preserve">
+        <value>Kode</value>
+    </data>
+    <data name="MarkdownTables" xml:space="preserve">
+        <value>Tabellen</value>
+    </data>
+    <data name="MarkdownBoldExample" xml:space="preserve">
+        <value>**Fett**</value>
+    </data>
+    <data name="MarkdownItalicExample" xml:space="preserve">
+        <value>*Kursiv*</value>
+    </data>
+    <data name="MarkdownStrikethroughExample" xml:space="preserve">
+        <value>~~Durchgestrichen~~</value>
+    </data>
+    <data name="MarkdownHeader1Example" xml:space="preserve">
+        <value># Überschrift 1</value>
+    </data>
+    <data name="MarkdownHeader2Example" xml:space="preserve">
+        <value>## Überschrift 2</value>
+    </data>
+    <data name="MarkdownListExample" xml:space="preserve">
+        <value>- Ungeordnete Liste
+      - Unterpunkt
+    1. Geordnete Liste
+    2. Zweiter Punkt</value>
+    </data>
+    <data name="MarkdownLinkExample" xml:space="preserve">
+        <value>[Linktext](https://example.com)</value>
+    </data>
+    <data name="MarkdownImageExample" xml:space="preserve">
+        <value>![Alt-Text](bild.jpg)</value>
+    </data>
+    <data name="MarkdownInlineCodeExample" xml:space="preserve">
+        <value>`Inline-Code`</value>
+    </data>
+    <data name="MarkdownCodeBlockExample" xml:space="preserve">
+        <value>
+        ```
+           Mehrzeiliger
+           Codeblock
+        ```
+    </value>
+    </data>
+    <data name="MarkdownTableExample" xml:space="preserve">
+        <value>
+            | Spalte 1 | Spalte 2 |
+            |----------|----------|
+            | Zelle 1  | Zelle 2  |
+        </value>
+    </data>
+    <data name="MarkdownAdvancedFormatting" xml:space="preserve">
+    <value>Erweiterte Formatierung</value>
+    </data>
+    <data name="MarkdownColoredText" xml:space="preserve">
+        <value>Farbiger Text</value>
+    </data>
+    <data name="MarkdownHtmlNote" xml:space="preserve">
+        <value>Hinweis: HTML kann verwendet werden, wird aber nicht empfohlen</value>
+    </data>
+    <data name="MarkdownStyledImage" xml:space="preserve">
+        <value>Gestyltes Bild</value>
+    </data>
+    <data name="MarkdownImageNote" xml:space="preserve">
+        <value>Sie können Bilder mit HTML img-Tag und Inline-Styles formatieren</value>
+    </data>
+    <data name="MarkdownMoreResources" xml:space="preserve">
+        <value>Weitere Ressourcen</value>
+    </data>
+    <data name="MarkdownLearnMoreText" xml:space="preserve">
+        <value>Erfahren Sie mehr über Markdown-Syntax:</value>
+    </data>
+    <data name="MarkdownCheatSheetLink" xml:space="preserve">
+        <value>Markdown Spickzettel</value>
+    </data>
+    <data name="SyncCopyFailed" xml:space="preserve">
+        <value>Kopieren der IP-Adresse fehlgeschlagen</value>
+    </data>
+    <data name="SyncConnectionFailed" xml:space="preserve">
+        <value>
+            Verbindung fehlgeschlagen. Bitte überprüfen Sie, dass beide Geräte im selben Netzwerk sind - Dass die IP-Adresse korrekt ist- Dass die App auf dem anderen Gerät geöffnet ist
+        </value>
+    </data>
+    <data name="SyncIpCopied" xml:space="preserve">
+        <value>IP-Adresse kopiert</value>
+    </data>
+    <data name="SyncTimeoutError" xml:space="preserve">
+    <value>Timeout: Keine Antwort vom Gerät erhalten</value>
+    </data>
+    <data name="SyncErrorTwo" xml:space="preserve">
+        <value>Fehler: {0}</value>
+    </data>
+    <data name="SyncSubHeader" xml:space="preserve">
+        <value>So synchronisieren Sie:</value>
+    </data>
+    <data name="SyncLiOne" xml:space="preserve">
+        <value>Stellen Sie sicher, dass beide Geräte im gleichen WLAN-Netzwerk sind (Hotspot aktivieren)</value>
+    </data>
+    <data name="SyncLiTwo" xml:space="preserve">
+        <value>Starten Sie die Synchronisation auf einem Gerät</value>
+    </data>
+    <data name="SyncLiThree" xml:space="preserve">
+        <value>Geben Sie die IP-Adresse des anderen Geräts ein</value>
+    </data>
+    <data name="SyncLiFour" xml:space="preserve">
+        <value>Klicken Sie auf "Synchronisation starten"</value>
+    </data>
+    <data name="SubCreatedOn" xml:space="preserve">
+        <value>Erstellt am</value>
+    </data>
+    <data name="SubNewNote" xml:space="preserve">
+        <value>Neue Notiz</value>
+    </data>
+    <data name="SubEdit" xml:space="preserve">
+        <value>Bearbeiten</value>
+    </data>
+    <data name="SubNoNotes" xml:space="preserve">
+        <value>Noch keine Notizen</value>
+    </data>
+    <data name="SubCreateNotePrompt" xml:space="preserve">
+        <value>Erstelle eine neue Notiz, um loszulegen</value>
+    </data>
+    <data name="SubDefaultNoteTitle" xml:space="preserve">
+        <value>Neue Notiz</value>
     </data>
 </root>

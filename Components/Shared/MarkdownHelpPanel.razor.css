@@ -1,0 +1,138 @@
+﻿.markdown-help-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--surface-container-low);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    margin-top: 3.5em;
+}
+
+.markdown-help-panel .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: var(--surface-container-high);
+    border-bottom: 1px solid var(--outline-variant);
+}
+
+.markdown-help-panel .panel-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--on-surface);
+}
+
+.markdown-help-panel .close-button {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--on-surface-variant);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.markdown-help-panel .close-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.markdown-help-panel .panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.markdown-help-panel .help-section {
+    margin-bottom: 24px;
+}
+
+.markdown-help-panel .help-section h4 {
+    margin: 0 0 12px 0;
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.markdown-help-panel .help-item {
+    display: flex;
+    margin-bottom: 12px;
+    background-color: var(--surface-container-high);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.markdown-help-panel .help-item .example {
+    flex: 1;
+    padding: 12px;
+    background-color: var(--surface-container-highest);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+}
+
+.markdown-help-panel .help-item .result {
+    flex: 1;
+    padding: 12px;
+    border-left: 1px solid var(--outline-variant);
+}
+
+.markdown-help-panel code, .markdown-help-panel pre {
+    font-family: 'Roboto Mono', monospace;
+    background-color: var(--surface-container-highest);
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 0.9rem;
+}
+
+.markdown-help-panel pre {
+    padding: 8px;
+    overflow-x: auto;
+    margin: 0;
+}
+
+.help-note {
+    font-size: 0.8rem;
+    color: var(--on-surface-variant);
+    margin: 8px 0 0 0;
+    font-style: italic;
+}
+
+.external-link {
+    color: var(--primary);
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+.external-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .markdown-help-panel {
+        width: 90%;
+        max-width: none;
+    }
+
+    .help-item {
+        flex-direction: column;
+    }
+
+    .help-item .result {
+        border-left: none;
+        border-top: 1px solid var(--outline-variant);
+    }
+}

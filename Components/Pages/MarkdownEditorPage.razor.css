@@ -663,3 +663,88 @@ button:focus:not(:active)::after {
 .formatting-buttons fluent-icon {
     font-size: 20px;
 }
+
+/* Help button styling */
+.help-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+    border: none;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    height: 40px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: auto; /* This pushes it to the far right */
+    margin-right: 0;
+}
+
+.help-button:hover {
+    background-color: var(--on-secondary-container);
+    color: var(--secondary-container);
+    transform: translateY(-1px);
+}
+
+.help-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.help-button span {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Toolbar layout adjustments */
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 8px 16px;
+    margin-bottom: 8px;
+    gap: 8px;
+    position: relative;
+}
+
+.formatting-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .help-button span {
+        display: none;
+    }
+
+    .help-button {
+        padding: 8px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+}
+
+@media (max-width: 480px) {
+    .toolbar {
+        justify-content: space-between;
+    }
+
+    .formatting-buttons {
+        order: 1;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 8px;
+    }
+
+    .help-button {
+        order: 2;
+        margin-left: 0;
+    }
+}

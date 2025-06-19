@@ -1,0 +1,233 @@
+﻿@if (IsVisible)
+{
+    <div class="markdown-help-panel">
+        <div class="panel-header">
+            <h3>@Loc["MarkdownHelpTitle"]</h3>
+            <button class="close-button" @onclick="Close">
+                <svg viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="M512 897.6c-108 0-209.6-42.4-285.6-118.4-76-76-118.4-177.6-118.4-285.6 0-108 42.4-209.6 118.4-285.6 76-76 177.6-118.4 285.6-118.4 108 0 209.6 42.4 285.6 118.4 157.6 157.6 157.6 413.6 0 571.2-76 76-177.6 118.4-285.6 118.4z m0-760c-95.2 0-184.8 36.8-252 104-67.2 67.2-104 156.8-104 252s36.8 184.8 104 252c67.2 67.2 156.8 104 252 104 95.2 0 184.8-36.8 252-104 139.2-139.2 139.2-364.8 0-504-67.2-67.2-156.8-104-252-104z"
+                            fill=""></path>
+                        <path d="M707.872 329.392L348.096 689.16l-31.68-31.68 359.776-359.768z" fill=""></path>
+                        <path d="M328 340.8l32-31.2 348 348-32 32z" fill=""></path>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+        <div class="panel-content">
+            <div class="help-section">
+                <h4>@Loc["MarkdownWhatIs"]</h4>
+                <p>
+                    @Loc["MarkdownWhatIsText"]
+                </p>
+            </div>
+
+            <div class="help-section">
+                <h4>@Loc["MarkdownBasicFormatting"]</h4>
+                <div class="help-item">
+                    <div class="example">
+                        <code>@Loc["MarkdownBoldExample"]</code>
+                    </div>
+                    <div class="result">
+                        <strong>@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Fett" : "Gras")</strong>
+                    </div>
+                </div>
+
+                <div class="help-item">
+                    <div class="example">
+                        <code>@Loc["MarkdownItalicExample"]</code>
+                    </div>
+                    <div class="result">
+                        <em>@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Kursiv" : "Italique")</em>
+                    </div>
+                </div>
+
+                <div class="help-item">
+                    <div class="example">
+                        <code>@Loc["MarkdownStrikethroughExample"]</code>
+                    </div>
+                    <div class="result">
+                        <del>@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Durchgestrichen" : "Barré")</del>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h4>@Loc["MarkdownAdvancedFormatting"]</h4>
+                <div class="help-item">
+                    <div class="example">
+                        <pre>&lt;span style="color: blue;"&gt;@Loc["MarkdownColoredText"]&lt;/span&gt;</pre>
+                    </div>
+                    <div class="result">
+                        <span style="color: blue;">@Loc["MarkdownColoredText"]</span>
+                        <p class="help-note">@Loc["MarkdownHtmlNote"]</p>
+                    </div>
+                </div>
+
+                <div class="help-item">
+                    <div class="example">
+                        <pre>&lt;img src="image.jpg" alt="Example" style="width: 50%; border: 2px solid red;" /&gt;</pre>
+                    </div>
+                    <div class="result">
+                        <div
+                            style="width: 50%; height: 100px; background-color: #f0f0f0; border: 2px solid red; display: flex; align-items: center; justify-content: center;">
+                            [@Loc["MarkdownStyledImage"]]
+                        </div>
+                        <p class="help-note">@Loc["MarkdownImageNote"]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h4>@Loc["MarkdownHeaders"]</h4>
+                <div class="help-item">
+                    <div class="example">
+                        <code>@Loc["MarkdownHeader1Example"]</code>
+                    </div>
+                    <div class="result">
+                        <h1 style="font-size: 1.5em; margin: 0;">@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Überschrift 1" : "Titre 1")</h1>
+                    </div>
+                </div>
+
+                <div class="help-item">
+                    <div class="example">
+                        <code>@Loc["MarkdownHeader2Example"]</code>
+                    </div>
+                    <div class="result">
+                        <h2 style="font-size: 1.3em; margin: 0;">@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Überschrift 2" : "Titre 2")</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h4>@Loc["MarkdownLists"]</h4>
+                <div class="help-item">
+                    <div class="example">
+                        <pre>@Loc["MarkdownListExample"]</pre>
+                    </div>
+                    <div class="result">
+                        <ul style="margin: 0; padding-left: 1em;">
+                            <li>@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Ungeordnete Liste" : "Liste non ordonnée")
+                                <ul>
+                                    <li>@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Unterpunkt" : "Sous-élément")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ol style="margin: 0; padding-left: 1em;">
+                            <li>@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Geordnete Liste" : "Liste ordonnée")</li>
+                            <li>@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Zweiter Punkt" : "Deuxième élément")</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h4>@Loc["MarkdownLinksImages"]</h4>
+                <div class="help-item">
+                    <div class="example">
+                        <code>@Loc["MarkdownLinkExample"]</code>
+                    </div>
+                    <div class="result">
+                        <a href="#">@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Linktext" : "Texte du lien")</a>
+                    </div>
+                </div>
+
+                <div class="help-item">
+                    <div class="example">
+                        <code>@Loc["MarkdownImageExample"]</code>
+                    </div>
+                    <div class="result">
+                        <em style="color: #666;">[@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Bild" : "Image"): @(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Alt-Text" : "Texte alternatif")]</em>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h4>@Loc["MarkdownCode"]</h4>
+                <div class="help-item">
+                    <div class="example">
+                        <pre>@Loc["MarkdownInlineCodeExample"]</pre>
+                    </div>
+                    <div class="result">
+                        <code
+                            style="background: #f0f0f0; padding: 2px 4px; border-radius: 3px;">@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Inline-Code" : "Code en ligne")</code>
+                    </div>
+                </div>
+
+                <div class="help-item">
+                    <div class="example">
+                        <pre>@Loc["MarkdownCodeBlockExample"]</pre>
+                    </div>
+                    <div class="result" style="background: #f0f0f0; padding: 8px; border-radius: 4px;">
+                        <pre
+                            style="margin: 0;">@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Mehrzeiliger\nCodeblock" : "Bloc de code\nsur plusieurs lignes")</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h4>@Loc["MarkdownTables"]</h4>
+                <div class="help-item">
+                    <div class="example">
+                        <pre>@Loc["MarkdownTableExample"]</pre>
+                    </div>
+                    <div class="result">
+                        <table style="border-collapse: collapse; width: 100%;">
+                            <tr>
+                                <th style="border: 1px solid #ddd; padding: 4px 8px; text-align: left;">@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Spalte 1" : "Colonne 1")</th>
+                                <th style="border: 1px solid #ddd; padding: 4px 8px; text-align: left;">@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Spalte 2" : "Colonne 2")</th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #ddd; padding: 4px 8px;">@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Zelle 1" : "Cellule 1")</td>
+                                <td style="border: 1px solid #ddd; padding: 4px 8px;">@(CultureInfo.CurrentCulture.Name.StartsWith("de") ? "Zelle 2" : "Cellule 2")</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h4>@Loc["MarkdownMoreResources"]</h4>
+                <p>@Loc["MarkdownLearnMoreText"]</p>
+                @if (CultureInfo.CurrentCulture.Name.StartsWith("de"))
+                {
+                    <a href="https://docs.github.com/de/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#styling-text" target="_blank" rel="noopener noreferrer"
+                       class="external-link">
+                        @Loc["MarkdownCheatSheetLink"]
+                    </a>
+                }
+                else if (CultureInfo.CurrentCulture.Name.StartsWith("fr"))
+                {
+                    <a href="https://docs.github.com/fr/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#styling-text"
+                       target="_blank" rel="noopener noreferrer"
+                       class="external-link">
+                        @Loc["MarkdownCheatSheetLink"]
+                    </a>
+                }
+                else
+                {
+                    <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener noreferrer"
+                       class="external-link">
+                        @Loc["MarkdownCheatSheetLink"]
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private void Close()
+    {
+        OnClose.InvokeAsync();
+    }
+
+}

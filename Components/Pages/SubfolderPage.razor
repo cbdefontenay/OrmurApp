@@ -8,7 +8,7 @@
         <div class="header-content">
             <div class="header-title-wrapper">
                 <h2 class="subfolder-title">@_subfolder?.Name</h2>
-                <p class="subfolder-meta">Erstellt am @_subfolder?.DateCreated.ToString("f")</p>
+                <p class="subfolder-meta">@Loc["SubCreatedOn"] @_subfolder?.DateCreated.ToString("f")</p>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
     <div class="notes-actions">
         <button class="create-note-button" @onclick="CreateNewNote">
             <FluentIcon Color="Color.Custom" CustomColor="var(--on-primary)" Value="@(new Icons.Regular.Size20.Add())"/>
-            <span>Neue Notiz</span>
+            <span>@Loc["SubNewNote"]</span>
         </button>
     </div>
 
@@ -92,7 +92,7 @@
                                 <button class="edit-button" @onclick="() => EditNote(note.Note.Id)">
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--on-primary)"
                                                 Value="@(new Icons.Regular.Size20.Edit())"/>
-                                    <span>Bearbeiten</span>
+                                    <span>@Loc["SubEdit"]</span>
                                 </button>
                             </div>
                         </div>
@@ -105,8 +105,8 @@
             <div class="empty-state">
                 <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                             Value="@(new Icons.Regular.Size48.Note())"/>
-                <h3>Noch keine Notizen</h3>
-                <p>Erstelle eine neue Notiz, um loszulegen</p>
+                <h3>@Loc["SubNoNotes"]</h3>
+                <p>@Loc["SubCreateNotePrompt"]</p>
             </div>
         }
     </div>
@@ -124,8 +124,7 @@
         await LoadSubfolderAsync();
         await LoadNotesAsync();
     }
-
-
+    
     protected override void OnInitialized()
     {
         base.OnInitialized();

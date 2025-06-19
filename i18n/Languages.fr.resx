@@ -6,10 +6,14 @@
         <value>1.3</value>
     </resheader>
     <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <data name="NavHome" xml:space="preserve">
         <value>Accueil</value>
@@ -202,5 +206,149 @@
     </data>
     <data name="MdSuccess" xml:space="preserve">
         <value>Enregistrement réussi</value>
+    </data>
+    <data name="MdMoreAboutMd" xml:space="preserve">
+        <value>En savoir plus sur la syntaxe Markdown</value>
+    </data>
+    <data name="MarkdownHelpTitle" xml:space="preserve">
+        <value>Aide Markdown</value>
+    </data>
+    <data name="MarkdownWhatIs" xml:space="preserve">
+        <value>Qu'est-ce que Markdown ?</value>
+    </data>
+    <data name="MarkdownWhatIsText" xml:space="preserve">
+        <value>Markdown est un langage de balisage léger qui vous permet de formater du texte simplement. Vous pouvez créer des titres, listes, liens et plus sans avoir besoin de balises HTML complexes.</value>
+    </data>
+    <data name="MarkdownBasicFormatting" xml:space="preserve">
+        <value>Formatage de base</value>
+    </data>
+    <data name="MarkdownHeaders" xml:space="preserve">
+        <value>Titres</value>
+    </data>
+    <data name="MarkdownLists" xml:space="preserve">
+        <value>Listes</value>
+    </data>
+    <data name="MarkdownLinksImages" xml:space="preserve">
+        <value>Liens et images</value>
+    </data>
+    <data name="MarkdownCode" xml:space="preserve">
+        <value>Code</value>
+    </data>
+    <data name="MarkdownTables" xml:space="preserve">
+        <value>Tableaux</value>
+    </data>
+    <data name="MarkdownBoldExample" xml:space="preserve">
+        <value>**Gras**</value>
+    </data>
+    <data name="MarkdownItalicExample" xml:space="preserve">
+        <value>*Italique*</value>
+    </data>
+    <data name="MarkdownStrikethroughExample" xml:space="preserve">
+        <value>~~Barré~~</value>
+    </data>
+    <data name="MarkdownHeader1Example" xml:space="preserve">
+        <value># Titre 1</value>
+    </data>
+    <data name="MarkdownHeader2Example" xml:space="preserve">
+        <value>## Titre 2</value>
+    </data>
+    <data name="MarkdownListExample" xml:space="preserve">
+        <value>- Liste non ordonnée
+      - Sous-élément
+    1. Liste ordonnée
+    2. Deuxième élément</value>
+    </data>
+    <data name="MarkdownLinkExample" xml:space="preserve">
+        <value>[Texte du lien](https://exemple.com)</value>
+    </data>
+    <data name="MarkdownImageExample" xml:space="preserve">
+        <value>![Texte alternatif](image.jpg)</value>
+    </data>
+    <data name="MarkdownInlineCodeExample" xml:space="preserve">
+        <value>`Code en ligne`</value>
+    </data>
+    <data name="MarkdownCodeBlockExample" xml:space="preserve">
+        <value>```
+    Bloc de code
+    sur plusieurs lignes
+    ```</value>
+    </data>
+    <data name="MarkdownTableExample" xml:space="preserve">
+        <value>| Colonne 1 | Colonne 2 |
+    |----------|----------|
+    | Cellule 1 | Cellule 2 |</value>
+    </data>
+    <data name="MarkdownAdvancedFormatting" xml:space="preserve">
+    <value>Formatage avancé</value>
+    </data>
+    <data name="MarkdownColoredText" xml:space="preserve">
+        <value>Texte coloré</value>
+    </data>
+    <data name="MarkdownHtmlNote" xml:space="preserve">
+        <value>Note : Le HTML peut être utilisé mais n'est pas recommandé</value>
+    </data>
+    <data name="MarkdownStyledImage" xml:space="preserve">
+        <value>Image stylisée</value>
+    </data>
+    <data name="MarkdownImageNote" xml:space="preserve">
+        <value>Vous pouvez styliser les images avec la balise HTML img et des styles inline</value>
+    </data>
+    <data name="MarkdownMoreResources" xml:space="preserve">
+        <value>Ressources supplémentaires</value>
+    </data>
+    <data name="MarkdownLearnMoreText" xml:space="preserve">
+        <value>En savoir plus sur la syntaxe Markdown :</value>
+    </data>
+    <data name="MarkdownCheatSheetLink" xml:space="preserve">
+        <value>Aide-mémoire Markdown</value>
+    </data>
+    <data name="SyncIpCopied" xml:space="preserve">
+        <value>Adresse IP copiée dans le presse-papiers</value>
+    </data>
+    <data name="SyncConnectionFailed" xml:space="preserve">
+        <value>
+            Échec de la connexion. Veuillez vérifier que les deux appareils soeient sur le même réseau - que l'adresse IP soit correcte - que l'application soit ouverte sur l'autre appareil
+        </value>
+    </data>
+    <data name="SyncTimeoutError" xml:space="preserve">
+        <value>Timeout: La synchronisation a pris trop de temps</value>
+    </data>
+    <data name="SyncCopyFailed" xml:space="preserve">
+        <value>Échec de la copie</value>
+    </data>
+    <data name="SyncSubHeader" xml:space="preserve">
+        <value>Comment synchroniser :</value>
+    </data>
+    <data name="SyncLiOne" xml:space="preserve">
+        <value>Assurez-vous que les deux appareils sont connectés sur le même WiFi (activez le hotspot sur votre portable)</value>
+    </data>
+    <data name="SyncLiTwo" xml:space="preserve">
+        <value>Commencez la synchronisation sur l'un des appareils</value>
+    </data>
+    <data name="SyncLiThree" xml:space="preserve">
+        <value>Entrez l'adresse IP de l'autre appareil</value>
+    </data>
+    <data name="SyncLiFour" xml:space="preserve">
+        <value>Appuyez sur "Commencer la synchronisation"</value>
+    </data>
+    <data name="SyncErrorTwo" xml:space="preserve">
+        <value>Erreur: {0}</value>
+    </data>
+    <data name="SubCreatedOn" xml:space="preserve">
+    <value>Créé le</value>
+    </data>
+    <data name="SubNewNote" xml:space="preserve"><value>Nouvelle note</value>
+    </data>
+    <data name="SubEdit" xml:space="preserve">
+        <value>Modifier</value>
+    </data>
+    <data name="SubNoNotes" xml:space="preserve">
+        <value>Pas encore de notes</value>
+    </data>
+    <data name="SubCreateNotePrompt" xml:space="preserve">
+        <value>Créez une nouvelle note pour commencer</value>
+    </data>
+    <data name="SubDefaultNoteTitle" xml:space="preserve">
+        <value>Nouvelle note</value>
     </data>
 </root>
