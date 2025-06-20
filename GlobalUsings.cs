@@ -30,6 +30,5 @@ global using Ormur.Data;
 global using Ormur.Data.Models;
 global using Ormur.i18n;
 global using Ormur.Services;
-global using Ormur.Views;
 global using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons;
 global using Path = System.IO.Path;

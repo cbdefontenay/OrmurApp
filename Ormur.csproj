@@ -62,21 +62,21 @@
     <ItemGroup>
         <PackageReference Include="ColorCode" Version="1.0.1" />
         <PackageReference Include="ColorCode.Portable" Version="1.0.3" />
-        <PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
-        <PackageReference Include="CommunityToolkit.Maui.Markup" Version="6.0.0" />
+        <PackageReference Include="CommunityToolkit.Maui" Version="12.0.0" />
+        <PackageReference Include="CommunityToolkit.Maui.Markup" Version="6.0.1" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="Dapper" Version="2.1.66" />
-        <PackageReference Include="Markdig" Version="0.41.1" />
+        <PackageReference Include="Markdig" Version="0.41.2" />
         <PackageReference Include="Markdig.SyntaxHighlighting" Version="1.1.7" />
         <PackageReference Include="Markdown.ColorCode" Version="3.0.0" />
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.5" />
-        <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.5" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.5" />
-        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.9" />
-        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.11.9" />
-        <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.70" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="9.0.70" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.6" />
+        <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.6" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.6" />
+        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.12.0" />
+        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.12.0" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.80" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="9.0.80" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.6" />
     </ItemGroup>
 
     <ItemGroup>
@@ -92,6 +92,10 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>Languages.resx</DependentUpon>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Views\" />
     </ItemGroup>
 
 </Project>
