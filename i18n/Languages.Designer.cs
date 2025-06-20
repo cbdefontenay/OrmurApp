@@ -348,6 +348,24 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Der Ordnername muss mindestens 1 Zeichen lang sein.
+        /// </summary>
+        internal static string FolderNameTooShort {
+            get {
+                return ResourceManager.GetString("FolderNameTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fehler beim Speichern des Ordners. Bitte versuchen Sie es erneut..
+        /// </summary>
+        internal static string FolderSaveError {
+            get {
+                return ResourceManager.GetString("FolderSaveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Neuer Unterordner hinfügen.
         /// </summary>
         internal static string HomeAddNewSubfolder {
@@ -506,6 +524,24 @@ namespace Ormur.i18n {
         internal static string HomeSubfolderWhatTodo {
             get {
                 return ResourceManager.GetString("HomeSubfolderWhatTodo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bitte geben Sie einen gültigen Ordnernamen ein.
+        /// </summary>
+        internal static string InvalidFolderName {
+            get {
+                return ResourceManager.GetString("InvalidFolderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bitte geben Sie einen gültigen Unterordnernamen ein.
+        /// </summary>
+        internal static string InvalidSubfolderName {
+            get {
+                return ResourceManager.GetString("InvalidSubfolderName", resourceCulture);
             }
         }
         
@@ -1080,6 +1116,33 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alle Ordner anzeigen.
+        /// </summary>
+        internal static string NoFavoritesAction {
+            get {
+                return ResourceManager.GetString("NoFavoritesAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sie haben noch keine Ordner als Favoriten markiert. Markieren Sie einen Ordner mit einem Stern, um ihn hier anzuzeigen..
+        /// </summary>
+        internal static string NoFavoritesMessage {
+            get {
+                return ResourceManager.GetString("NoFavoritesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Noch keine Favoriten.
+        /// </summary>
+        internal static string NoFavoritesTitle {
+            get {
+                return ResourceManager.GetString("NoFavoritesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sprache:.
         /// </summary>
         internal static string SettingsCultureHeader {
@@ -1175,6 +1238,15 @@ namespace Ormur.i18n {
         internal static string SubEdit {
             get {
                 return ResourceManager.GetString("SubEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fehler beim Speichern des Unterordners. Bitte versuchen Sie es erneut..
+        /// </summary>
+        internal static string SubfolderSaveError {
+            get {
+                return ResourceManager.GetString("SubfolderSaveError", resourceCulture);
             }
         }
         

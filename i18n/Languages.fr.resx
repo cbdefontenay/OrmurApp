@@ -57,6 +57,30 @@
     <data name="HomeNewSubfolder" xml:space="preserve">
         <value>Nouveau sous-dossier</value>
     </data>
+    <data name="NoFavoritesTitle" xml:space="preserve">
+        <value>Aucun favori pour l'instant</value>
+    </data>
+    <data name="FolderNameTooShort" xml:space="preserve">
+        <value>Le nom du dossier doit contenir au moins 1 caractère</value>
+    </data>
+        <data name="NoFavoritesMessage" xml:space="preserve">
+        <value>Vous n'avez marqué aucun dossier comme favori. Ajoutez une étoile à un dossier pour l'afficher ici.</value>
+    </data>
+        <data name="NoFavoritesAction" xml:space="preserve">
+        <value>Afficher tous les dossiers</value>
+    </data>
+        <data name="InvalidFolderName" xml:space="preserve">
+        <value>Veuillez entrer un nom de dossier valide</value>
+    </data>
+        <data name="InvalidSubfolderName" xml:space="preserve">
+        <value>Veuillez entrer un nom de sous-dossier valide</value>
+    </data>
+        <data name="FolderSaveError" xml:space="preserve">
+        <value>Erreur lors de l'enregistrement du dossier. Veuillez réessayer.</value>
+    </data>
+        <data name="SubfolderSaveError" xml:space="preserve">
+        <value>Erreur lors de l'enregistrement du sous-dossier. Veuillez réessayer.</value>
+    </data>
     <data name="HomeSubfolderWhatTodo" xml:space="preserve">
         <value>Que souhaites-tu faire pour {0} ?</value>
     </data>

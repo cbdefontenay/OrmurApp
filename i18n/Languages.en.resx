@@ -63,6 +63,30 @@
     <data name="HomeNewSubfolder" xml:space="preserve">
         <value>New subfolder</value>
     </data>
+    <data name="NoFavoritesTitle" xml:space="preserve">
+        <value>No favorites yet</value>
+    </data>
+    <data name="FolderNameTooShort" xml:space="preserve">
+        <value>Folder name must be at least 1 character</value>
+    </data>
+        <data name="NoFavoritesMessage" xml:space="preserve">
+        <value>You haven't marked any folders as favorites. Star a folder to add it here.</value>
+    </data>
+        <data name="NoFavoritesAction" xml:space="preserve">
+        <value>Show all folders</value>
+    </data>
+        <data name="InvalidFolderName" xml:space="preserve">
+        <value>Please enter a valid folder name</value>
+    </data>
+        <data name="InvalidSubfolderName" xml:space="preserve">
+        <value>Please enter a valid subfolder name</value>
+    </data>
+        <data name="FolderSaveError" xml:space="preserve">
+        <value>Error saving folder. Please try again.</value>
+    </data>
+        <data name="SubfolderSaveError" xml:space="preserve">
+        <value>Error saving subfolder. Please try again.</value>
+    </data>
     <data name="HomeSubfolderWhatTodo" xml:space="preserve">
         <value>What would you like to do with {0}?</value>
     </data>

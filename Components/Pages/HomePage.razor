@@ -116,7 +116,20 @@
         else
         {
             <div class="empty-state">
-                <NoFolderComponent CreateFolder="ShowDialog"/>
+                @if (_showFavoritesOnly)
+                {
+                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)" 
+                                Value="@(new Icons.Regular.Size48.Star())"/>
+                    <h3>@Loc["NoFavoritesTitle"]</h3>
+                    <p>@Loc["NoFavoritesMessage"]</p>
+                    @* <button class="text-button primary" @onclick="() => _showFavoritesOnly = false"> *@
+                    @*     @Loc["NoFavoritesAction"] *@
+                    @* </button> *@
+                }
+                else
+                {
+                    <NoFolderComponent CreateFolder="ShowDialog"/>
+                }
             </div>
         }
     </div>
