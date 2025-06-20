@@ -1,9 +1,6 @@
 ﻿@page "/markdown-editor/{SubfolderId:int}"
 @page "/markdown-editor/{SubfolderId:int}/{NoteId:int}"
-@inject SqliteConnector Db
 @layout GoBackLayout
-@inject NavigationManager Navigation
-@inject IJSRuntime Js
 
 @if (_subfolder != null)
 {
@@ -52,7 +49,7 @@
                             <div class="formatting-buttons">
                                 <button @onclick="FormatHeader" title=@Loc["MdTitle"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
-                                                Value="@(new Icons.Regular.Size20.DocumentHeader())"/>
+                                                Value="@(new Icons.Regular.Size20.TextHeader1())"/>
                                 </button>
                                 <button @onclick="FormatUnderline" title=@Loc["MdUnderline"]>
                                     <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"

@@ -685,9 +685,8 @@ button:focus:not(:active)::after {
 }
 
 .help-button:hover {
-    background-color: var(--on-secondary-container);
-    color: var(--secondary-container);
     transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .help-button:active {

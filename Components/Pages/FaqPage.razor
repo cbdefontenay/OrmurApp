@@ -1,0 +1,75 @@
+﻿@page "/foire-aux-questions"
+
+<div class="faq-container">
+    <div class="faq-header">
+        <h2>@Loc["FaqTitle"]</h2>
+        <p>@Loc["FaqDescription"]</p>
+    </div>
+
+    <div class="faq-content">
+        <AccordionComponent Title="@Loc["FaqWhyNameTitle"]">
+            <p>@Loc["FaqWhyNameContent1"] <em><strong>@Loc["FaqWhyNameSerpent"]</strong></em> @Loc["FaqWhyNameContent2"]</p>
+            <p>
+                @Loc["FaqWhyNameContent3"]
+                @Loc["FaqWhyNameContent4"]
+                @Loc["FaqWhyNameContent5"]
+            </p>
+        </AccordionComponent>
+
+        <AccordionComponent Title="@Loc["FaqDataPrivacyTitle"]">
+            <p>
+                @Loc["FaqDataPrivacyContent1"]
+            </p>
+            <p>
+                @Loc["FaqDataPrivacyContent2"]
+            </p>
+        </AccordionComponent>
+
+        <AccordionComponent Title="@Loc["FaqSqliteLimitTitle"]">
+            <p>
+                @Loc["FaqSqliteLimitContent"]
+            </p>
+        </AccordionComponent>
+
+        <AccordionComponent Title="@Loc["FaqMarkdownTitle"]">
+            <p>
+                @Loc["FaqMarkdownContent1"]
+            </p>
+            <p>
+                @Loc["FaqMarkdownContent2"]
+                @Loc["FaqMarkdownContent3"]
+                @Loc["FaqMarkdownContent4"]
+            </p>
+        </AccordionComponent>
+
+        <AccordionComponent Title="@Loc["FaqSyncTitle"]">
+            <p>
+                @Loc["FaqSyncContent1"]
+            </p>
+            <p>
+                @Loc["FaqSyncContent2"]
+                @Loc["FaqSyncContent3"]
+                @Loc["FaqSyncContent4"]
+            </p>
+            <p>
+                @Loc["FaqSyncContent5"]
+                @Loc["FaqSyncContent6"]
+            </p>
+        </AccordionComponent>
+
+        <AccordionComponent Title="@Loc["FaqOfflineTitle"]">
+            <p>
+                @Loc["FaqOfflineContent"]
+            </p>
+        </AccordionComponent>
+
+        <AccordionComponent Title="@Loc["FaqSupportTitle"]">
+            <p>
+                @Loc["FaqSupportContent1"]
+            </p>
+            <p>
+                @Loc["FaqSupportContent2"] <a href="https://github.com/cbdefontenay/OrmurApp">@Loc["FaqSupportGithubLink"]</a>
+            </p>
+        </AccordionComponent>
+    </div>
+</div>

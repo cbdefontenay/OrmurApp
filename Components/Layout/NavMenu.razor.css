@@ -1,4 +1,8 @@
-﻿/* General styles */
+﻿:root{
+    --icon-size: 24px;
+}
+
+/* General styles */
 .menu-item {
     display: flex;
     align-items: center;
@@ -275,4 +279,10 @@
 
 .menu-drawer.slide-out {
     transform: translateX(-100%);
+}
+
+.footer{
+    font-style: italic;
+    font-family: monospace, serif;
+    font-size: 10px;
 }

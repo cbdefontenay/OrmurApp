@@ -96,17 +96,8 @@
     <data name="SyncHeader" xml:space="preserve">
         <value>Synchronisation de l'appareil</value>
     </data>
-    <data name="SyncSubHeader" xml:space="preserve">
-        <value>Comment synchroniser :</value>
-    </data>
-    <data name="SyncLiOne" xml:space="preserve">
-        <value>Assurez-vous que les deux appareils soient connectés sur le même WIFI (activez le hotspot sur vortre portable pour cela).</value>
-    </data>
     <data name="SyncLiTwo" xml:space="preserve">
         <value>Commencez la synchronisation sur l'un des appareils.</value>
-    </data>
-    <data name="SyncLiThree" xml:space="preserve">
-        <value>Entrez l'adresse IP de l'autre appareil.</value>
     </data>
     <data name="SyncLiFour" xml:space="preserve">
         <value>Appuyez sur "Commencer la synchronisation".</value>
@@ -322,17 +313,11 @@
     <data name="SyncLiOne" xml:space="preserve">
         <value>Assurez-vous que les deux appareils sont connectés sur le même WiFi (activez le hotspot sur votre portable)</value>
     </data>
-    <data name="SyncLiTwo" xml:space="preserve">
-        <value>Commencez la synchronisation sur l'un des appareils</value>
-    </data>
     <data name="SyncLiThree" xml:space="preserve">
         <value>Entrez l'adresse IP de l'autre appareil</value>
     </data>
     <data name="SyncLiFour" xml:space="preserve">
         <value>Appuyez sur "Commencer la synchronisation"</value>
-    </data>
-    <data name="SyncErrorTwo" xml:space="preserve">
-        <value>Erreur: {0}</value>
     </data>
     <data name="SyncConnectionTimeout" xml:space="preserve">
         <value>Échec du test de connexion: Timeout</value>
@@ -383,5 +368,107 @@
     </data>
     <data name="MdImage" xml:space="preserve">
         <value>Image</value>
+    </data>
+    <data name="NavDeveloped" xml:space="preserve">
+        <value>Application développée par Cyprien de Fontenay</value>
+    </data>
+    <data name="NavFaq" xml:space="preserve">
+        <value>FAQ</value>
+    </data>
+    <data name="FaqTitle" xml:space="preserve">
+        <value>Foire aux questions</value>
+    </data>
+    <data name="FaqDescription" xml:space="preserve">
+        <value>Retrouvez ici les réponses aux questions les plus fréquemment posées.</value>
+    </data>
+    <data name="FaqWhyNameTitle" xml:space="preserve">
+        <value>Pourquoi le nom Ormur ?</value>
+    </data>
+    <data name="FaqWhyNameContent1" xml:space="preserve">
+        <value>Ormur signifie</value>
+    </data>
+    <data name="FaqWhyNameSerpent" xml:space="preserve">
+        <value>serpent</value>
+    </data>
+    <data name="FaqWhyNameContent2" xml:space="preserve">
+        <value>en islandais.</value>
+    </data>
+    <data name="FaqWhyNameContent3" xml:space="preserve">
+        <value>Il fait référence au serpent de Midgard (fils du dieu fourbe Loki) dans la mythologie scandinave qui encerclait la terre.</value>
+    </data>
+    <data name="FaqWhyNameContent4" xml:space="preserve">
+        <value>Ormur est un être mythologique qui nous assure une certaine stabilité et nous rappelle que tout est fragile, même notre mémoire.</value>
+    </data>
+    <data name="FaqWhyNameContent5" xml:space="preserve">
+        <value>C'est pourquoi nous avons besoin de prendre des notes, pour ne pas oublier.</value>
+    </data>
+    <data name="FaqDataPrivacyTitle" xml:space="preserve">
+        <value>Mes données sont-elles privées et sécurisées ?</value>
+    </data>
+    <data name="FaqDataPrivacyContent1" xml:space="preserve">
+        <value>Ormur n'utilise pas le cloud. Toutes vos données sont enregistrées localement sur votre ordinateur ou téléphone portable via une base de données SQLite.</value>
+    </data>
+    <data name="FaqDataPrivacyContent2" xml:space="preserve">
+        <value>Cela signifie que vos données vous appartiennent et que personne d'autre que vous n'y a accès. Vos données ne sont donc pas collectées et sont privées et sécurisées sur votre appareil.</value>
+    </data>
+    <data name="FaqSqliteLimitTitle" xml:space="preserve">
+        <value>Combien de notes peuvent être enregistrées dans une base de données SQLite ?</value>
+    </data>
+    <data name="FaqSqliteLimitContent" xml:space="preserve">
+        <value>Autant que vous le désirez. SQLite peut enregistrer plusieurs téraoctets de données, même s'il est peu probable que vous atteigniez cette limite.</value>
+    </data>
+    <data name="FaqMarkdownTitle" xml:space="preserve">
+        <value>Pourquoi utiliser la syntaxe Markdown ?</value>
+    </data>
+    <data name="FaqMarkdownContent1" xml:space="preserve">
+        <value>Cette syntaxe est très simple d'utilisation et permet un rendu plus professionnel et offre également une plus grande souplesse.</value>
+    </data>
+    <data name="FaqMarkdownContent2" xml:space="preserve">
+        <value>Il est par exemple possible d'utiliser HTML pour colorer le texte ou pour changer la taille d'une image.</value>
+    </data>
+    <data name="FaqMarkdownContent3" xml:space="preserve">
+        <value>Il n'y a d'ailleurs pas besoin de connaître HTML. La syntaxe Markdown est très intuitive et vous n'êtes pas obligé de l'utiliser.</value>
+    </data>
+    <data name="FaqMarkdownContent4" xml:space="preserve">
+        <value>Vous pouvez utiliser uniquement du texte brut si vous le souhaitez.</value>
+    </data>
+    <data name="FaqSyncTitle" xml:space="preserve">
+        <value>J'ai l'application pour Android, puis-je synchroniser mes données ?</value>
+    </data>
+    <data name="FaqSyncContent1" xml:space="preserve">
+        <value>Oui, c'est possible. Il vous suffit de suivre les instructions indiquées sur la page.</value>
+    </data>
+    <data name="FaqSyncContent2" xml:space="preserve">
+        <value>Néanmoins, vous devez garder à l'esprit que si vous souhaitez synchroniser vos données d'un appareil vers l'autre,</value>
+    </data>
+    <data name="FaqSyncContent3" xml:space="preserve">
+        <value>par exemple depuis votre téléphone portable jusqu'à votre application bureau, cela supprimera toutes les données présentes sur</value>
+    </data>
+    <data name="FaqSyncContent4" xml:space="preserve">
+        <value>l'application bureau et elles seront remplacées par celles de votre téléphone portable.</value>
+    </data>
+    <data name="FaqSyncContent5" xml:space="preserve">
+        <value>Synchroniser ses données est une bonne chose si vous désirez avoir toujours les mêmes données sur les deux appareils.</value>
+    </data>
+    <data name="FaqSyncContent6" xml:space="preserve">
+        <value>Cela n'est en revanche possible qu'en utilisant le hotspot de votre téléphone portable.</value>
+    </data>
+    <data name="FaqOfflineTitle" xml:space="preserve">
+        <value>L'application fonctionne-t-elle hors-ligne ?</value>
+    </data>
+    <data name="FaqOfflineContent" xml:space="preserve">
+        <value>Oui. Comme elle utilise une base de données SQLite qui enregistre les données directement sur votre appareil, vous n'avez pas besoin d'internet.</value>
+    </data>
+    <data name="FaqSupportTitle" xml:space="preserve">
+        <value>Je rencontre un problème que je n'arrive pas à résoudre, comment demander de l'aide ?</value>
+    </data>
+    <data name="FaqSupportContent1" xml:space="preserve">
+        <value>Ormur est open-source. C'est-à-dire que le code source est disponible à tout le monde.</value>
+    </data>
+    <data name="FaqSupportContent2" xml:space="preserve">
+        <value>Si vous rencontrez un problème, n'hésitez pas à écrire un commentaire ou si vous avez un compte GitHub, vous pouvez y laisser un message :</value>
+    </data>
+    <data name="FaqSupportGithubLink" xml:space="preserve">
+        <value>GitHub Ormur</value>
     </data>
 </root>

@@ -60,6 +60,294 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ormur verwendet keine Cloud. Alle Ihre Daten werden lokal auf Ihrem Computer oder Handy in einer SQLite-Datenbank gespeichert..
+        /// </summary>
+        internal static string FaqDataPrivacyContent1 {
+            get {
+                return ResourceManager.GetString("FaqDataPrivacyContent1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Das bedeutet, dass Ihre Daten Ihnen gehören und niemand außer Ihnen Zugriff darauf hat. Ihre Daten werden nicht gesammelt und bleiben privat und sicher auf Ihrem Gerät..
+        /// </summary>
+        internal static string FaqDataPrivacyContent2 {
+            get {
+                return ResourceManager.GetString("FaqDataPrivacyContent2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sind meine Daten privat und sicher?.
+        /// </summary>
+        internal static string FaqDataPrivacyTitle {
+            get {
+                return ResourceManager.GetString("FaqDataPrivacyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hier finden Sie Antworten auf die am häufigsten gestellten Fragen..
+        /// </summary>
+        internal static string FaqDescription {
+            get {
+                return ResourceManager.GetString("FaqDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diese Syntax ist sehr einfach zu verwenden und ermöglicht ein professionelleres Erscheinungsbild sowie größere Flexibilität..
+        /// </summary>
+        internal static string FaqMarkdownContent1 {
+            get {
+                return ResourceManager.GetString("FaqMarkdownContent1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Es ist beispielsweise möglich, HTML zu verwenden, um Text einzufärben oder die Größe eines Bildes zu ändern..
+        /// </summary>
+        internal static string FaqMarkdownContent2 {
+            get {
+                return ResourceManager.GetString("FaqMarkdownContent2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sie müssen HTML nicht kennen. Die Markdown-Syntax ist sehr intuitiv und Sie sind nicht verpflichtet, sie zu verwenden..
+        /// </summary>
+        internal static string FaqMarkdownContent3 {
+            get {
+                return ResourceManager.GetString("FaqMarkdownContent3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sie können auch nur reinen Text verwenden, wenn Sie möchten..
+        /// </summary>
+        internal static string FaqMarkdownContent4 {
+            get {
+                return ResourceManager.GetString("FaqMarkdownContent4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warum die Markdown-Syntax verwenden?.
+        /// </summary>
+        internal static string FaqMarkdownTitle {
+            get {
+                return ResourceManager.GetString("FaqMarkdownTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ja. Da sie eine SQLite-Datenbank verwendet, die Daten direkt auf Ihrem Gerät speichert, benötigen Sie kein Internet..
+        /// </summary>
+        internal static string FaqOfflineContent {
+            get {
+                return ResourceManager.GetString("FaqOfflineContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Funktioniert die App offline?.
+        /// </summary>
+        internal static string FaqOfflineTitle {
+            get {
+                return ResourceManager.GetString("FaqOfflineTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to So viele Sie möchten. SQLite kann mehrere Terabyte an Daten speichern, auch wenn es unwahrscheinlich ist, dass Sie diese Grenze erreichen..
+        /// </summary>
+        internal static string FaqSqliteLimitContent {
+            get {
+                return ResourceManager.GetString("FaqSqliteLimitContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wie viele Notizen können in einer SQLite-Datenbank gespeichert werden?.
+        /// </summary>
+        internal static string FaqSqliteLimitTitle {
+            get {
+                return ResourceManager.GetString("FaqSqliteLimitTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ormur ist Open-Source. Das bedeutet, dass der Quellcode für alle verfügbar ist..
+        /// </summary>
+        internal static string FaqSupportContent1 {
+            get {
+                return ResourceManager.GetString("FaqSupportContent1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wenn Sie auf ein Problem stoßen, zögern Sie nicht, einen Kommentar zu hinterlassen oder, wenn Sie ein GitHub-Konto haben, dort eine Nachricht zu schreiben:.
+        /// </summary>
+        internal static string FaqSupportContent2 {
+            get {
+                return ResourceManager.GetString("FaqSupportContent2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub Ormur.
+        /// </summary>
+        internal static string FaqSupportGithubLink {
+            get {
+                return ResourceManager.GetString("FaqSupportGithubLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ich habe ein Problem, das ich nicht lösen kann, wie kann ich Hilfe bekommen?.
+        /// </summary>
+        internal static string FaqSupportTitle {
+            get {
+                return ResourceManager.GetString("FaqSupportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ja, das ist möglich. Folgen Sie einfach den Anweisungen auf der Seite..
+        /// </summary>
+        internal static string FaqSyncContent1 {
+            get {
+                return ResourceManager.GetString("FaqSyncContent1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beachten Sie jedoch, dass wenn Sie Ihre Daten von einem Gerät auf ein anderes synchronisieren möchten,.
+        /// </summary>
+        internal static string FaqSyncContent2 {
+            get {
+                return ResourceManager.GetString("FaqSyncContent2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to zum Beispiel von Ihrem Handy auf Ihre Desktop-Anwendung, dies alle Daten auf der Desktop-Anwendung löschen wird.
+        /// </summary>
+        internal static string FaqSyncContent3 {
+            get {
+                return ResourceManager.GetString("FaqSyncContent3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to und sie durch die Daten von Ihrem Handy ersetzt werden..
+        /// </summary>
+        internal static string FaqSyncContent4 {
+            get {
+                return ResourceManager.GetString("FaqSyncContent4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Das Synchronisieren Ihrer Daten ist eine gute Sache, wenn Sie auf beiden Geräten immer die gleichen Daten haben möchten..
+        /// </summary>
+        internal static string FaqSyncContent5 {
+            get {
+                return ResourceManager.GetString("FaqSyncContent5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dies ist jedoch nur möglich, wenn Sie den Hotspot Ihres Handys verwenden..
+        /// </summary>
+        internal static string FaqSyncContent6 {
+            get {
+                return ResourceManager.GetString("FaqSyncContent6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ich habe die Android-App, kann ich meine Daten synchronisieren?.
+        /// </summary>
+        internal static string FaqSyncTitle {
+            get {
+                return ResourceManager.GetString("FaqSyncTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Häufig gestellte Fragen.
+        /// </summary>
+        internal static string FaqTitle {
+            get {
+                return ResourceManager.GetString("FaqTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ormur bedeutet.
+        /// </summary>
+        internal static string FaqWhyNameContent1 {
+            get {
+                return ResourceManager.GetString("FaqWhyNameContent1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to auf Isländisch..
+        /// </summary>
+        internal static string FaqWhyNameContent2 {
+            get {
+                return ResourceManager.GetString("FaqWhyNameContent2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Es bezieht sich auf die Midgardschlange (Sohn des trickreichen Gottes Loki) in der nordischen Mythologie, die die Erde umschloss..
+        /// </summary>
+        internal static string FaqWhyNameContent3 {
+            get {
+                return ResourceManager.GetString("FaqWhyNameContent3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ormur ist ein mythologisches Wesen, das uns Stabilität verleiht und uns daran erinnert, dass alles vergänglich ist, sogar unser Gedächtnis..
+        /// </summary>
+        internal static string FaqWhyNameContent4 {
+            get {
+                return ResourceManager.GetString("FaqWhyNameContent4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deshalb müssen wir Notizen machen, um nichts zu vergessen..
+        /// </summary>
+        internal static string FaqWhyNameContent5 {
+            get {
+                return ResourceManager.GetString("FaqWhyNameContent5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schlange.
+        /// </summary>
+        internal static string FaqWhyNameSerpent {
+            get {
+                return ResourceManager.GetString("FaqWhyNameSerpent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warum der Name Ormur?.
+        /// </summary>
+        internal static string FaqWhyNameTitle {
+            get {
+                return ResourceManager.GetString("FaqWhyNameTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Neuer Unterordner hinfügen.
         /// </summary>
         internal static string HomeAddNewSubfolder {
@@ -747,6 +1035,24 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entwickelt bei Cyprien de Fontenay.
+        /// </summary>
+        internal static string NavDeveloped {
+            get {
+                return ResourceManager.GetString("NavDeveloped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FAQ.
+        /// </summary>
+        internal static string NavFaq {
+            get {
+                return ResourceManager.GetString("NavFaq", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Startseite.
         /// </summary>
         internal static string NavHome {
@@ -929,7 +1235,7 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fehler: {0}.
+        ///   Looks up a localized string similar to Synchronisation fehlgeschlagen: {0}..
         /// </summary>
         internal static string SyncErrorTwo {
             get {
@@ -1019,7 +1325,7 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Starten Sie die Synchronisation auf einem Gerät.
+        ///   Looks up a localized string similar to Starten Sie die Synchronisation auf einem Gerät..
         /// </summary>
         internal static string SyncLiTwo {
             get {

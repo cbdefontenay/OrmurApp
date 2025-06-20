@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <root>
     <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <xsd:element name="root" msdata:IsDataSet="true">
-
         </xsd:element>
     </xsd:schema>
     <resheader name="resmimetype">
@@ -24,459 +22,455 @@
         </value>
     </resheader>
     <data name="NavHome" xml:space="preserve">
-        <value>Startseite</value>
+        <value>Home</value>
     </data>
     <data name="NavSettings" xml:space="preserve">
-        <value>Einstellungen</value>
+        <value>Settings</value>
     </data>
     <data name="NavSync" xml:space="preserve">
-        <value>Synchronisierung</value>
+        <value>Sync</value>
     </data>
     <data name="HomeSideNavNotice" xml:space="preserve">
-        <value>Notizen</value>
+        <value>Notes</value>
     </data>
     <data name="HomeSideNavAllFolders" xml:space="preserve">
-        <value>Alle Ordner</value>
+        <value>All folders</value>
     </data>
     <data name="HomeSideNavFavourites" xml:space="preserve">
-        <value>Favoriten</value>
+        <value>Favorites</value>
     </data>
     <data name="HomeNewFolderHeader" xml:space="preserve">
-        <value>Neuer Ordner</value>
+        <value>New folder</value>
     </data>
     <data name="HomePlaceholder" xml:space="preserve">
-        <value>Name des Ordners...</value>
+        <value>Folder name...</value>
     </data>
     <data name="HomeDismiss" xml:space="preserve">
-        <value>Abbrechen</value>
+        <value>Cancel</value>
     </data>
     <data name="HomeCreate" xml:space="preserve">
-        <value>Erstellen</value>
+        <value>Create</value>
     </data>
     <data name="HomeDelete" xml:space="preserve">
-        <value>Löschen</value>
+        <value>Delete</value>
     </data>
     <data name="HomeDelteFolder" xml:space="preserve">
-        <value>Ordner löschen</value>
+        <value>Delete folder</value>
     </data>
     <data name="HomeFilterFolder" xml:space="preserve">
-        <value>Ordner filtern:</value>
+        <value>Filter folders:</value>
     </data>
     <data name="HomeNewSubfolder" xml:space="preserve">
-        <value>Neuer Unterordner</value>
+        <value>New subfolder</value>
     </data>
     <data name="HomeSubfolderWhatTodo" xml:space="preserve">
-        <value>Was möchtest du für {0} machen?</value>
+        <value>What would you like to do with {0}?</value>
     </data>
     <data name="HomeAddNewSubfolder" xml:space="preserve">
-        <value>Neuer Unterordner hinfügen</value>
+        <value>Add new subfolder</value>
     </data>
     <data name="HomeDeleteFolder" xml:space="preserve">
-        <value>Ordner löschen</value>
+        <value>Delete folder</value>
     </data>
     <data name="HomeSubfolderPlaceholder" xml:space="preserve">
-        <value>Name des Unterordners...</value>
+        <value>Subfolder name...</value>
     </data>
     <data name="HomeDeleteConfirmText" xml:space="preserve">
-        <value>Möchten Sie den Ordner "{0}" wirklich löschen?</value>
+        <value>Are you sure you want to delete folder "{0}"?</value>
     </data>
     <data name="HomeDeleteConfirmTextTwo" xml:space="preserve">
-        <value>Dies wird auch alle Unterordner und Notizen in diesem Ordner löschen.</value>
+        <value>This will also delete all subfolders and notes in this folder.</value>
     </data>
     <data name="SettingsHeader" xml:space="preserve">
-        <value>Einstellungen</value>
+        <value>Settings</value>
     </data>
     <data name="SettingsStandardColor" xml:space="preserve">
-        <value>Aktuell</value>
+        <value>Current</value>
     </data>
     <data name="SettingsPurpleColor" xml:space="preserve">
-        <value>Lila</value>
+        <value>Purple</value>
     </data>
     <data name="SettingsGreenColor" xml:space="preserve">
-        <value>Grün</value>
+        <value>Green</value>
     </data>
     <data name="SettingsDarkBlueColor" xml:space="preserve">
-        <value>Dunkel blau</value>
+        <value>Dark blue</value>
     </data>
     <data name="SettingsCultureHeader" xml:space="preserve">
-        <value>Sprache:</value>
+        <value>Language:</value>
     </data>
     <data name="SyncHeader" xml:space="preserve">
-        <value>Gerätesynchronisation</value>
+        <value>Device Sync</value>
     </data>
     <data name="SyncSubHeader" xml:space="preserve">
-        <value>So synchronisieren Sie:</value>
+        <value>How to sync:</value>
     </data>
     <data name="SyncLiTwo" xml:space="preserve">
-        <value>Starten Sie die Synchronisation auf einem Gerät.</value>
+        <value>Start sync on one of the devices.</value>
     </data>
     <data name="SyncIpAddress" xml:space="preserve">
-        <value>Ihre Geräte-IP:</value>
+        <value>Your device IP:</value>
     </data>
     <data name="SyncIpLoad" xml:space="preserve">
-        <value>IP wird ermittelt...</value>
+        <value>Detecting IP...</value>
     </data>
     <data name="SyncIpNotHere" xml:space="preserve">
-        <value>IP Adresse nicht verfügbar. Prüfen Sie Ihre Netzwerk...</value>
+        <value>IP address not available. Check your network...</value>
     </data>
     <data name="SyncSyncLoad" xml:space="preserve">
-        <value>Wird synchronisiert...</value>
+        <value>Syncing...</value>
     </data>
     <data name="SyncStartSync" xml:space="preserve">
-        <value>Synchronisation starten</value>
+        <value>Start sync</value>
     </data>
     <data name="SyncErrorOne" xml:space="preserve">
-        <value>Bitte geben Sie die IP des anderen Geräts ein...</value>
+        <value>Please enter the other device's IP...</value>
     </data>
     <data name="SyncWillBe" xml:space="preserve">
-        <value>Verbindung zum Gerät wird hergestellt...</value>
+        <value>Connecting to device...</value>
     </data>
     <data name="SyncSuccess" xml:space="preserve">
-        <value>Synchronisation erfolgreich!</value>
+        <value>Sync successful!</value>
     </data>
     <data name="SyncErrorTwo" xml:space="preserve">
-        <value>Synchronisation fehlgeschlagen: {0}.</value>
+        <value>Sync failed: {0}.</value>
     </data>
     <data name="MdPlaceholderOne" xml:space="preserve">
-        <value>Notiz Titel...</value>
+        <value>Note title...</value>
     </data>
     <data name="MdIsSaving" xml:space="preserve">
-        <value>Speichern...</value>
+        <value>Saving...</value>
     </data>
     <data name="MdStore" xml:space="preserve">
-        <value>Speichern</value>
+        <value>Save</value>
     </data>
     <data name="MdEditorHeader" xml:space="preserve">
         <value>Editor</value>
     </data>
     <data name="MdPreviewHeader" xml:space="preserve">
-        <value>Vorschau</value>
+        <value>Preview</value>
     </data>
     <data name="MdTodosHeader" xml:space="preserve">
         <value>Todos</value>
     </data>
     <data name="MdBold" xml:space="preserve">
-        <value>Groß</value>
+        <value>Bold</value>
     </data>
     <data name="MdItalic" xml:space="preserve">
-        <value>Kursivschrift</value>
+        <value>Italic</value>
     </data>
     <data name="MdUlList" xml:space="preserve">
-        <value>Liste</value>
+        <value>List</value>
     </data>
     <data name="MdNbList" xml:space="preserve">
-        <value>Liste mit Zahlen</value>
+        <value>Numbered list</value>
     </data>
     <data name="MdNewLine" xml:space="preserve">
-        <value>Neue Zeile</value>
+        <value>New line</value>
     </data>
     <data name="HomeSearchFolder" xml:space="preserve">
-        <value>Ordner suchen...</value>
+        <value>Search folder...</value>
     </data>
     <data name="SettingsTheme" xml:space="preserve">
-        <value>Farbthema</value>
+        <value>Theme</value>
     </data>
     <data name="SyncPlaceholder" xml:space="preserve">
-        <value>IP des anderen Geräts eingeben...</value>
+        <value>Enter other device's IP...</value>
     </data>
     <data name="MdTextareaPlaceholder" xml:space="preserve">
-        <value>Was hast du im Kopf?</value>
+        <value>What's on your mind?</value>
     </data>
     <data name="MdNothingWrote" xml:space="preserve">
-        <value>Schreibe etwas im Editor, um die Vorschau zu sehen</value>
+        <value>Write something in the editor to see the preview</value>
     </data>
     <data name="MdNewTodo" xml:space="preserve">
-        <value>Neues Todo</value>
+        <value>New todo</value>
     </data>
     <data name="MdNoTodo" xml:space="preserve">
-        <value>Noch keine Todos</value>
+        <value>No todos yet</value>
     </data>
     <data name="MdDataLoading" xml:space="preserve">
-        <value>Daten werden geladen...</value>
+        <value>Loading data...</value>
     </data>
     <data name="MdAddTodoMessage" xml:space="preserve">
-        <value>Todo hinzufügen</value>
+        <value>Add todo</value>
     </data>
     <data name="MdTodoPlaceholder" xml:space="preserve">
-        <value>Todo Beschreibung...</value>
+        <value>Description...</value>
     </data>
     <data name="MdAdd" xml:space="preserve">
-        <value>Hinzufügen</value>
+        <value>Add</value>
     </data>
     <data name="MdSuccess" xml:space="preserve">
-        <value>Wurde erfolgreich gespeichert</value>
+        <value>Saved successfully</value>
     </data>
     <data name="MdMoreAboutMd" xml:space="preserve">
-        <value>Mehr über Markdowns Syntax</value>
+        <value>More about Markdown syntax</value>
     </data>
     <data name="MarkdownHelpTitle" xml:space="preserve">
-        <value>Markdown Hilfe</value>
+        <value>Markdown Help</value>
     </data>
     <data name="MarkdownWhatIs" xml:space="preserve">
-        <value>Was ist Markdown?</value>
+        <value>What is Markdown?</value>
     </data>
     <data name="MarkdownWhatIsText" xml:space="preserve">
-        <value>Markdown ist eine einfache Auszeichnungssprache, mit der Sie formatierten Text erstellen können. Sie können Überschriften, Listen, Links und mehr formatieren, ohne komplexe HTML-Tags verwenden zu müssen.</value>
+        <value>Markdown is a lightweight markup language that allows you to format text easily. You can create headings, lists, links and more without needing complex HTML tags.</value>
     </data>
     <data name="MarkdownBasicFormatting" xml:space="preserve">
-        <value>Grundlegende Formatierung</value>
+        <value>Basic formatting</value>
     </data>
     <data name="MarkdownHeaders" xml:space="preserve">
-        <value>Überschriften</value>
+        <value>Headers</value>
     </data>
     <data name="MarkdownLists" xml:space="preserve">
-        <value>Listen</value>
+        <value>Lists</value>
     </data>
     <data name="MarkdownLinksImages" xml:space="preserve">
-        <value>Links und Bilder</value>
+        <value>Links and images</value>
     </data>
     <data name="MarkdownCode" xml:space="preserve">
-        <value>Kode</value>
+        <value>Code</value>
     </data>
     <data name="MarkdownTables" xml:space="preserve">
-        <value>Tabellen</value>
+        <value>Tables</value>
     </data>
     <data name="MarkdownBoldExample" xml:space="preserve">
-        <value>**Fett**</value>
+        <value>**Bold**</value>
     </data>
     <data name="MarkdownItalicExample" xml:space="preserve">
-        <value>*Kursiv*</value>
+        <value>*Italic*</value>
     </data>
     <data name="MarkdownStrikethroughExample" xml:space="preserve">
-        <value>~~Durchgestrichen~~</value>
+        <value>~~Strikethrough~~</value>
     </data>
     <data name="MarkdownHeader1Example" xml:space="preserve">
-        <value># Überschrift 1</value>
+        <value># Header 1</value>
     </data>
     <data name="MarkdownHeader2Example" xml:space="preserve">
-        <value>## Überschrift 2</value>
+        <value>## Header 2</value>
     </data>
     <data name="MarkdownListExample" xml:space="preserve">
-        <value>- Ungeordnete Liste
-      - Unterpunkt
-    1. Geordnete Liste
-    2. Zweiter Punkt</value>
+        <value>- Unordered list
+      - Sub-item
+    1. Ordered list
+    2. Second item</value>
     </data>
     <data name="MarkdownLinkExample" xml:space="preserve">
-        <value>[Linktext](https://example.com)</value>
+        <value>[Link text](https://example.com)</value>
     </data>
     <data name="MarkdownImageExample" xml:space="preserve">
-        <value>![Alt-Text](bild.jpg)</value>
+        <value>![Alt text](image.jpg)</value>
     </data>
     <data name="MarkdownInlineCodeExample" xml:space="preserve">
-        <value>`Inline-Code`</value>
+        <value>`Inline code`</value>
     </data>
     <data name="MarkdownCodeBlockExample" xml:space="preserve">
-        <value>
-        ```
-           Mehrzeiliger
-           Codeblock
-        ```
-    </value>
+        <value>```
+    Code block
+    multiple lines
+    ```</value>
     </data>
     <data name="MarkdownTableExample" xml:space="preserve">
-        <value>
-            | Spalte 1 | Spalte 2 |
-            |----------|----------|
-            | Zelle 1  | Zelle 2  |
-        </value>
+        <value>| Column 1 | Column 2 |
+    |----------|----------|
+    | Cell 1   | Cell 2   |</value>
     </data>
     <data name="MarkdownAdvancedFormatting" xml:space="preserve">
-    <value>Erweiterte Formatierung</value>
+    <value>Advanced formatting</value>
     </data>
     <data name="MarkdownColoredText" xml:space="preserve">
-        <value>Farbiger Text</value>
+        <value>Colored text</value>
     </data>
     <data name="MarkdownHtmlNote" xml:space="preserve">
-        <value>Hinweis: HTML kann verwendet werden, wird aber nicht empfohlen</value>
+        <value>Note: HTML can be used but is not recommended</value>
     </data>
     <data name="MarkdownStyledImage" xml:space="preserve">
-        <value>Gestyltes Bild</value>
+        <value>Styled image</value>
     </data>
     <data name="MarkdownImageNote" xml:space="preserve">
-        <value>Sie können Bilder mit HTML img-Tag und Inline-Styles formatieren</value>
+        <value>You can style images with HTML img tag and inline styles</value>
     </data>
     <data name="MarkdownMoreResources" xml:space="preserve">
-        <value>Weitere Ressourcen</value>
+        <value>More resources</value>
     </data>
     <data name="MarkdownLearnMoreText" xml:space="preserve">
-        <value>Erfahren Sie mehr über Markdown-Syntax:</value>
+        <value>Learn more about Markdown syntax:</value>
     </data>
     <data name="MarkdownCheatSheetLink" xml:space="preserve">
-        <value>Markdown Spickzettel</value>
+        <value>Markdown cheat sheet</value>
     </data>
     <data name="SyncCopyFailed" xml:space="preserve">
-        <value>Kopieren der IP-Adresse fehlgeschlagen</value>
+        <value>Failed to copy IP address</value>
     </data>
     <data name="SyncConnectionFailed" xml:space="preserve">
         <value>
-            Verbindung fehlgeschlagen. Bitte überprüfen Sie, dass beide Geräte im selben Netzwerk sind - Dass die IP-Adresse korrekt ist- Dass die App auf dem anderen Gerät geöffnet ist
+            Connection failed. Please check that both devices are on the same network - that the IP address is correct - that the app is open on the other device
         </value>
     </data>
     <data name="SyncIpCopied" xml:space="preserve">
-        <value>IP-Adresse kopiert</value>
+        <value>IP address copied</value>
     </data>
     <data name="SyncTimeoutError" xml:space="preserve">
-    <value>Timeout: Keine Antwort vom Gerät erhalten</value>
+    <value>Timeout: No response from device</value>
     </data>
     <data name="SyncLiOne" xml:space="preserve">
-        <value>Stellen Sie sicher, dass beide Geräte im gleichen WLAN-Netzwerk sind (Hotspot aktivieren)</value>
+        <value>Make sure both devices are on the same WiFi network (enable hotspot on your phone)</value>
     </data>
     <data name="SyncLiThree" xml:space="preserve">
-        <value>Geben Sie die IP-Adresse des anderen Geräts ein</value>
+        <value>Enter the other device's IP address</value>
     </data>
     <data name="SyncLiFour" xml:space="preserve">
-        <value>Klicken Sie auf "Synchronisation starten"</value>
+        <value>Click "Start sync"</value>
     </data>
     <data name="SyncConnectionTimeout" xml:space="preserve">
-        <value>Verbindungstest fehlgeschlagen: Timeout</value>
+        <value>Connection test failed: Timeout</value>
     </data>
     <data name="SyncNetworkError" xml:space="preserve">
-        <value>Netzwerkfehler:</value>
+        <value>Network error:</value>
     </data>
-        <data name="SyncFileError" xml:space="preserve">
-        <value>Dateifehler:</value>
+    <data name="SyncFileError" xml:space="preserve">
+        <value>File error:</value>
     </data>
     <data name="SubCreatedOn" xml:space="preserve">
-        <value>Erstellt am</value>
+        <value>Created on</value>
     </data>
     <data name="SubNewNote" xml:space="preserve">
-        <value>Neue Notiz</value>
+        <value>New note</value>
     </data>
     <data name="SubEdit" xml:space="preserve">
-        <value>Bearbeiten</value>
+        <value>Edit</value>
     </data>
     <data name="SubNoNotes" xml:space="preserve">
-        <value>Noch keine Notizen</value>
+        <value>No notes yet</value>
     </data>
     <data name="SubCreateNotePrompt" xml:space="preserve">
-        <value>Erstelle eine neue Notiz, um loszulegen</value>
+        <value>Create a new note to get started</value>
     </data>
     <data name="SubDefaultNoteTitle" xml:space="preserve">
-        <value>Neue Notiz</value>
+        <value>New note</value>
     </data>
     <data name="MdTitle" xml:space="preserve">
         <value>Title</value>
     </data>
     <data name="MdUnderline" xml:space="preserve">
-        <value>Unterstricht</value>
+        <value>Underline</value>
     </data>
     <data name="MdTables" xml:space="preserve">
-        <value>Tabellen</value>
+        <value>Tables</value>
     </data>
     <data name="MdQuote" xml:space="preserve">
-        <value>Zitat</value>
+        <value>Quote</value>
     </data>
     <data name="MdThrough" xml:space="preserve">
-        <value>Gestrichelt</value>
+        <value>Strikethrough</value>
     </data>
     <data name="MdTask" xml:space="preserve">
-        <value>Aufgabe</value>
+        <value>Task</value>
     </data>
     <data name="MdLink" xml:space="preserve">
         <value>Link</value>
     </data>
     <data name="MdImage" xml:space="preserve">
-        <value>Bild</value>
+        <value>Image</value>
     </data>
     <data name="NavDeveloped" xml:space="preserve">
-        <value>Entwickelt bei Cyprien de Fontenay</value>
+        <value>Developed by Cyprien de Fontenay</value>
     </data>
     <data name="NavFaq" xml:space="preserve">
         <value>FAQ</value>
     </data>
     <data name="FaqTitle" xml:space="preserve">
-        <value>Häufig gestellte Fragen</value>
+        <value>Frequently Asked Questions</value>
     </data>
     <data name="FaqDescription" xml:space="preserve">
-        <value>Hier finden Sie Antworten auf die am häufigsten gestellten Fragen.</value>
+        <value>Find answers to the most common questions here.</value>
     </data>
     <data name="FaqWhyNameTitle" xml:space="preserve">
-        <value>Warum der Name Ormur?</value>
+        <value>Why the name Ormur?</value>
     </data>
     <data name="FaqWhyNameContent1" xml:space="preserve">
-        <value>Ormur bedeutet</value>
+        <value>Ormur means</value>
     </data>
     <data name="FaqWhyNameSerpent" xml:space="preserve">
-        <value>Schlange</value>
+        <value>serpent</value>
     </data>
     <data name="FaqWhyNameContent2" xml:space="preserve">
-        <value>auf Isländisch.</value>
+        <value>in Icelandic.</value>
     </data>
     <data name="FaqWhyNameContent3" xml:space="preserve">
-        <value>Es bezieht sich auf die Midgardschlange (Sohn des trickreichen Gottes Loki) in der nordischen Mythologie, die die Erde umschloss.</value>
+        <value>It refers to the Midgard Serpent (son of the trickster god Loki) in Norse mythology that encircled the earth.</value>
     </data>
     <data name="FaqWhyNameContent4" xml:space="preserve">
-        <value>Ormur ist ein mythologisches Wesen, das uns Stabilität verleiht und uns daran erinnert, dass alles vergänglich ist, sogar unser Gedächtnis.</value>
+        <value>Ormur is a mythological being that provides stability and reminds us that everything is fragile, even our memory.</value>
     </data>
     <data name="FaqWhyNameContent5" xml:space="preserve">
-        <value>Deshalb müssen wir Notizen machen, um nichts zu vergessen.</value>
+        <value>That's why we need to take notes, so we don't forget.</value>
     </data>
     <data name="FaqDataPrivacyTitle" xml:space="preserve">
-        <value>Sind meine Daten privat und sicher?</value>
+        <value>Is my data private and secure?</value>
     </data>
     <data name="FaqDataPrivacyContent1" xml:space="preserve">
-        <value>Ormur verwendet keine Cloud. Alle Ihre Daten werden lokal auf Ihrem Computer oder Handy in einer SQLite-Datenbank gespeichert.</value>
+        <value>Ormur doesn't use the cloud. All your data is stored locally on your computer or phone via a SQLite database.</value>
     </data>
     <data name="FaqDataPrivacyContent2" xml:space="preserve">
-        <value>Das bedeutet, dass Ihre Daten Ihnen gehören und niemand außer Ihnen Zugriff darauf hat. Ihre Daten werden nicht gesammelt und bleiben privat und sicher auf Ihrem Gerät.</value>
+        <value>This means your data belongs to you and no one else has access to it. Your data is not collected and remains private and secure on your device.</value>
     </data>
     <data name="FaqSqliteLimitTitle" xml:space="preserve">
-        <value>Wie viele Notizen können in einer SQLite-Datenbank gespeichert werden?</value>
+        <value>How many notes can be stored in a SQLite database?</value>
     </data>
     <data name="FaqSqliteLimitContent" xml:space="preserve">
-        <value>So viele Sie möchten. SQLite kann mehrere Terabyte an Daten speichern, auch wenn es unwahrscheinlich ist, dass Sie diese Grenze erreichen.</value>
+        <value>As many as you want. SQLite can store several terabytes of data, though it's unlikely you'll reach this limit.</value>
     </data>
     <data name="FaqMarkdownTitle" xml:space="preserve">
-        <value>Warum die Markdown-Syntax verwenden?</value>
+        <value>Why use Markdown syntax?</value>
     </data>
     <data name="FaqMarkdownContent1" xml:space="preserve">
-        <value>Diese Syntax ist sehr einfach zu verwenden und ermöglicht ein professionelleres Erscheinungsbild sowie größere Flexibilität.</value>
+        <value>This syntax is very easy to use and allows for more professional rendering while also offering greater flexibility.</value>
     </data>
     <data name="FaqMarkdownContent2" xml:space="preserve">
-        <value>Es ist beispielsweise möglich, HTML zu verwenden, um Text einzufärben oder die Größe eines Bildes zu ändern.</value>
+        <value>For example, you can use HTML to color text or change an image's size.</value>
     </data>
     <data name="FaqMarkdownContent3" xml:space="preserve">
-        <value>Sie müssen HTML nicht kennen. Die Markdown-Syntax ist sehr intuitiv und Sie sind nicht verpflichtet, sie zu verwenden.</value>
+        <value>You don't need to know HTML. Markdown syntax is very intuitive and you're not required to use it.</value>
     </data>
     <data name="FaqMarkdownContent4" xml:space="preserve">
-        <value>Sie können auch nur reinen Text verwenden, wenn Sie möchten.</value>
+        <value>You can use plain text only if you prefer.</value>
     </data>
     <data name="FaqSyncTitle" xml:space="preserve">
-        <value>Ich habe die Android-App, kann ich meine Daten synchronisieren?</value>
+        <value>I have the Android app, can I sync my data?</value>
     </data>
     <data name="FaqSyncContent1" xml:space="preserve">
-        <value>Ja, das ist möglich. Folgen Sie einfach den Anweisungen auf der Seite.</value>
+        <value>Yes, it's possible. Just follow the instructions on the page.</value>
     </data>
     <data name="FaqSyncContent2" xml:space="preserve">
-        <value>Beachten Sie jedoch, dass wenn Sie Ihre Daten von einem Gerät auf ein anderes synchronisieren möchten,</value>
+        <value>However, keep in mind that if you want to sync your data from one device to another,</value>
     </data>
     <data name="FaqSyncContent3" xml:space="preserve">
-        <value>zum Beispiel von Ihrem Handy auf Ihre Desktop-Anwendung, dies alle Daten auf der Desktop-Anwendung löschen wird</value>
+        <value>for example from your phone to your desktop app, this will delete all data on the desktop app</value>
     </data>
     <data name="FaqSyncContent4" xml:space="preserve">
-        <value>und sie durch die Daten von Ihrem Handy ersetzt werden.</value>
+        <value>and replace it with the data from your phone.</value>
     </data>
     <data name="FaqSyncContent5" xml:space="preserve">
-        <value>Das Synchronisieren Ihrer Daten ist eine gute Sache, wenn Sie auf beiden Geräten immer die gleichen Daten haben möchten.</value>
+        <value>Syncing your data is good if you want to always have the same data on both devices.</value>
     </data>
     <data name="FaqSyncContent6" xml:space="preserve">
-        <value>Dies ist jedoch nur möglich, wenn Sie den Hotspot Ihres Handys verwenden.</value>
+        <value>However, this is only possible by using your phone's hotspot.</value>
     </data>
     <data name="FaqOfflineTitle" xml:space="preserve">
-        <value>Funktioniert die App offline?</value>
+        <value>Does the app work offline?</value>
     </data>
     <data name="FaqOfflineContent" xml:space="preserve">
-        <value>Ja. Da sie eine SQLite-Datenbank verwendet, die Daten direkt auf Ihrem Gerät speichert, benötigen Sie kein Internet.</value>
+        <value>Yes. Since it uses a SQLite database that stores data directly on your device, you don't need internet.</value>
     </data>
     <data name="FaqSupportTitle" xml:space="preserve">
-        <value>Ich habe ein Problem, das ich nicht lösen kann, wie kann ich Hilfe bekommen?</value>
+        <value>I have a problem I can't solve, how can I get help?</value>
     </data>
     <data name="FaqSupportContent1" xml:space="preserve">
-        <value>Ormur ist Open-Source. Das bedeutet, dass der Quellcode für alle verfügbar ist.</value>
+        <value>Ormur is open-source. This means the source code is available to everyone.</value>
     </data>
     <data name="FaqSupportContent2" xml:space="preserve">
-        <value>Wenn Sie auf ein Problem stoßen, zögern Sie nicht, einen Kommentar zu hinterlassen oder, wenn Sie ein GitHub-Konto haben, dort eine Nachricht zu schreiben:</value>
+        <value>If you encounter a problem, don't hesitate to leave a comment or if you have a GitHub account, you can leave a message there:</value>
     </data>
     <data name="FaqSupportGithubLink" xml:space="preserve">
         <value>GitHub Ormur</value>
