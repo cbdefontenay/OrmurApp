@@ -63,22 +63,22 @@
     <data name="FolderNameTooShort" xml:space="preserve">
         <value>Le nom du dossier doit contenir au moins 1 caractère</value>
     </data>
-        <data name="NoFavoritesMessage" xml:space="preserve">
+    <data name="NoFavoritesMessage" xml:space="preserve">
         <value>Vous n'avez marqué aucun dossier comme favori. Ajoutez une étoile à un dossier pour l'afficher ici.</value>
     </data>
-        <data name="NoFavoritesAction" xml:space="preserve">
+    <data name="NoFavoritesAction" xml:space="preserve">
         <value>Afficher tous les dossiers</value>
     </data>
-        <data name="InvalidFolderName" xml:space="preserve">
+    <data name="InvalidFolderName" xml:space="preserve">
         <value>Veuillez entrer un nom de dossier valide</value>
     </data>
-        <data name="InvalidSubfolderName" xml:space="preserve">
+    <data name="InvalidSubfolderName" xml:space="preserve">
         <value>Veuillez entrer un nom de sous-dossier valide</value>
     </data>
-        <data name="FolderSaveError" xml:space="preserve">
+    <data name="FolderSaveError" xml:space="preserve">
         <value>Erreur lors de l'enregistrement du dossier. Veuillez réessayer.</value>
     </data>
-        <data name="SubfolderSaveError" xml:space="preserve">
+    <data name="SubfolderSaveError" xml:space="preserve">
         <value>Erreur lors de l'enregistrement du sous-dossier. Veuillez réessayer.</value>
     </data>
     <data name="HomeSubfolderWhatTodo" xml:space="preserve">
@@ -346,10 +346,10 @@
     <data name="SyncConnectionTimeout" xml:space="preserve">
         <value>Échec du test de connexion: Timeout</value>
     </data>
-        <data name="SyncNetworkError" xml:space="preserve">
+    <data name="SyncNetworkError" xml:space="preserve">
         <value>Erreur réseau:</value>
     </data>
-        <data name="SyncFileError" xml:space="preserve">
+    <data name="SyncFileError" xml:space="preserve">
         <value>Erreur de fichier:</value>
     </data>
     <data name="SubCreatedOn" xml:space="preserve">
@@ -493,6 +493,39 @@
         <value>Si vous rencontrez un problème, n'hésitez pas à écrire un commentaire ou si vous avez un compte GitHub, vous pouvez y laisser un message :</value>
     </data>
     <data name="FaqSupportGithubLink" xml:space="preserve">
-        <value>GitHub Ormur</value>
+        <value>Ormur sur GitHub.</value>
+    </data>
+    <data name="ExportAsTxt" xml:space="preserve">
+        <value>Exporter en .txt</value>
+    </data>
+    <data name="ExportInProgress" xml:space="preserve">
+        <value>Export en cours...</value>
+    </data>
+    <data name="ExportOptionsTitle" xml:space="preserve">
+        <value>Options d'exportation</value>
+    </data>
+    <data name="ExportOptionsDescription" xml:space="preserve">
+        <value>Comment souhaitez-vous exporter votre note ?</value>
+    </data>
+    <data name="ExportOptionPreserveMarkdown" xml:space="preserve">
+        <value>Conserver Markdown</value>
+    </data>
+    <data name="ExportOptionPreserveMarkdownDesc" xml:space="preserve">
+        <value>Exporter avec le formatage Markdown original</value>
+    </data>
+    <data name="ExportOptionPlainText" xml:space="preserve">
+        <value>Texte brut</value>
+    </data>
+    <data name="ExportOptionPlainTextDesc" xml:space="preserve">
+        <value>Exporter en texte lisible sans formatage</value>
+    </data>
+    <data name="NoTextToExport" xml:space="preserve">
+        <value>Aucun texte à exporter</value>
+    </data>
+    <data name="ExportSuccess" xml:space="preserve">
+        <value>Texte exporté avec succès en tant que {0}</value>
+    </data>
+    <data name="ExportError" xml:space="preserve">
+        <value>Erreur lors de l'exportation</value>
     </data>
 </root>

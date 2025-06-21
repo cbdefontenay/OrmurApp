@@ -497,6 +497,39 @@
         <value>If you encounter a problem, don't hesitate to leave a comment or if you have a GitHub account, you can leave a message there:</value>
     </data>
     <data name="FaqSupportGithubLink" xml:space="preserve">
-        <value>GitHub Ormur</value>
+        <value>Ormur on GitHub.</value>
+    </data>
+    <data name="ExportAsTxt" xml:space="preserve">
+        <value>Export as .txt</value>
+    </data>
+        <data name="ExportInProgress" xml:space="preserve">
+        <value>Exporting...</value>
+    </data>
+        <data name="ExportOptionsTitle" xml:space="preserve">
+        <value>Export Options</value>
+    </data>
+        <data name="ExportOptionsDescription" xml:space="preserve">
+        <value>How would you like to export your note?</value>
+    </data>
+        <data name="ExportOptionPreserveMarkdown" xml:space="preserve">
+        <value>Preserve Markdown</value>
+    </data>
+        <data name="ExportOptionPreserveMarkdownDesc" xml:space="preserve">
+        <value>Export with original Markdown formatting</value>
+    </data>
+        <data name="ExportOptionPlainText" xml:space="preserve">
+        <value>Plain Text</value>
+    </data>
+        <data name="ExportOptionPlainTextDesc" xml:space="preserve">
+        <value>Export as readable text without formatting</value>
+    </data>
+        <data name="NoTextToExport" xml:space="preserve">
+        <value>No text available to export</value>
+    </data>
+        <data name="ExportSuccess" xml:space="preserve">
+        <value>Text successfully exported as {0}</value>
+    </data>
+        <data name="ExportError" xml:space="preserve">
+        <value>Error during export</value>
     </data>
 </root>

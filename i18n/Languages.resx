@@ -74,22 +74,22 @@
     <data name="FolderNameTooShort" xml:space="preserve">
         <value>Der Ordnername muss mindestens 1 Zeichen lang sein</value>
     </data>
-        <data name="NoFavoritesMessage" xml:space="preserve">
+    <data name="NoFavoritesMessage" xml:space="preserve">
         <value>Sie haben noch keine Ordner als Favoriten markiert. Markieren Sie einen Ordner mit einem Stern, um ihn hier anzuzeigen.</value>
     </data>
-        <data name="NoFavoritesAction" xml:space="preserve">
+    <data name="NoFavoritesAction" xml:space="preserve">
         <value>Alle Ordner anzeigen</value>
     </data>
-        <data name="InvalidFolderName" xml:space="preserve">
+    <data name="InvalidFolderName" xml:space="preserve">
         <value>Bitte geben Sie einen gültigen Ordnernamen ein</value>
     </data>
-        <data name="InvalidSubfolderName" xml:space="preserve">
+    <data name="InvalidSubfolderName" xml:space="preserve">
         <value>Bitte geben Sie einen gültigen Unterordnernamen ein</value>
     </data>
-        <data name="FolderSaveError" xml:space="preserve">
+    <data name="FolderSaveError" xml:space="preserve">
         <value>Fehler beim Speichern des Ordners. Bitte versuchen Sie es erneut.</value>
     </data>
-        <data name="SubfolderSaveError" xml:space="preserve">
+    <data name="SubfolderSaveError" xml:space="preserve">
         <value>Fehler beim Speichern des Unterordners. Bitte versuchen Sie es erneut.</value>
     </data>
     <data name="HomeAddNewSubfolder" xml:space="preserve">
@@ -358,7 +358,7 @@
     <data name="SyncNetworkError" xml:space="preserve">
         <value>Netzwerkfehler:</value>
     </data>
-        <data name="SyncFileError" xml:space="preserve">
+    <data name="SyncFileError" xml:space="preserve">
         <value>Dateifehler:</value>
     </data>
     <data name="SubCreatedOn" xml:space="preserve">
@@ -503,6 +503,39 @@
         <value>Wenn Sie auf ein Problem stoßen, zögern Sie nicht, einen Kommentar zu hinterlassen oder, wenn Sie ein GitHub-Konto haben, dort eine Nachricht zu schreiben:</value>
     </data>
     <data name="FaqSupportGithubLink" xml:space="preserve">
-        <value>GitHub Ormur</value>
+        <value>Ormur auf GitHub.</value>
+    </data>
+    <data name="ExportAsTxt" xml:space="preserve">
+        <value>Als .txt exportieren</value>
+    </data>
+    <data name="ExportInProgress" xml:space="preserve">
+        <value>Wird exportiert...</value>
+    </data>
+    <data name="ExportOptionsTitle" xml:space="preserve">
+        <value>Export Optionen</value>
+    </data>
+    <data name="ExportOptionsDescription" xml:space="preserve">
+        <value>Wie möchtest du deine Notiz exportieren?</value>
+    </data>
+    <data name="ExportOptionPreserveMarkdown" xml:space="preserve">
+        <value>Markdown erhalten</value>
+    </data>
+    <data name="ExportOptionPreserveMarkdownDesc" xml:space="preserve">
+        <value>Export mit originaler Markdown-Formatierung</value>
+    </data>
+    <data name="ExportOptionPlainText" xml:space="preserve">
+        <value>Nur Text</value>
+    </data>
+    <data name="ExportOptionPlainTextDesc" xml:space="preserve">
+        <value>Export als lesbarer Text ohne Formatierung</value>
+    </data>
+    <data name="NoTextToExport" xml:space="preserve">
+        <value>Kein Text zum Exportieren vorhanden</value>
+    </data>
+    <data name="ExportSuccess" xml:space="preserve">
+        <value>Text erfolgreich als {0} exportiert</value>
+    </data>
+    <data name="ExportError" xml:space="preserve">
+        <value>Fehler beim Exportieren</value>
     </data>
 </root>

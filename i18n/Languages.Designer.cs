@@ -60,6 +60,96 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als .txt exportieren.
+        /// </summary>
+        internal static string ExportAsTxt {
+            get {
+                return ResourceManager.GetString("ExportAsTxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fehler beim Exportieren.
+        /// </summary>
+        internal static string ExportError {
+            get {
+                return ResourceManager.GetString("ExportError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wird exportiert....
+        /// </summary>
+        internal static string ExportInProgress {
+            get {
+                return ResourceManager.GetString("ExportInProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nur Text.
+        /// </summary>
+        internal static string ExportOptionPlainText {
+            get {
+                return ResourceManager.GetString("ExportOptionPlainText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export als lesbarer Text ohne Formatierung.
+        /// </summary>
+        internal static string ExportOptionPlainTextDesc {
+            get {
+                return ResourceManager.GetString("ExportOptionPlainTextDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Markdown erhalten.
+        /// </summary>
+        internal static string ExportOptionPreserveMarkdown {
+            get {
+                return ResourceManager.GetString("ExportOptionPreserveMarkdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export mit originaler Markdown-Formatierung.
+        /// </summary>
+        internal static string ExportOptionPreserveMarkdownDesc {
+            get {
+                return ResourceManager.GetString("ExportOptionPreserveMarkdownDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wie möchtest du deine Notiz exportieren?.
+        /// </summary>
+        internal static string ExportOptionsDescription {
+            get {
+                return ResourceManager.GetString("ExportOptionsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Optionen.
+        /// </summary>
+        internal static string ExportOptionsTitle {
+            get {
+                return ResourceManager.GetString("ExportOptionsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text erfolgreich als {0} exportiert.
+        /// </summary>
+        internal static string ExportSuccess {
+            get {
+                return ResourceManager.GetString("ExportSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ormur verwendet keine Cloud. Alle Ihre Daten werden lokal auf Ihrem Computer oder Handy in einer SQLite-Datenbank gespeichert..
         /// </summary>
         internal static string FaqDataPrivacyContent1 {
@@ -195,7 +285,7 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GitHub Ormur.
+        ///   Looks up a localized string similar to Ormur auf GitHub..
         /// </summary>
         internal static string FaqSupportGithubLink {
             get {
@@ -1139,6 +1229,15 @@ namespace Ormur.i18n {
         internal static string NoFavoritesTitle {
             get {
                 return ResourceManager.GetString("NoFavoritesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kein Text zum Exportieren vorhanden.
+        /// </summary>
+        internal static string NoTextToExport {
+            get {
+                return ResourceManager.GetString("NoTextToExport", resourceCulture);
             }
         }
         

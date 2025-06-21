@@ -7,14 +7,14 @@
             <FluentIcon Value="@(new Icons.Filled.Size20.SpinnerIos())"
                         Color="Color.Custom"
                         CustomColor="var(--on-primary)"/>
-            <span>Wird exportiert...</span>
+            <span>@Loc["ExportInProgress"]</span>
         }
         else
         {
             <FluentIcon Value="@(new Icons.Regular.Size20.ArrowDownload())"
                         Color="Color.Custom"
                         CustomColor="var(--on-primary)"/>
-            <span>Als .txt exportieren</span>
+            <span>@Loc["ExportAsTxt"]</span>
         }
     </button>
 
@@ -22,31 +22,31 @@
     {
         <div class="export-options-modal">
             <div class="export-options-content">
-                <h3>Export Optionen</h3>
-                <p>Wie möchtest du deine Notiz exportieren?</p>
-                
+                <h3>@Loc["ExportOptionsTitle"]</h3>
+                <p>@Loc["ExportOptionsDescription"]</p>
+
                 <div class="export-option" @onclick="() => ExportWithOption(true)">
-                    <FluentIcon Value="@(new Icons.Regular.Size20.Code())" 
-                               Color="Color.Custom"
-                               CustomColor="var(--primary)"/>
+                    <FluentIcon Value="@(new Icons.Regular.Size20.Code())"
+                                Color="Color.Custom"
+                                CustomColor="var(--primary)"/>
                     <div>
-                        <strong>Preserve Markdown</strong>
-                        <small>Export with original Markdown formatting</small>
+                        <strong>@Loc["ExportOptionPreserveMarkdown"]</strong>
+                        <small>@Loc["ExportOptionPreserveMarkdownDesc"]</small>
                     </div>
                 </div>
-                
+
                 <div class="export-option" @onclick="() => ExportWithOption(false)">
-                    <FluentIcon Value="@(new Icons.Regular.Size20.TextParagraph())" 
-                               Color="Color.Custom"
-                               CustomColor="var(--primary)"/>
+                    <FluentIcon Value="@(new Icons.Regular.Size20.TextParagraph())"
+                                Color="Color.Custom"
+                                CustomColor="var(--primary)"/>
                     <div>
-                        <strong>Plain Text</strong>
-                        <small>Export as readable text without formatting</small>
+                        <strong>@Loc["ExportOptionPlainText"]</strong>
+                        <small>@Loc["ExportOptionPlainTextDesc"]</small>
                     </div>
                 </div>
-                
+
                 <button class="cancel-export" @onclick="() => _showExportOptions = false">
-                    Cancel
+                    @Loc["Cancel"]
                 </button>
             </div>
         </div>
@@ -71,28 +71,28 @@
     {
         if (string.IsNullOrWhiteSpace(MarkdownText))
         {
-            await Toast.Make("Kein Text zum Exportieren vorhanden", ToastDuration.Short, 10).Show();
+            await Toast.Make(Loc["NoTextToExport"], ToastDuration.Short, 10).Show();
             return;
         }
 
         _isExporting = true;
-       
+
         try
         {
-            var content = preserveMarkdown 
-                ? MarkdownText 
+            var content = preserveMarkdown
+                ? MarkdownText
                 : await Task.Run(() => ConvertMarkdownToPlainText(MarkdownText));
-                
+
             var filename = $"{SanitizeFileName(NoteTitle ?? "untitled")}.txt";
-           
+
             await Js.InvokeVoidAsync("markdownEditorUtils.exportAsTxt", filename, content);
-            await Toast.Make($"Text erfolgreich als {(preserveMarkdown ? "Markdown" : "Plain Text")} exportiert", 
-                           ToastDuration.Short, 10).Show();
+            await Toast.Make(string.Format(Loc["ExportSuccess"], preserveMarkdown ? "Markdown" : "Plain Text"),
+                ToastDuration.Short, 10).Show();
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Export error: {ex.Message}");
-            await Toast.Make("Fehler beim Exportieren", ToastDuration.Short, 10).Show();
+            await Toast.Make(Loc["ExportError"], ToastDuration.Short, 10).Show();
         }
         finally
         {
@@ -112,7 +112,8 @@
         html = System.Text.RegularExpressions.Regex.Replace(
             html,
             @"<h(\d)>(.*?)</h\d>",
-            (match) => {
+            (match) =>
+            {
                 var level = int.Parse(match.Groups[1].Value);
                 var text = match.Groups[2].Value;
                 var underline = new string(level <= 2 ? '=' : '-', text.Length);
@@ -125,7 +126,8 @@
         html = System.Text.RegularExpressions.Regex.Replace(
             html,
             @"<li>(.*?)</li>",
-            (match) => {
+            (match) =>
+            {
                 var text = match.Groups[1].Value;
                 // Detect if it's in an ordered list by checking parent elements
                 var isOrdered = match.Value.Contains("<ol>");
@@ -138,19 +140,20 @@
         html = System.Text.RegularExpressions.Regex.Replace(
             html,
             @"<blockquote>(.*?)</blockquote>",
-            (match) => {
+            (match) =>
+            {
                 var text = match.Groups[1].Value;
                 // Remove any HTML tags from the quote
                 text = System.Text.RegularExpressions.Regex.Replace(
-                    text, 
-                    "<[^>]*(>|$)", 
+                    text,
+                    "<[^>]*(>|$)",
                     string.Empty
                 );
                 // Add > prefix to each line
-                return "\n" + string.Join("\n", 
-                    text.Split('\n')
-                        .Select(line => $"> {line.Trim()}"))
-                    + "\n";
+                return "\n" + string.Join("\n",
+                                text.Split('\n')
+                                    .Select(line => $"> {line.Trim()}"))
+                            + "\n";
             },
             System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline
         );
@@ -159,7 +162,8 @@
         html = System.Text.RegularExpressions.Regex.Replace(
             html,
             @"<pre><code>(.*?)</code></pre>",
-            (match) => {
+            (match) =>
+            {
                 var code = match.Groups[1].Value;
                 return $"\n```\n{code}\n```\n";
             },
@@ -170,7 +174,8 @@
         html = System.Text.RegularExpressions.Regex.Replace(
             html,
             @"<code>(.*?)</code>",
-            (match) => {
+            (match) =>
+            {
                 var code = match.Groups[1].Value;
                 return $"`{code}`";
             },
@@ -181,7 +186,8 @@
         html = System.Text.RegularExpressions.Regex.Replace(
             html,
             @"<img.*?alt=""(.*?)"".*?src=""(.*?)"".*?>",
-            (match) => {
+            (match) =>
+            {
                 var alt = match.Groups[1].Value;
                 var src = match.Groups[2].Value;
                 return $"[Image: {alt}]({src})";
@@ -193,7 +199,8 @@
         html = System.Text.RegularExpressions.Regex.Replace(
             html,
             @"<a.*?href=""(.*?)"".*?>(.*?)</a>",
-            (match) => {
+            (match) =>
+            {
                 var href = match.Groups[1].Value;
                 var text = match.Groups[2].Value;
                 return $"[{text}]({href})";
@@ -223,4 +230,5 @@
         var invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
         return System.Text.RegularExpressions.Regex.Replace(fileName, invalidRegStr, "_");
     }
+
 }
