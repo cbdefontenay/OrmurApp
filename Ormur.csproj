@@ -94,4 +94,8 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="releases\download\v1.1.0\" />
+    </ItemGroup>
+
 </Project>
