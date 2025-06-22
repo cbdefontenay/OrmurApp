@@ -532,4 +532,13 @@
         <data name="ExportError" xml:space="preserve">
         <value>Error during export</value>
     </data>
+    <data name="NoFoldHeader" xml:space="preserve">
+        <value>You didn't create a folder yet</value>
+    </data>
+    <data name="NoFoldSubHeader" xml:space="preserve">
+        <value>Create your first folder in order to organize your notes</value>
+    </data>
+    <data name="NoFoldCreate" xml:space="preserve">
+        <value>Create a folder</value>
+    </data>
 </root>

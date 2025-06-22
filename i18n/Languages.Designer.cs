@@ -1233,6 +1233,33 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ordner erstellen.
+        /// </summary>
+        internal static string NoFoldCreate {
+            get {
+                return ResourceManager.GetString("NoFoldCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sie haben noch keine Ordner erstellt.
+        /// </summary>
+        internal static string NoFoldHeader {
+            get {
+                return ResourceManager.GetString("NoFoldHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erstellen Sie Ihren ersten Ordner, um deine Notizen zu organisieren..
+        /// </summary>
+        internal static string NoFoldSubHeader {
+            get {
+                return ResourceManager.GetString("NoFoldSubHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kein Text zum Exportieren vorhanden.
         /// </summary>
         internal static string NoTextToExport {

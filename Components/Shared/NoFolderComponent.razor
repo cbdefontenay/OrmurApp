@@ -6,13 +6,13 @@
                         Value="@(new Icons.Filled.Size48.DocumentFolder())"/>
         </div>
         <h2 class="empty-state-title">
-            Du hast noch keine Ordner erstellt
+            @Loc["NoFoldHeader"]
         </h2>
         <p class="empty-state-description">
-            Erstelle deinen ersten Ordner, um deine Notizen zu organisieren.
+            @Loc["NoFoldSubHeader"]
         </p>
         <button class="empty-state-action" @onclick="CreateFolder">
-            Ordner erstellen
+            @Loc["NoFoldCreate"]
         </button>
     </div>
 </div>

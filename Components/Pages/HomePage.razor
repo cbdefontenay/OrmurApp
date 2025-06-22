@@ -118,7 +118,7 @@
             <div class="empty-state">
                 @if (_showFavoritesOnly)
                 {
-                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)" 
+                    <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                 Value="@(new Icons.Regular.Size48.Star())"/>
                     <h3>@Loc["NoFavoritesTitle"]</h3>
                     <p>@Loc["NoFavoritesMessage"]</p>
@@ -153,7 +153,7 @@
                     <div class="input-field">
                         <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                     Value="@(new Icons.Regular.Size20.Folder())"/>
-                        <input @bind="_newFolderName" placeholder="Name des Ordners" @onkeyup="HandleKeyUp"/>
+                        <input @bind="_newFolderName" placeholder=@Loc["HomePlaceholder"] @onkeyup="HandleKeyUp"/>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -183,7 +183,7 @@
                     <div class="input-field">
                         <FluentIcon Color="Color.Custom" CustomColor="var(--primary)"
                                     Value="@(new Icons.Regular.Size20.Folder())"/>
-                        <input @bind="_newSubfolderName" placeholder="Name des Unterordners..."
+                        <input @bind="_newSubfolderName" placeholder=@Loc["HomeSubfolderPlaceholder"]
                                @onkeyup="HandleSubfolderKeyUp"/>
                     </div>
                 </div>

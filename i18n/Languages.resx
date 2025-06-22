@@ -538,4 +538,13 @@
     <data name="ExportError" xml:space="preserve">
         <value>Fehler beim Exportieren</value>
     </data>
+    <data name="NoFoldHeader" xml:space="preserve">
+        <value>Sie haben noch keine Ordner erstellt</value>
+    </data>
+    <data name="NoFoldSubHeader" xml:space="preserve">
+        <value>Erstellen Sie Ihren ersten Ordner, um deine Notizen zu organisieren.</value>
+    </data>
+    <data name="NoFoldCreate" xml:space="preserve">
+        <value>Ordner erstellen</value>
+    </data>
 </root>

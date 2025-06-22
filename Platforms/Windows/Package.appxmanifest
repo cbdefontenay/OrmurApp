@@ -8,13 +8,13 @@
   xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
   IgnorableNamespaces="uap rescap com desktop">
 
-  <Identity Name="Heimdal.Ormur" Publisher="CN=2508808a-03ab-4b03-b027-ccf3321e3e21" Version="0.0.0.0" />
+  <Identity Name="Vanaheim.Ormur" Publisher="CN=C706CE96-51C5-4AAA-9E61-3D2A61DA6377" Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="532865FF-E567-47C9-B125-6CA2BCD578AA" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>Ormur</DisplayName>
-    <PublisherDisplayName>Heimdal</PublisherDisplayName>
+    <PublisherDisplayName>Vanaheim</PublisherDisplayName>
     <Logo>$placeholder$.png</Logo>
   </Properties>
 
