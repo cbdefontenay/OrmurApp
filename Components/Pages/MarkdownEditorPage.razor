@@ -495,7 +495,9 @@ else
             }
 
             await Task.Delay(300);
-            await Toast.Make(Loc["MdSuccess"], ToastDuration.Short, 10).Show();
+// #if Android
+//             await Toast.Make(Loc["MdSuccess"], ToastDuration.Short, 10).Show();
+// #endif
         }
         catch (Exception ex)
         {
