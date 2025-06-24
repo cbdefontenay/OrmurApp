@@ -4,9 +4,7 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
-  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-  IgnorableNamespaces="uap rescap com desktop">
+  IgnorableNamespaces="uap rescap">
 
   <Identity Name="Vanaheim.Ormur" Publisher="CN=C706CE96-51C5-4AAA-9E61-3D2A61DA6377" Version="1.0.0.0" />
 

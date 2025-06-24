@@ -32,7 +32,7 @@
         <ApplicationVersion>1</ApplicationVersion>
 
         <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
-        <WindowsPackageType>None</WindowsPackageType>
+<!--        <WindowsPackageType>None</WindowsPackageType>-->
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
@@ -66,7 +66,7 @@
         <PackageReference Include="CommunityToolkit.Maui.Markup" Version="6.0.1" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="Dapper" Version="2.1.66" />
-        <PackageReference Include="Markdig" Version="0.41.2" />
+        <PackageReference Include="Markdig" Version="0.41.3" />
         <PackageReference Include="Markdig.SyntaxHighlighting" Version="1.1.7" />
         <PackageReference Include="Markdown.ColorCode" Version="3.0.0" />
         <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.6" />
