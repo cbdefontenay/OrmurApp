@@ -541,4 +541,7 @@
     <data name="NoFoldCreate" xml:space="preserve">
         <value>Create a folder</value>
     </data>
+    <data name="MdError" xml:space="preserve">
+        <value>Error saving note</value>
+    </data>
 </root>

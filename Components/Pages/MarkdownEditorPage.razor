@@ -125,7 +125,8 @@
                                   @bind:event="oninput"
                                   placeholder=@Loc["MdTextareaPlaceholder"]
                                   class="editor-input"
-                                  id="editor-input">
+                                  id="editor-input"
+                                  spellcheck="false">
                         </textarea>
                     </div>
                     break;
@@ -202,6 +203,15 @@
                 }
             }
         </div>
+        <div class="toast-container">
+            @if (_showToast)
+            {
+                <div class="toast @(_showToast ? "show" : "")">
+                    <FluentIcon class="toast-icon" Value="@(new Icons.Filled.Size20.CheckmarkCircle())"/>
+                    <span class="toast-message">@_toastMessage</span>
+                </div>
+            }
+        </div>
     </div>
 }
 else
@@ -261,6 +271,9 @@ else
     private List<TodoItemModel> _todos = [];
     private bool _isSaving = false;
     private bool _isMarkdownPopupActive = false;
+    private bool _showToast = false;
+    private string _toastMessage = string.Empty;
+    private System.Timers.Timer _toastTimer;
 
     private async Task FormatHeader() => await InsertMarkdown("#", "");
     private async Task FormatUnderline() => await InsertMarkdown("<ins>", "</ins>");
@@ -476,6 +489,32 @@ else
         }
     }
 
+    private Task ShowToast(string message)
+    {
+        _toastMessage = message;
+        _showToast = true;
+        StateHasChanged();
+
+        if (_toastTimer != null)
+        {
+            _toastTimer.Stop();
+            _toastTimer.Dispose();
+        }
+
+        _toastTimer = new System.Timers.Timer(1500);
+        _toastTimer.Elapsed += (sender, args) =>
+        {
+            InvokeAsync(() =>
+            {
+                _showToast = false;
+                StateHasChanged();
+            });
+        };
+        _toastTimer.AutoReset = false;
+        _toastTimer.Start();
+        return Task.CompletedTask;
+    }
+
     private async Task SaveNote()
     {
         if (_subfolder == null || string.IsNullOrWhiteSpace(_noteTitle)) return;
@@ -495,13 +534,12 @@ else
             }
 
             await Task.Delay(300);
-// #if Android
-//             await Toast.Make(Loc["MdSuccess"], ToastDuration.Short, 10).Show();
-// #endif
+            await ShowToast(Loc["MdSuccess"]);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error saving note: {ex.Message}");
+            await ShowToast(Loc["MdError"]);
         }
         finally
         {

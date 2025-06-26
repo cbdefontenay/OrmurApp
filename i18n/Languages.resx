@@ -547,4 +547,7 @@
     <data name="NoFoldCreate" xml:space="preserve">
         <value>Ordner erstellen</value>
     </data>
+    <data name="MdError" xml:space="preserve">
+        <value>Fehler. Wurde nicht gespeichert</value>
+    </data>
 </root>

@@ -945,6 +945,15 @@ namespace Ormur.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fehler. Wurde nicht gespeichert.
+        /// </summary>
+        internal static string MdError {
+            get {
+                return ResourceManager.GetString("MdError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bild.
         /// </summary>
         internal static string MdImage {

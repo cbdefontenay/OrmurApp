@@ -78,6 +78,72 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+/*Toast*/
+/* Toast notification styles */
+.toast-container {
+    position: fixed;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.toast {
+    background-color: var(--surface-container-high);
+    color: var(--on-surface);
+    padding: 12px 24px;
+    border-radius: 28px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 90%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-icon {
+    font-size: 20px;
+    color: var(--primary);
+}
+
+.toast-message {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Animation for toast */
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes toastSlideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
 /* Tabs styling - bottom aligned for Android */
 .tabs {
     position: fixed;

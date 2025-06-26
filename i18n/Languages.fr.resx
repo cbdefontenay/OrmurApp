@@ -537,4 +537,7 @@
     <data name="NoFoldCreate" xml:space="preserve">
         <value>Créer un dossier</value>
     </data>
+    <data name="MdError" xml:space="preserve">
+        <value>Erreur. Le document n'a pas pu être enregistré</value>
+    </data>
 </root>
