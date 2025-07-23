@@ -1,4 +1,6 @@
 # Ormur
 
-**Ormur ist eine Notizapp. Im gegensatz zu anderen ist Ormur nicht auf dem Web, sondern auf dem Desktop und Android.**</br></br>
-Auch werden alle Daten lokal in einer SQLite Datenbank gespeichert, dies bedeutet die App wirkt offline.
+Find it here on the [Microsoft Store](https://apps.microsoft.com/detail/9NRVG0NS8ZHZ?hl=de&gl=DE&ocid=pdpshare).
+
+**Ormur** is a note-taking app written in C# with the *Blazor-Hybrid* framework.
+All data are stored locally using SQLite, so that means no account needed. You own the app.
